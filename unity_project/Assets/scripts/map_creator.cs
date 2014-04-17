@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 
-public class spawn_floor : MonoBehaviour {
+public class map_creator : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject floorTile;
@@ -31,21 +31,17 @@ public class spawn_floor : MonoBehaviour {
 		// remember positive Z is in the ^ direction.
 		//      Z ^
 		//        |
-		//        |
-		//        +-----> X
+		//        +---> X
 
 		int zflip = ((zFlip)?-1:1);
 
 		float z = -centerz * tileSize * zflip;
 		foreach(string line in lines) {
 			float x = -centerx * tileSize;
-			int firstTile = line.IndexOf('#');
-			int lastTile = line.LastIndexOf('#');
-			for(int i=0;i<line.Length;i++) {
-				char c = line[i];
+			foreach(char c in line) {
 				if(c == '#') {
 					Instantiate(floorTile, new Vector3(x, tileYOffset, z), uprotation);
-				}else if(c == '.' && i > firstTile && i <= lastTile) {
+				}else if(c == '=') {
 					Instantiate(floorGrate, new Vector3(x, grateYOffset, z), uprotation);
 				}
 				x += tileSize;
