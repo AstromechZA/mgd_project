@@ -20,8 +20,6 @@ public class CameraScrollUpdator : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Vector3 oldTranslate = transform.position * 1.0f;
-
 		#if UNITY_ANDROID
 			if(Input.touchCount > 0)
 			{
@@ -43,17 +41,10 @@ public class CameraScrollUpdator : MonoBehaviour {
 		// check scroll ranges
 		if(_mapCreator != null) {
 			// fix scroll range
-			if(newTranslate.x < _mapCreator.getMinScrollX() || 
-			   newTranslate.x > _mapCreator.getMaxScrollX()) {
-				newTranslate.x = oldTranslate.x;
-				Debug.Log("scroll x out of range " + newTranslate.x + " " + _mapCreator.getMinScrollX() + "-" + _mapCreator.getMaxScrollX());
-			}
-			if(newTranslate.z < _mapCreator.getMinScrollZ() || 
-			   newTranslate.z > _mapCreator.getMaxScrollZ()) {
-				newTranslate.z = oldTranslate.z;
-				Debug.Log("scroll z out of range " + newTranslate.z + " " + _mapCreator.getMinScrollZ() + "-" + _mapCreator.getMaxScrollZ());
-			}
+			newTranslate.x = Mathf.Clamp(newTranslate.x, _mapCreator.getMinScrollX(), _mapCreator.getMaxScrollX());
+			newTranslate.z = Mathf.Clamp(newTranslate.z, _mapCreator.getMinScrollZ(), _mapCreator.getMaxScrollZ());
 		}
+
 		transform.position = newTranslate;
 	}
 }
