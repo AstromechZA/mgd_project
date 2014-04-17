@@ -5,15 +5,15 @@ using System.Linq;
 public class spawn_floor : MonoBehaviour {
 
 	// Use this for initialization
-	public GameObject ft;
-	public TextAsset ta;
-	public float tilesize = 1.0f;
-	public float tileyoffset = -0.5f;
-	public bool verticalFlip = true;
+	public GameObject floorTile;
+	public TextAsset mapFile;
+	public float tileSize = 1.0f;
+	public float tileYOffset = -0.5f;
+	public bool zFlip = true;
 
 	void Start () {
 
-		var lines = ta.text.Split('\n').Select(l => l.Trim());
+		var lines = mapFile.text.Split('\n').Select(l => l.Trim());
 
 		// calculate max line length
 		int longestline = lines.Select(l => l.Length).Max();
@@ -32,16 +32,18 @@ public class spawn_floor : MonoBehaviour {
 		//        |
 		//        +-----> X
 
-		float z = -centerz * tilesize * ((verticalFlip)?-1:1);
+		int zflip = ((zFlip)?-1:1);
+
+		float z = -centerz * tileSize * zflip;
 		foreach(string line in lines) {
-			float x = -centerx * tilesize;
+			float x = -centerx * tileSize;
 			foreach(char c in line) {
 				if(c == '#') {
-					Instantiate(ft, new Vector3(x, tileyoffset, z), uprotation);
+					Instantiate(floorTile, new Vector3(x, tileYOffset, z), uprotation);
 				}
-				x += tilesize;
+				x += tileSize;
 			}
-			z += tilesize * ((verticalFlip)?-1:1);
+			z += tileSize * zflip;
 		}
 
 	}
