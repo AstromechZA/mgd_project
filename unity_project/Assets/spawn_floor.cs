@@ -9,6 +9,7 @@ public class spawn_floor : MonoBehaviour {
 	public TextAsset ta;
 	public float tilesize = 1.0f;
 	public float tileyoffset = -0.5f;
+	public bool verticalFlip = true;
 
 	void Start () {
 
@@ -25,7 +26,13 @@ public class spawn_floor : MonoBehaviour {
 		// tile orientation
 		Quaternion uprotation = Quaternion.LookRotation(Vector3.up);
 
-		float z = -centerz * tilesize;
+		// remember positive Z is in the ^ direction.
+		//      Z ^
+		//        |
+		//        |
+		//        +-----> X
+
+		float z = -centerz * tilesize * ((verticalFlip)?-1:1);
 		foreach(string line in lines) {
 			float x = -centerx * tilesize;
 			foreach(char c in line) {
@@ -34,7 +41,7 @@ public class spawn_floor : MonoBehaviour {
 				}
 				x += tilesize;
 			}
-			z += tilesize;
+			z += tilesize * ((verticalFlip)?-1:1);
 		}
 
 	}
