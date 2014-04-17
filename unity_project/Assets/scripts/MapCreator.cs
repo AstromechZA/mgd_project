@@ -12,6 +12,7 @@ public class MapCreator : MonoBehaviour {
 	public float tileYOffset = -0.5f;
 	public float grateYOffset = -0.7f;
 	public bool zFlip = true;
+	public GameObject towerTest;
 	#endregion
 
 	#region min/max X/Z
@@ -64,9 +65,17 @@ public class MapCreator : MonoBehaviour {
 			foreach(char c in line) {
 				if(c == '#') {
 					Instantiate(floorTile, new Vector3(x, tileYOffset, z), uprotation);
+				
+					if(Random.value > 0.7f && towerTest != null) {
+						Instantiate(towerTest, new Vector3(x, 0.98f, z), Quaternion.identity);
+					}
+				
 				}else if(c == '=') {
 					Instantiate(floorGrate, new Vector3(x, grateYOffset, z), uprotation);
 				}
+
+
+
 				x += tileSize;
 			}
 			z += tileSize * zflip;
