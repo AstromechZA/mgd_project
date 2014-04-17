@@ -15,15 +15,15 @@ public class MapCreator : MonoBehaviour {
 	#endregion
 
 	#region min/max X/Z
-	private float minx = 0;
-	private float maxx = 0;
-	private float minz = 0;
-	private float maxz = 0;
+	private float _minScrollX = 0;
+	private float _maxScrollX = 0;
+	private float _minScrollZ = 0;
+	private float _maxScrollZ = 0;
 
-	public float getMinX(){return minx;}
-	public float getMaxX(){return maxx;}
-	public float getMinZ(){return minz;}
-	public float getMaxZ(){return maxz;}
+	public float getMinScrollX(){return _minScrollX;}
+	public float getMaxScrollX(){return _maxScrollX;}
+	public float getMinScrollZ(){return _minScrollZ;}
+	public float getMaxScrollZ(){return _maxScrollZ;}
 	#endregion
 
 	void Start () {
@@ -42,10 +42,10 @@ public class MapCreator : MonoBehaviour {
 		float centerx = longestline / 2.0f;
 		float centerz = numlines / 2.0f;
 
-		this.minx = -centerx - tileSize/2.0f;
-		this.maxx = centerx + tileSize/2.0f;
-		this.minz = -centerz - tileSize/2.0f;
-		this.maxz = centerz + tileSize/2.0f;
+		this._minScrollX = -centerx - tileSize/2.0f;
+		this._maxScrollX = centerx - tileSize/2.0f;
+		this._minScrollZ = -centerz - tileSize/2.0f;
+		this._maxScrollZ = centerz - tileSize/2.0f;
 
 		// tile orientation
 		Quaternion uprotation = Quaternion.LookRotation(Vector3.up);

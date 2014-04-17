@@ -40,16 +40,18 @@ public class CameraScrollUpdator : MonoBehaviour {
 
 		Vector3 newTranslate = transform.position;
 
+		// check scroll ranges
 		if(_mapCreator != null) {
-			if(newTranslate.x < _mapCreator.getMinX() || 
-			   newTranslate.x > _mapCreator.getMaxX()) {
+			// fix scroll range
+			if(newTranslate.x < _mapCreator.getMinScrollX() || 
+			   newTranslate.x > _mapCreator.getMaxScrollX()) {
 				newTranslate.x = oldTranslate.x;
-				Debug.Log("scroll x out of range " + newTranslate.x + " " + _mapCreator.getMinX() + "-" + _mapCreator.getMaxX());
+				Debug.Log("scroll x out of range " + newTranslate.x + " " + _mapCreator.getMinScrollX() + "-" + _mapCreator.getMaxScrollX());
 			}
-			if(newTranslate.z < _mapCreator.getMinZ() || 
-			   newTranslate.z > _mapCreator.getMaxZ()) {
+			if(newTranslate.z < _mapCreator.getMinScrollZ() || 
+			   newTranslate.z > _mapCreator.getMaxScrollZ()) {
 				newTranslate.z = oldTranslate.z;
-				Debug.Log("scroll z out of range " + newTranslate.z + " " + _mapCreator.getMinZ() + "-" + _mapCreator.getMaxZ());
+				Debug.Log("scroll z out of range " + newTranslate.z + " " + _mapCreator.getMinScrollZ() + "-" + _mapCreator.getMaxScrollZ());
 			}
 		}
 		transform.position = newTranslate;
