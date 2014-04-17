@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Linq;
 
-public class map_creator : MonoBehaviour {
+public class MapCreator : MonoBehaviour {
 
-	// Use this for initialization
+	#region publics
 	public GameObject floorTile;
 	public GameObject floorGrate;
 	public TextAsset mapFile;
@@ -12,29 +12,52 @@ public class map_creator : MonoBehaviour {
 	public float tileYOffset = -0.5f;
 	public float grateYOffset = -0.7f;
 	public bool zFlip = true;
+	#endregion
+
+	#region min/max X/Z
+	private float minx = 0;
+	private float maxx = 0;
+	private float minz = 0;
+	private float maxz = 0;
+
+	public float getMinX(){return minx;}
+	public float getMaxX(){return maxx;}
+	public float getMinZ(){return minz;}
+	public float getMaxZ(){return maxz;}
+	#endregion
 
 	void Start () {
+		this.LoadMap();
 
+	}
+
+	void LoadMap () {
 		var lines = mapFile.text.Split('\n').Select(l => l.Trim());
-
+		
 		// calculate max line length
 		int longestline = lines.Select(l => l.Length).Max();
 		int numlines = lines.Count();
-
+		
 		// calculate center
 		float centerx = longestline / 2.0f;
 		float centerz = numlines / 2.0f;
 
+		this.minx = -centerx - tileSize/2.0f;
+		this.maxx = centerx + tileSize/2.0f;
+		this.minz = -centerz - tileSize/2.0f;
+		this.maxz = centerz + tileSize/2.0f;
+
 		// tile orientation
 		Quaternion uprotation = Quaternion.LookRotation(Vector3.up);
-
+		
 		// remember positive Z is in the ^ direction.
 		//      Z ^
 		//        |
 		//        +---> X
 
-		int zflip = ((zFlip)?-1:1);
 
+		int zflip = ((zFlip)?-1:1);
+		
 		float z = -centerz * tileSize * zflip;
 		foreach(string line in lines) {
 			float x = -centerx * tileSize;
@@ -48,11 +71,8 @@ public class map_creator : MonoBehaviour {
 			}
 			z += tileSize * zflip;
 		}
+	}
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
 }
