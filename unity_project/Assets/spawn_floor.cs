@@ -6,9 +6,11 @@ public class spawn_floor : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject floorTile;
+	public GameObject floorGrate;
 	public TextAsset mapFile;
 	public float tileSize = 1.0f;
 	public float tileYOffset = -0.5f;
+	public float grateYOffset = -0.7f;
 	public bool zFlip = true;
 
 	void Start () {
@@ -37,9 +39,14 @@ public class spawn_floor : MonoBehaviour {
 		float z = -centerz * tileSize * zflip;
 		foreach(string line in lines) {
 			float x = -centerx * tileSize;
-			foreach(char c in line) {
+			int firstTile = line.IndexOf('#');
+			int lastTile = line.LastIndexOf('#');
+			for(int i=0;i<line.Length;i++) {
+				char c = line[i];
 				if(c == '#') {
 					Instantiate(floorTile, new Vector3(x, tileYOffset, z), uprotation);
+				}else if(c == '.' && i > firstTile && i <= lastTile) {
+					Instantiate(floorGrate, new Vector3(x, grateYOffset, z), uprotation);
 				}
 				x += tileSize;
 			}
