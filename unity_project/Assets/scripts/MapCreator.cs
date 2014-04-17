@@ -45,8 +45,8 @@ public class MapCreator : MonoBehaviour {
 
 		this._minScrollX = -centerx - tileSize/2.0f;
 		this._maxScrollX = centerx - tileSize/2.0f;
-		this._minScrollZ = -centerz - tileSize/2.0f;
-		this._maxScrollZ = centerz - tileSize/2.0f;
+		this._minScrollZ = -centerz + tileSize/2.0f;
+		this._maxScrollZ = centerz + tileSize/2.0f;
 
 		// tile orientation
 		Quaternion uprotation = Quaternion.LookRotation(Vector3.up);
