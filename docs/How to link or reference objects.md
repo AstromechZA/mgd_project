@@ -24,3 +24,10 @@ gameObject.GetComponent<Type>();
 Type is the class name. Or a component like 'Transform' or 'MeshCollider'.
 
 
+
+#### Useful links
+![GameObject.GetComponent](http://docs.unity3d.com/Documentation/ScriptReference/GameObject.GetComponent.html)
+
+![GameObject](http://docs.unity3d.com/Documentation/ScriptReference/GameObject.html)
+
+![Component](http://docs.unity3d.com/Documentation/ScriptReference/Component.html)
