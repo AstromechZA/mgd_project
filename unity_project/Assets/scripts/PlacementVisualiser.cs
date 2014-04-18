@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PlacementVisualiser : MonoBehaviour {
 
-	Component negativeXBar;
-	Component positiveXBar;
-	Component negativeZBar;
-	Component positiveZBar;
+	GameObject negativeXBar;
+	GameObject positiveXBar;
+	GameObject negativeZBar;
+	GameObject positiveZBar;
 	GameObject cam;
 
 	public float transparency = 0.4f;
@@ -19,13 +19,12 @@ public class PlacementVisualiser : MonoBehaviour {
 		_green = new Color(0.0f,1.0f,0.0f,transparency);
 		_red = new Color(1.0f,0.0f,0.0f,transparency);
 
-		negativeXBar = transform.Find("negativeX");
-		positiveXBar = transform.Find("positiveX");
-		negativeZBar = transform.Find("negativeZ");
-		positiveZBar = transform.Find("positiveZ");
+		negativeXBar = transform.Find("negativeX").gameObject;
+		positiveXBar = transform.Find("positiveX").gameObject;
+		negativeZBar = transform.Find("negativeZ").gameObject;
+		positiveZBar = transform.Find("positiveZ").gameObject;
 
-
-		cam = GameObject.Find ("Main Camera");
+		cam = GameObject.Find("Main Camera");
 	}
 
 	void setPosition(float centerx, float centerz) {
