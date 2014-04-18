@@ -7,7 +7,7 @@ public class CameraScrollUpdator : MonoBehaviour {
 	public float keyboard_move_scaling = 2.0f;
 	public GameObject mapController = null;
 
-	private MapCreator _mapCreator;
+	private MapCreator _mapCreator = null;
 
 	// this gets called first
 	void Awake() {
@@ -15,7 +15,7 @@ public class CameraScrollUpdator : MonoBehaviour {
 
 	// and then this
 	void Start() {
-		_mapCreator = mapController.GetComponent<MapCreator>();
+		if(mapController) _mapCreator = mapController.GetComponent<MapCreator>();
 	}
 
 	// Update is called once per frame

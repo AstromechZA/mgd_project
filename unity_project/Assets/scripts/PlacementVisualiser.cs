@@ -2,14 +2,17 @@
 using System.Collections;
 
 public class PlacementVisualiser : MonoBehaviour {
-
-	GameObject negativeXBar;
-	GameObject positiveXBar;
-	GameObject negativeZBar;
-	GameObject positiveZBar;
-	GameObject cam;
-
+	
 	public float transparency = 0.4f;
+	public GameObject mapController = null;
+
+	private MapCreator _mapCreator;
+
+	private GameObject negativeXBar;
+	private GameObject positiveXBar;
+	private GameObject negativeZBar;
+	private GameObject positiveZBar;
+	private GameObject cam;
 	
 	private Color _green; 
 	private Color _red;
@@ -25,6 +28,8 @@ public class PlacementVisualiser : MonoBehaviour {
 		positiveZBar = transform.Find("positiveZ").gameObject;
 
 		cam = GameObject.Find("Main Camera");
+
+		if(mapController) _mapCreator = mapController.GetComponent<MapCreator>();
 	}
 
 	void setPosition(float centerx, float centerz) {
@@ -47,8 +52,27 @@ public class PlacementVisualiser : MonoBehaviour {
 			float centerx = cam.transform.position.x;
 			float centerz = cam.transform.position.z;
 
+
+			#if UNITY_ANDROID
+			#else
+
+			Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Plane hp = new Plane(Vector3.up, Vector3.zero);
+			float d = 0;
+			if (hp.Raycast(r, out d)) {
+				Vector3 p = r.GetPoint(d);
+				centerx = p.x;
+				centerz = p.z;
+			}
+
+			#endif
+
+
 			centerx = Mathf.Round(centerx / 0.5f) * 0.5f;
 			centerz = Mathf.Round(centerz / 0.5f) * 0.5f;
+
+			centerx  = Mathf.Clamp(centerx, _mapCreator.getMinScrollX()+0.5f, _mapCreator.getMaxScrollX()-0.5f);
+			centerz  = Mathf.Clamp(centerz, _mapCreator.getMinScrollZ()+0.5f, _mapCreator.getMaxScrollZ()-0.5f);
 
 			setPosition(centerx, centerz);
 		}
