@@ -1046,7 +1046,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e7b445183c94fca4b87b5246099bed84, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.35827506
+      value: -2.12239599
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e7b445183c94fca4b87b5246099bed84, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1098,7 +1098,7 @@ Prefab:
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 400000, guid: e7b445183c94fca4b87b5246099bed84, type: 2}
       propertyPath: m_LocalScale.y
-      value: .899999976
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e7b445183c94fca4b87b5246099bed84, type: 2}
       propertyPath: m_LocalScale.x
@@ -1276,6 +1276,7 @@ GameObject:
   - 114: {fileID: 1591637735}
   - 114: {fileID: 1591637736}
   - 114: {fileID: 1591637741}
+  - 208: {fileID: 1591637742}
   m_Layer: 0
   m_Name: Buy_Tower
   m_TagString: Untagged
@@ -1294,7 +1295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14742b088d7192740a9b6519b0f91d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &1591637736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,8 +1359,8 @@ Transform:
   m_PrefabInternal: {fileID: 1015746743}
   m_GameObject: {fileID: 1591637734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.3391619, y: -1.35827506, z: -5.18896389}
-  m_LocalScale: {x: .800000012, y: .899999976, z: .800000012}
+  m_LocalPosition: {x: -12.3391619, y: -2.12239599, z: -5.18896389}
+  m_LocalScale: {x: .800000012, y: 2.5, z: .800000012}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!114 &1591637741
@@ -1374,6 +1374,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fdf774141175744a679bfddb8baa70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &1591637742
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1591637734}
+  m_Enabled: 1
+  m_Radius: .699999988
+  m_Height: .5
+  m_MoveThreshold: 0
+  m_Carve: 0
 --- !u!1 &1605576159
 GameObject:
   m_ObjectHideFlags: 0
