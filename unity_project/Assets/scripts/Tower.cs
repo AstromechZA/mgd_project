@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Tower : MonoBehaviour {
+
 	// Bullet prefab
 	public Bullet bulletPrefab = null;
 	
