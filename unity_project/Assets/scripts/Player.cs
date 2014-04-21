@@ -5,14 +5,17 @@ public class Player : MonoBehaviour {
 	
 	// Start with no experience
 	public static int experience = 0;
+	public static int energy = 10;
 	public static int castleHealth = 100;
+	public static int perk_points = 0;
 	void Start() {
 		//Set the screen orientation to landscape
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 }
 	void OnGUI() {	
 		// Draw the players experience and the castles health
-		GUI.Label(new Rect(5, 0, 400, 200), "XP: " + experience);
-		GUI.Label(new Rect(0, 40, 400, 200), "Castle Health: " + castleHealth);
+		GUI.Label(new Rect(700, 415, 400, 200), "Perk Points: " + perk_points);
+		GUI.Label(new Rect(700, 400, 400, 200), "Energy: " + energy);
+		GUI.Label(new Rect(700, 385, 400, 200), "Health: " + castleHealth);
 	}
 }

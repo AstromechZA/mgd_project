@@ -4,10 +4,13 @@ using System.Collections;
 // from http://unityshorttutorials.blogspot.com/2013/11/drag-and-drop-in-unity.html
 public class BuildTower1 : MonoBehaviour {
 
+	public int buildcost = 3;
+
 	private Vector3 screenPoint;
 	void OnMouseDown () {
-		screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
-		Instantiate (gameObject);
+						screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+						Instantiate (gameObject);
+				
 	}
 
 	void OnMouseDrag () {
@@ -17,9 +20,9 @@ public class BuildTower1 : MonoBehaviour {
 	}
 
 	void OnMouseUp () {
-		Player.experience--; // cost to build
-		Destroy (this); 
-		gameObject.GetComponent<Tower>().enabled = true;
-		gameObject.AddComponent("MoveTower");
+						Player.energy -= buildcost; // cost to build
+						Destroy (this); 
+						gameObject.GetComponent<Tower> ().enabled = true;
+						gameObject.AddComponent ("MoveTower");
 		}
 }
