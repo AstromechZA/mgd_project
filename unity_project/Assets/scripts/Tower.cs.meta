@@ -4,6 +4,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - bulletPrefab: {fileID: 11400000, guid: 49f20b936bfcca74fafd210e5baf6c65, type: 2}
+  - placementVisualiserPrefab: {fileID: 100002, guid: f949c58ea7c4738428f014ad73e078ef,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

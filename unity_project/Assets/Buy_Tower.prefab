@@ -11,10 +11,10 @@ GameObject:
   - 33: {fileID: 3300000}
   - 135: {fileID: 13500000}
   - 23: {fileID: 2300000}
-  - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   - 208: {fileID: 20800000}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Buy_Tower
   m_TagString: Untagged
@@ -63,7 +63,7 @@ MeshFilter:
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fdf774141175744a679bfddb8baa70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildcost: 3
+  placementVisualiserPrefab: {fileID: 100002, guid: e9dccd9c96b38a14fba0c4c3ca1cf08b,
+    type: 2}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

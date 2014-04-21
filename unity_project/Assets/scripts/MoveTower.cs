@@ -6,9 +6,19 @@ public class MoveTower : MonoBehaviour {
 
 	public int move_cost = 1;
 	
+
+	// Placement Visualiser Prefab
+	GameObject placementVisualiserPrefab = null;
+	// Placement Visualiser
+	GameObject placementVisualiser;
+
 	private Vector3 screenPoint;
 	void OnMouseDown () {
 		screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+
+		// Create Placement Visualiser at the same position and rotation as the tower (use y-position of Placement Visualiser)
+		// Need to load the prefab from the Resources folder
+		placementVisualiser = (GameObject)Instantiate(Resources.Load("PlacementVisualisation"), new Vector3(gameObject.transform.position.x, (float)-2.031304, gameObject.transform.position.z), gameObject.transform.rotation);
 	}
 	
 	void OnMouseDrag (){
@@ -16,12 +26,18 @@ public class MoveTower : MonoBehaviour {
 		Vector3 currentPos = Camera.main.ScreenToWorldPoint (currentScreenPoint);
 		transform.position = currentPos;
 		gameObject.GetComponent<Tower> ().enabled = false; // can't shoot while dragging
-		gameObject.GetComponent<NavMeshObstacle> ().enabled = false; // can't block while dragging			
+		gameObject.GetComponent<NavMeshObstacle> ().enabled = false; // can't block while dragging		
+
+		// Update the position of the Placement Visualiser, use the towers position with the Placement Visualisers y-position)
+		placementVisualiser.transform.position = new Vector3 (currentPos.x, (float)-2.031304, currentPos.z);
 	}
 	
 	void OnMouseUp () {
 		Player.energy -= move_cost; // cost to move
 		gameObject.GetComponent<Tower>().enabled = true; // allow shooting again
 		gameObject.GetComponent<NavMeshObstacle> ().enabled = true; // allow blocking again
+
+		// Destroy the Placement Visualiser
+		Destroy(placementVisualiser);
 	}
 }
