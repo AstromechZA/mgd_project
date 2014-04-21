@@ -25,8 +25,8 @@ public class Spawn : MonoBehaviour {
 			GameObject spider = (GameObject)Instantiate(PseudoSpider, pos, Quaternion.identity);
 			
 			// Access the navmesh agent component of the spider
-			NavMeshAgent nma = spider.GetComponent<NavMeshAgent>();
-			nma.destination = destination.transform.position;
+			NavMeshAgent spiderNMA = spider.GetComponent<NavMeshAgent>();
+			spiderNMA.destination = destination.transform.position;
 			
 			// Reset the timer
 			timeLeftover = interval;
