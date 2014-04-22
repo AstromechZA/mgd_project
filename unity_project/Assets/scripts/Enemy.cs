@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour {
 			timeTillBodyCleanup -= Time.deltaTime;
 			if (timeTillBodyCleanup < 0) {
 				Destroy(gameObject);
+
 			}
 		}
 
@@ -41,6 +42,13 @@ public class Enemy : MonoBehaviour {
 				transform.animation.Play ("attack_Melee");
 			}
 		}
+	}
+
+	public void explosion(){
+		// Creat explosion particle effect
+		GameObject explosion = (GameObject)Instantiate(Resources.Load("Explosion04b"), new Vector3(transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
+		// Destroy explosion after 1 second
+		Destroy(explosion, 1);
 	}
 }
 

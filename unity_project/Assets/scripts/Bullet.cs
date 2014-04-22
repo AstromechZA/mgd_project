@@ -23,10 +23,14 @@ public class Bullet : MonoBehaviour {
 		
 		// Check if the bullet has reached the destination
 		if (transform.position.Equals(destination.position)) {
+
 			// Decrease enemies health
 			Enemy enemy = destination.GetComponent<Enemy>();
 			enemy.health = enemy.health - 1;
-			
+
+			// Creat an explosion on the enemy
+			enemy.explosion();
+
 			// If enemies health is less than or equal to 0 (kill enemy - call onDeath())
 			if (enemy.health <= 0)         
 				enemy.onDeath();            

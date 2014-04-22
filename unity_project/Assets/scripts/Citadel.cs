@@ -2,23 +2,10 @@
 using System.Collections;
 
 public class Citadel : MonoBehaviour {
+	GameObject explosion;
 
 	void Update() {
-		// find all enemies
-		Enemy[] enemies = (Enemy[])FindObjectsOfType(typeof(Enemy));
-		if (enemies != null) {
-			// find all enemies that are close to the castle
-			for (int i = 0; i < enemies.Length; ++i) {
-				float range = Mathf.Max(collider.bounds.size.x, collider.bounds.size.z)+2;
-				if (Vector3.Distance(transform.position, enemies[i].transform.position) <= range) {            
-					// decrease castle health
-					Player.castleHealth = Player.castleHealth - 1;
-					
-					// destroy enemy
-					Destroy(enemies[i].gameObject);
-				} 
-			}
-		}
+		checkIfEnemyReachedCitadel();
 	}
 
 	void checkIfEnemyReachedCitadel(){
@@ -40,7 +27,13 @@ public class Citadel : MonoBehaviour {
 			if (Vector3.Distance(transform.position, enemies[i].transform.position) <= range) {            
 				Player.castleHealth = Player.castleHealth - 1;
 				Destroy(enemies[i].gameObject);
+
+				// Creat explosion particle effect
+				explosion = (GameObject)Instantiate(Resources.Load("Explosion03c"), new Vector3(transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
+				// Destroy explosion after 1 second
+				Destroy(explosion, 1);
 			} 
+
 		}
 	}
 }

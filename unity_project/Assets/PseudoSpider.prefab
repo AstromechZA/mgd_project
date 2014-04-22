@@ -838,7 +838,7 @@ Animation:
   m_GameObject: {fileID: 100036}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400002, guid: 1349125740339994e92e6db311390929, type: 3}
+  m_Animation: {fileID: 7400006, guid: 1349125740339994e92e6db311390929, type: 3}
   m_Animations:
   - {fileID: 7400002, guid: 1349125740339994e92e6db311390929, type: 3}
   - {fileID: 7400000, guid: 1349125740339994e92e6db311390929, type: 3}
@@ -867,6 +867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 4
   xp_reward: 2
+  energy_reward: 1
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
