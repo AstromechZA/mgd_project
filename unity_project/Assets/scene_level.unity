@@ -123,7 +123,6 @@ GameObject:
   - 33: {fileID: 102927118}
   - 64: {fileID: 102927117}
   - 23: {fileID: 102927116}
-  - 114: {fileID: 102927121}
   - 114: {fileID: 102927120}
   m_Layer: 0
   m_Name: xpBar
@@ -193,17 +192,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3fe8651b5d7ca349ab94355b725b797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &102927121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 102927115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5bb7085dc7be84fbdc6bcc6792c8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &118726936
@@ -306,7 +294,7 @@ Light:
   serializedVersion: 3
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.63000011
+  m_Intensity: 2.33999991
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -728,8 +716,6 @@ GameObject:
   - 33: {fileID: 852147512}
   - 64: {fileID: 852147511}
   - 23: {fileID: 852147510}
-  - 114: {fileID: 852147509}
-  - 114: {fileID: 852147508}
   m_Layer: 0
   m_Name: xpBar_empty
   m_TagString: Untagged
@@ -748,28 +734,6 @@ Transform:
   m_LocalScale: {x: 9, y: 1, z: .100000001}
   m_Children: []
   m_Father: {fileID: 1092999790}
---- !u!114 &852147508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 852147506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3fe8651b5d7ca349ab94355b725b797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &852147509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 852147506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5bb7085dc7be84fbdc6bcc6792c8e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &852147510
 Renderer:
   m_ObjectHideFlags: 0
@@ -1275,7 +1239,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1605576159}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9caea0197ce76446961a1e38d49bcac, type: 3}
   m_Name: 

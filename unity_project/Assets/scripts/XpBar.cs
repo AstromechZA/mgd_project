@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class XpBar{
+public class XpBar: ScriptableObject{
 	
 	float endPos_x = -34.85545F;
 	float startPos_x = -57.6198F;

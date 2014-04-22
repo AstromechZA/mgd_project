@@ -7,7 +7,7 @@ public class BuildTower1 : MonoBehaviour {
 	public int buildcost = 3;
 
 	// Placement Visualiser Prefab
-	GameObject placementVisualiserPrefab = null;
+	//GameObject placementVisualiserPrefab = null;
 	// Placement Visualiser
 	GameObject placementVisualiser;
 

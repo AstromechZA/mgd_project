@@ -8,7 +8,7 @@ public class MoveTower : MonoBehaviour {
 	
 
 	// Placement Visualiser Prefab
-	GameObject placementVisualiserPrefab = null;
+	//GameObject placementVisualiserPrefab = null;
 	// Placement Visualiser
 	GameObject placementVisualiser;
 
