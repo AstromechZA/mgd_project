@@ -15,9 +15,6 @@ public class CameraScrollUpdator : MonoBehaviour {
 
 	// and then this
 	void Start() {
-		//Set the screen orientation to landscape
-		Screen.orientation = ScreenOrientation.LandscapeLeft;
-
 		if(mapController) _mapCreator = mapController.GetComponent<MapCreator>();
 	}
 
