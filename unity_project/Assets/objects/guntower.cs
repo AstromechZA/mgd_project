@@ -29,12 +29,10 @@ public class GunTower : MonoBehaviour {
 	void Start () {
 		mapBones ();
 		
-		barrelAnimator = new DualBarrelGun(0.5f);
+		barrelAnimator = new DualBarrelGun(fireRate);
 		
 		_setTurretAngle(0);
 		_setGunElevation(0);
-		_setBarrelLProgress(0.8f);
-		_setBarrelRProgress(0.0f);
 	}
 	
 	// map the correct gun tower bones
@@ -49,13 +47,19 @@ public class GunTower : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Input.GetKey(KeyCode.LeftArrow)) _incrementTurretAngle(-2);
-		if(Input.GetKey(KeyCode.RightArrow)) _incrementTurretAngle(+2);
-		if(Input.GetKey(KeyCode.UpArrow)) _incrementGunElevation(+2);
-		if(Input.GetKey(KeyCode.DownArrow)) _incrementGunElevation(-2);
-		
-		if(barrelAnimator.isReady()) {
-			barrelAnimator.fire();
+
+		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Plane hp = new Plane(Vector3.up, Vector3.zero);
+		float d = 0;
+		if (hp.Raycast(r, out d)) {
+			Vector3 p = r.GetPoint(d);
+			pointAt(p);
+		}
+
+		if(Input.GetMouseButton(0)) {
+			if(barrelAnimator.isReady()) {
+				barrelAnimator.fire();
+			}
 		}
 		barrelAnimator.update();
 		
@@ -64,7 +68,17 @@ public class GunTower : MonoBehaviour {
 		
 		
 	}
-	
+
+	public void pointAt(Vector3 p) {
+		float ca = _getTurretAngle();
+		Vector3 dp = transform.position - p;
+		if (dp.magnitude > 0) {
+			float a = 180-Vector3.Angle(Vector3.right, dp);
+			if (dp.z > 0) {a = -a;}
+			_setTurretAngle(a);
+		}
+	}
+
 	#region Turret Rotation
 	// -------------------------------------------------------------------------------------------------------------
 	
@@ -73,7 +87,7 @@ public class GunTower : MonoBehaviour {
 	}
 	
 	private void _setTurretAngle (float degrees) {
-		turretBone.localEulerAngles = new Vector3(90-degrees, 90, 0);
+		turretBone.localEulerAngles = new Vector3(90+degrees, 90, 0);
 	}
 	
 	private float _getTurretAngle () {
@@ -111,15 +125,13 @@ public class GunTower : MonoBehaviour {
 		barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 	
-	private void _updateGunBarrels () {
-		
-	}
-	
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
-	
-	
-	
+
+
+
+
+
 	private class DualBarrelGun {
 		
 		private int next = 0;
@@ -152,11 +164,11 @@ public class GunTower : MonoBehaviour {
 		}
 		
 		public float getProgressLeft () {
-			return Mathf.Clamp01(ease(progress[0]));
+			return ease(Mathf.Clamp01(progress[0]));
 		}
 		
 		public float getProgressRight () {
-			return Mathf.Clamp01(ease(progress[1]));
+			return ease(Mathf.Clamp01(progress[1]));
 		}
 		
 	}
