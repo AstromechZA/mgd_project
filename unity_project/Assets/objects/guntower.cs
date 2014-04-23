@@ -74,13 +74,13 @@ public class GunTower : MonoBehaviour {
 	// -------------------------------------------------------------------------------------------------------------
 
 	private void _incrementGunElevation (float degrees) {
-		rotatorRBone.transform.Rotate (Vector3.left, degrees, Space.Self);
-		//rotatorLBone.transform.Rotate (Vector3.right, degrees, Space.Self);
+		rotatorRBone.transform.Rotate (Vector3.right, degrees, Space.Self);
+		rotatorLBone.transform.Rotate (Vector3.left, degrees, Space.Self);
 	}
 
 	private void _setGunElevation (float degrees) {
-		rotatorRBone.localEulerAngles = new Vector3(-degrees, 90, 0);
-		rotatorLBone.localEulerAngles = new Vector3(-degrees, 90, 180);
+		rotatorRBone.localEulerAngles = new Vector3(-degrees, -90, 0);
+		rotatorLBone.localEulerAngles = new Vector3(-degrees, -90, 180);
 	}
 
 	// -------------------------------------------------------------------------------------------------------------
