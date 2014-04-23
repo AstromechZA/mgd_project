@@ -104,11 +104,11 @@ public class GunTower : MonoBehaviour {
 	
 	
 	private void _setBarrelLProgress (float percent) {
-		barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		barrelLBone.localScale = new Vector3(percent*0.4f + 0.6f, 1, 1);
 	}
 	
 	private void _setBarrelRProgress (float percent) {
-		barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		barrelRBone.localScale = new Vector3(percent*0.4f + 0.6f, 1, 1);
 	}
 	
 	private void _updateGunBarrels () {
