@@ -4,6 +4,7 @@ using System.Collections;
 public class GunTower : MonoBehaviour {
 	
 	public float fireRate = 0.5f;
+	public float turnRate = 0.1f;
 	
 	// bones
 	Transform turretBone;
@@ -25,12 +26,14 @@ public class GunTower : MonoBehaviour {
 	 * |
 	 * +----------X  0
 	 */ 
+
+	private Quaternion baseQuat = new Quaternion(0, 0, -180, 180);
 	
 	void Start () {
 		mapBones ();
 		
 		barrelAnimator = new DualBarrelGun(fireRate);
-		
+
 		_setTurretAngle(0);
 		_setGunElevation(0);
 	}
@@ -53,7 +56,7 @@ public class GunTower : MonoBehaviour {
 		float d = 0;
 		if (hp.Raycast(r, out d)) {
 			Vector3 p = r.GetPoint(d);
-			pointAt(p);
+			pointGunsToward(p);
 		}
 
 		if(Input.GetMouseButton(0)) {
@@ -69,31 +72,55 @@ public class GunTower : MonoBehaviour {
 		
 	}
 
-	public void pointAt(Vector3 p) {
-		float ca = _getTurretAngle();
+	public void pointGunsAt(Vector3 p) {
 		Vector3 dp = transform.position - p;
 		if (dp.magnitude > 0) {
 			float a = 180-Vector3.Angle(Vector3.right, dp);
 			if (dp.z > 0) {a = -a;}
 			_setTurretAngle(a);
+
+
+			a = Vector3.Angle(Vector3.right, new Vector3(p.magnitude, -1, 0));
+			a = Mathf.Clamp(a, -90, 30);
+			_setGunElevation(a);
 		}
+	}
+
+	public void pointGunsToward(Vector3 p) {
+
+		Vector3 dp = transform.position - p;
+		if (dp.magnitude > 0) {
+			float a = 180-Vector3.Angle(Vector3.right, dp);
+			if (dp.z > 0) {a = -a;}
+
+			float diff = a -_getTurretAngle();
+			diff = diff % 360;
+			if (diff < -180) diff += 360;
+
+			_incrementTurretAngle(diff/3);
+			
+			a = Vector3.Angle(Vector3.right, new Vector3(p.magnitude, -1, 0));
+			a = Mathf.Clamp(a, -90, 30);
+			_setGunElevation(a);
+		}
+
 	}
 
 	#region Turret Rotation
 	// -------------------------------------------------------------------------------------------------------------
 	
 	private void _incrementTurretAngle (float degrees) {
-		turretBone.transform.Rotate (Vector3.left, degrees, Space.Self);
+		turretBone.rotation *= Quaternion.Euler(degrees, 0, 0);
 	}
 	
 	private void _setTurretAngle (float degrees) {
-		turretBone.localEulerAngles = new Vector3(90+degrees, 90, 0);
+		turretBone.rotation = baseQuat * Quaternion.Euler(degrees, 0, 0);
 	}
-	
+
 	private float _getTurretAngle () {
-		return 90-turretBone.localEulerAngles.x;
+		return 360-turretBone.rotation.eulerAngles.y;
 	}
-	
+
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
 	
@@ -115,8 +142,7 @@ public class GunTower : MonoBehaviour {
 	
 	#region Gun Barrel
 	// -------------------------------------------------------------------------------------------------------------
-	
-	
+
 	private void _setBarrelLProgress (float percent) {
 		barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
