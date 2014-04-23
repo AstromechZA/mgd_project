@@ -1,31 +1,49 @@
 fileFormatVersion: 2
-guid: b7e7f1507bc5fe74689bb5d54b3ec3e6
+guid: 24b802d518abc7949b01452ba9c0b398
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: Armature
-    100002: base
-    100004: gun
-    100006: gunbase
-    100008: //RootNode
-    100010: turret
-    100012: turret_0
+    100002: barrel_L
+    100004: barrel_L_0
+    100006: barrel_R
+    100008: barrel_R_0
+    100010: base
+    100012: //RootNode
+    100014: rotator_L
+    100016: rotator_L_0
+    100018: rotator_R
+    100020: rotator_R_0
+    100022: turret
+    100024: turret_0
     400000: Armature
-    400002: base
-    400004: gun
-    400006: gunbase
-    400008: //RootNode
-    400010: turret
-    400012: turret_0
+    400002: barrel_L
+    400004: barrel_L_0
+    400006: barrel_R
+    400008: barrel_R_0
+    400010: base
+    400012: //RootNode
+    400014: rotator_L
+    400016: rotator_L_0
+    400018: rotator_R
+    400020: rotator_R_0
+    400022: turret
+    400024: turret_0
     2300000: base
     3300000: base
-    4300000: turret
-    4300002: gunbase
-    4300004: base
+    4300000: rotator_L
+    4300002: barrel_R
+    4300004: barrel_L
+    4300006: turret
+    4300008: rotator_R
+    4300010: base
     7400000: Default Take
     9500000: //RootNode
-    13700000: gunbase
-    13700002: turret
+    13700000: barrel_L
+    13700002: barrel_R
+    13700004: rotator_L
+    13700006: rotator_R
+    13700008: turret
   materials:
     importMaterials: 1
     materialName: 1
