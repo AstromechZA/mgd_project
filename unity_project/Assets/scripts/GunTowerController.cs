@@ -5,7 +5,7 @@ public class GunTowerController : MonoBehaviour {
 	
 	public float fireRate = 0.5f;
 	public float turnRate = 0.1f;
-	
+	 
 	// bones
 	Transform turretBone;
 	Transform rotatorRBone;
