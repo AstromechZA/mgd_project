@@ -8,11 +8,17 @@ ModelImporter:
     100004: Cylinder
     100006: Cylinder_001
     100008: //RootNode
+    100010: Armature
+    100012: Bone
+    100014: Cylinder_000
     400000: Cube
     400002: Cube_001
     400004: Cylinder
     400006: Cylinder_001
     400008: //RootNode
+    400010: Armature
+    400012: Bone
+    400014: Cylinder_000
     2300000: Cube
     2300002: Cube_001
     2300004: Cylinder
@@ -25,12 +31,16 @@ ModelImporter:
     4300002: Cylinder
     4300004: Cube_001
     4300006: Cube
+    4300008: Cylinder_000
     7400000: Default Take
     9500000: //RootNode
+    13700000: Cube_001
+    13700002: Cylinder_000
+    13700004: Cylinder_001
   materials:
     importMaterials: 1
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -59,9 +69,9 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 0
     splitTangentsAcrossUV: 1
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 1
   importAnimation: 1
   copyAvatar: 0
