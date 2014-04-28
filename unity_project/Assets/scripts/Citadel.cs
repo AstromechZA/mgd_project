@@ -29,9 +29,9 @@ public class Citadel : MonoBehaviour {
 				Destroy(enemies[i].gameObject);
 
 				// Creat explosion particle effect
-				explosion = (GameObject)Instantiate(Resources.Load("Explosion03c"), new Vector3(transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
+				//explosion = (GameObject)Instantiate(Resources.Load("Explosion03c"), new Vector3(transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
 				// Destroy explosion after 1 second
-				Destroy(explosion, 1);
+				//Destroy(explosion, 1);
 			} 
 
 		}

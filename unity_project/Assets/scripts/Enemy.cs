@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
 	public int health = 5;
 	public float xp_reward = 2.0F;
 	public int energy_reward = 1;
-	public XpBar xp_bar;
+	//public XpBar xp_bar;
 	public bool dead = false;
 
 	float timeTillBodyCleanup = 0.2f;
@@ -18,8 +18,8 @@ public class Enemy : MonoBehaviour {
 			dead = true;
 			transform.animation.Play ("death");
 			// Increase players experience level
-			xp_bar = ScriptableObject.CreateInstance ("XpBar") as XpBar;
-			xp_bar.addXp (xp_reward);
+			//xp_bar = ScriptableObject.CreateInstance ("XpBar") as XpBar;
+			//xp_bar.addXp (xp_reward);
 			Player.energy += energy_reward;
 
 			// Destroy the object after a delay (allow for death animation to take place)
@@ -43,18 +43,19 @@ public class Enemy : MonoBehaviour {
 		NavMeshAgent spiderNMA = this.GetComponent<NavMeshAgent>();
 		//if (spiderNMA != null && spiderNMA.active && bodyCleanup == false) {
 		if (spiderNMA != null && bodyCleanup == false) {
-			if (spiderNMA.remainingDistance < 2 && spiderNMA.pathStatus == NavMeshPathStatus.PathComplete) {
+			if (spiderNMA.remainingDistance < 1 && spiderNMA.pathStatus == NavMeshPathStatus.PathComplete) {
 				transform.animation.Play ("attack_Melee");
 			}
 		}
 	}
 
 	public void explosion(){
-		// Creat explosion particle effect
-		GameObject explosion = (GameObject)Instantiate(Resources.Load("Explosion04b"), new Vector3(transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
-		// Destroy explosion after 1 second
-		Destroy(explosion, 1);
-	}
+				// Creat explosion particle effect
+				//GameObject explosion = (GameObject)Instantiate (Resources.Load ("Explosion04b"), new Vector3 (transform.position.x, (float)-2.096779, transform.position.z), transform.rotation);
+				// Destroy explosion after 1 second
+				//Destroy (explosion, 1);
+		}
+
 }
 
 

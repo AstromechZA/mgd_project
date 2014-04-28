@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 
 	void OnGUI() {	
 		// Draw the players experience and the castles health
-		GUI.Label(new Rect(Screen.width - 90, Screen.height - 50, 400, 200), "Perk Points: " + perk_points);
+		//GUI.Label(new Rect(Screen.width - 90, Screen.height - 50, 400, 200), "Perk Points: " + perk_points);
 		GUI.Label(new Rect(Screen.width - 90, Screen.height - 35, 400, 200), "Energy: " + energy);
 		GUI.Label(new Rect(Screen.width - 90, Screen.height - 20, 400, 200), "Health: " + castleHealth);
 	}
