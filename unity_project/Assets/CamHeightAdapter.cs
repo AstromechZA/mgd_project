@@ -27,7 +27,7 @@ public class CamHeightAdapter : MonoBehaviour {
 
 			float h = Mathf.Tan(a * Mathf.Deg2Rad) * hWidth;
 
-			Camera.main.transform.position = new Vector3(-0.5f, h+ 2f, -0.5f);
+			Camera.main.transform.position = new Vector3(0f, h + 2f, 0f);
 
 		}
 
