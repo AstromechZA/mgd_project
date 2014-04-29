@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class gridOverlay : MonoBehaviour {
+public class GridOverlay : MonoBehaviour {
 
 	
 	public bool showMain = true;
