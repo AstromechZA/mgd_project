@@ -7,21 +7,50 @@ ModelImporter:
     100002: Cube_001
     100004: Cube_002
     100006: //RootNode
+    100008: Armature
+    100010: base
+    100012: branch_L
+    100014: branch_R
+    100016: gun_L
+    100018: gun_L_0
+    100020: gun_R
+    100022: gun_R_0
+    100024: top
+    100026: turrent
     400000: Cube
     400002: Cube_001
     400004: Cube_002
     400006: //RootNode
+    400008: Armature
+    400010: base
+    400012: branch_L
+    400014: branch_R
+    400016: gun_L
+    400018: gun_L_0
+    400020: gun_R
+    400022: gun_R_0
+    400024: top
+    400026: turrent
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
+    2300006: base
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
+    3300006: base
     4300000: Cube_002
     4300002: Cube_001
     4300004: Cube
+    4300006: gun_R
+    4300008: top
+    4300010: gun_L
+    4300012: base
     7400000: Default Take
     9500000: //RootNode
+    13700000: gun_L
+    13700002: gun_R
+    13700004: top
   materials:
     importMaterials: 1
     materialName: 0

@@ -17,7 +17,7 @@ public class TowerBulk : MonoBehaviour {
 		float centerz = maxz / 2.0f;
 
 		for (int z=0;z<maxz;z+=2) {
-			for (int x=0;x<maxx;x+=2) {
+			for (int x=0;x<maxx;x+=4) {
 				Instantiate(twr, new Vector3(x-centerx+1f, 0, z-centerz+1f), Quaternion.identity);
 			}
 		}

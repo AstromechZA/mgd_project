@@ -68,11 +68,11 @@ public class GunTowerController : MonoBehaviour {
 	private void mapBones () {
 		// have to traverse it like a tree
 		Transform a = transform.Find ("Armature");
-		turretBone = a.Find("turret_0");
-		rotatorRBone = turretBone.Find("rotator_R_0");
-		rotatorLBone = turretBone.Find("rotator_L_0");
-		barrelRBone = rotatorRBone.Find("barrel_R_0");
-		barrelLBone = rotatorLBone.Find("barrel_L_0");
+		turretBone = a.Find("turrent");
+		rotatorRBone = turretBone.Find("branch_R");
+		rotatorLBone = turretBone.Find("branch_L");
+		barrelRBone = rotatorRBone.Find("gun_R");
+		barrelLBone = rotatorLBone.Find("gun_L");
 	}
 
 	public void pointGunsAt(Vector3 p) {
@@ -136,8 +136,8 @@ public class GunTowerController : MonoBehaviour {
 	}
 	
 	private void _setGunElevation (float degrees) {
-		rotatorRBone.localEulerAngles = new Vector3(-degrees, -90, 0);
-		rotatorLBone.localEulerAngles = new Vector3(-degrees, -90, 180);
+		rotatorRBone.localEulerAngles = new Vector3(0, 0, 0);
+		rotatorLBone.localEulerAngles = new Vector3(0, 0, 0);
 	}
 	
 	// -------------------------------------------------------------------------------------------------------------
@@ -147,11 +147,11 @@ public class GunTowerController : MonoBehaviour {
 	// -------------------------------------------------------------------------------------------------------------
 	
 	private void _setBarrelLProgress (float percent) {
-		barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		//barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 	
 	private void _setBarrelRProgress (float percent) {
-		barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		//barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 	
 	// -------------------------------------------------------------------------------------------------------------
