@@ -28,14 +28,14 @@ public class GunTowerController : MonoBehaviour {
 */
 	
 	private Quaternion baseQuat = new Quaternion(0, 0, -0.7f, 0.7f);
-	
+
 	void Start () {
 		mapBones ();
-		
-		barrelAnimator = new DualBarrelGun(fireRate);
 
+
+		barrelAnimator = new DualBarrelGun(fireRate);
 		_setTurretAngle(0);
-		Debug.Log(_getTurretAngle());
+
 
 		turnRate = Mathf.Clamp(turnRate, 0.01f, 1f);
 	}
@@ -49,7 +49,16 @@ public class GunTowerController : MonoBehaviour {
 			Vector3 p = r.GetPoint(d);
 			pointGunsToward(p);
 		}
+
+		if(Input.GetMouseButton(0)) {
+			if(barrelAnimator.isReady()) {
+				barrelAnimator.fire();
+			}
+		}
+		barrelAnimator.update();
 		
+		_setBarrelLProgress(1-barrelAnimator.getProgressLeft());
+		_setBarrelRProgress(1-barrelAnimator.getProgressRight());
 
 	}
 	
@@ -60,8 +69,8 @@ public class GunTowerController : MonoBehaviour {
 		turretBone = a.Find("turrent");
 		rotatorRBone = turretBone.Find("branch_R");
 		rotatorLBone = turretBone.Find("branch_L");
-		barrelRBone = rotatorRBone.Find("gun_R");
-		barrelLBone = rotatorLBone.Find("gun_L");
+		barrelRBone = rotatorRBone.Find("gun_R_0");
+		barrelLBone = rotatorLBone.Find("gun_L_0");
 	}
 
 	public void pointGunsAt(Vector3 p) {
@@ -70,11 +79,7 @@ public class GunTowerController : MonoBehaviour {
 			float a = 180-Vector3.Angle(Vector3.right, dp);
 			if (dp.z > 0) {a = -a;}
 			_setTurretAngle(a);
-			
-			
-			a = Vector3.Angle(Vector3.right, new Vector3(p.magnitude, -1, 0));
-			a = Mathf.Clamp(a, -90, 30);
-			_setGunElevation(a);
+
 		}
 	}
 	
@@ -90,10 +95,7 @@ public class GunTowerController : MonoBehaviour {
 			if (diff < -180) diff += 360;
 			
 			_incrementTurretAngle(diff * turnRate);
-			
-			a = Vector3.Angle(Vector3.right, new Vector3(p.magnitude, -1, 0));
-			a = Mathf.Clamp(a, -90, 30);
-			_setGunElevation(a);
+
 		}
 		
 	}
@@ -118,17 +120,7 @@ public class GunTowerController : MonoBehaviour {
 	
 	#region Gun Elevation
 	// -------------------------------------------------------------------------------------------------------------
-	
-	private void _incrementGunElevation (float degrees) {
-		rotatorRBone.transform.Rotate (Vector3.right, degrees, Space.Self);
-		rotatorLBone.transform.Rotate (Vector3.left, degrees, Space.Self);
-	}
-	
-	private void _setGunElevation (float degrees) {
-		rotatorRBone.localEulerAngles = new Vector3(0, 0, 0);
-		rotatorLBone.localEulerAngles = new Vector3(0, 0, 0);
-	}
-	
+
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
 	
@@ -136,11 +128,11 @@ public class GunTowerController : MonoBehaviour {
 	// -------------------------------------------------------------------------------------------------------------
 	
 	private void _setBarrelLProgress (float percent) {
-		//barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		barrelLBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 	
 	private void _setBarrelRProgress (float percent) {
-		//barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
+		barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 	
 	// -------------------------------------------------------------------------------------------------------------
