@@ -27,22 +27,21 @@ public class GunTowerController : MonoBehaviour {
 * +----------X 0
 */
 	
-	private Quaternion baseQuat = new Quaternion(0, 0, -180, 180);
+	private Quaternion baseQuat = new Quaternion(0, 0, -0.7f, 0.7f);
 	
 	void Start () {
 		mapBones ();
 		
 		barrelAnimator = new DualBarrelGun(fireRate);
-		
+
 		_setTurretAngle(0);
-		_setGunElevation(0);
+		Debug.Log(_getTurretAngle());
 
 		turnRate = Mathf.Clamp(turnRate, 0.01f, 1f);
 	}
 
 	
 	void Update () {
-		
 		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Plane hp = new Plane(Vector3.up, Vector3.zero);
 		float d = 0;
@@ -51,17 +50,7 @@ public class GunTowerController : MonoBehaviour {
 			pointGunsToward(p);
 		}
 		
-		if(Input.GetMouseButton(0)) {
-			if(barrelAnimator.isReady()) {
-				barrelAnimator.fire();
-			}
-		}
-		barrelAnimator.update();
-		
-		_setBarrelLProgress(1-barrelAnimator.getProgressLeft());
-		_setBarrelRProgress(1-barrelAnimator.getProgressRight());
-		
-		
+
 	}
 	
 	// map the correct gun tower bones
@@ -117,11 +106,11 @@ public class GunTowerController : MonoBehaviour {
 	}
 	
 	private void _setTurretAngle (float degrees) {
-		turretBone.rotation = baseQuat * Quaternion.Euler(degrees, 0, 0);
+		turretBone.rotation = baseQuat * Quaternion.Euler(90+degrees, 0, 0);
 	}
 	
 	private float _getTurretAngle () {
-		return 360-turretBone.rotation.eulerAngles.y;
+		return 360-turretBone.rotation.eulerAngles.y-90;
 	}
 	
 	// -------------------------------------------------------------------------------------------------------------
