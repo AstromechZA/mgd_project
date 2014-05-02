@@ -17,6 +17,8 @@ public class GunTowerController : MonoBehaviour {
 	
 	private Quaternion baseQuat = new Quaternion(0, 0, -0.7f, 0.7f);
 
+	private LineRenderer laser;
+
 	void Start () {
 		mapBones ();
 
@@ -24,17 +26,34 @@ public class GunTowerController : MonoBehaviour {
 
 		_setTurretAngle(Random.Range(0, 360));
 
+		laser = (LineRenderer)gameObject.AddComponent("LineRenderer");
+		laser.material = new Material(Shader.Find("Particles/Additive"));
+		laser.SetColors(Color.red, Color.yellow);
+		laser.SetWidth(0.1f,0.1f);
+		laser.SetVertexCount(2);
+		laser.enabled = false;
+
 	}
 
 	
 	void Update () {
+		laser.enabled = false;
+
 		Vector3? target = _targetMouse();
 		if(target.HasValue && _withinRange(target.Value)) {
 			bool canFireUpon = pointGunsToward(target.Value);
 
 			if(canFireUpon && Input.GetMouseButton(0)) {
 				if(barrelAnimator.isReady()) {
-					barrelAnimator.fire();
+					int i = barrelAnimator.fire();
+					if( i == 1) {
+						laser.SetPosition(0, barrelRBone.position);
+					} else {
+						laser.SetPosition(0, barrelLBone.position);
+					}
+					laser.enabled = true;
+
+					laser.SetPosition(1, target.Value);
 				}
 			}
 		}
@@ -42,6 +61,7 @@ public class GunTowerController : MonoBehaviour {
 		
 		_setBarrelLProgress(1-barrelAnimator.getProgressLeft());
 		_setBarrelRProgress(1-barrelAnimator.getProgressRight());
+
 
 	}
 	
