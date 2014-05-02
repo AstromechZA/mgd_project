@@ -28,7 +28,7 @@ public class MapTester : MonoBehaviour {
 					z < borderWidth ||
 					z >= (tilesHigh + borderWidth)
 				) {
-					Instantiate(borderelement, new Vector3(x-centerx+0.5f, 0.5f, z-centerz+0.5f), Quaternion.identity);
+					Instantiate(borderelement, new Vector3(x-centerx+0.5f, 0, z-centerz+0.5f), Quaternion.identity);
 				}
 			}
 		}
