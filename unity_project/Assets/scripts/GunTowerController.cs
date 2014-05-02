@@ -73,16 +73,6 @@ public class GunTowerController : MonoBehaviour {
 		barrelRBone = turretBone.Find("branch_R").Find("gun_R_0");
 		barrelLBone = turretBone.Find("branch_L").Find("gun_L_0");
 	}
-
-	public void pointGunsAt(Vector3 p) {
-		Vector3 dp = transform.position - p;
-		if (dp.magnitude > 0) {
-			float a = 180-Vector3.Angle(Vector3.right, dp);
-			if (dp.z > 0) {a = -a;}
-			_setTurretAngle(a);
-
-		}
-	}
 	
 	public bool pointGunsToward(Vector3 p) {
 		
