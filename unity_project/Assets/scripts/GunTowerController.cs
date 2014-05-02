@@ -6,6 +6,7 @@ public class GunTowerController : MonoBehaviour {
 	public float fireRate = 0.5f;
 	public float turnRate = 50;
 	public float range = 6;
+	public Material laserMaterial;
 	 
 	// bones
 	private Transform turretBone;
@@ -27,7 +28,7 @@ public class GunTowerController : MonoBehaviour {
 		_setTurretAngle(Random.Range(0, 360));
 
 		laser = (LineRenderer)gameObject.AddComponent("LineRenderer");
-		laser.material = new Material(Shader.Find("Particles/Additive"));
+		laser.material = laserMaterial;
 		laser.SetColors(Color.red, Color.yellow);
 		laser.SetWidth(0.1f, 0.05f);
 		laser.SetVertexCount(2);
@@ -51,11 +52,11 @@ public class GunTowerController : MonoBehaviour {
 				// FIRE, return which barrel fired
 				int i = barrelAnimator.fire();
 				laser.SetPosition(0, 
-                  (i == 0) ? barrelLBone.position : barrelRBone.position
+                  ((i == 0) ? barrelLBone.position : barrelRBone.position) + new Vector3(0,5,0)
           		);
 				laser.enabled = true;
 
-				laser.SetPosition(1, target.Value);
+				laser.SetPosition(1, target.Value + new Vector3(0,5,0));
 			}
 		}
 		// update gun barrel easing functions
