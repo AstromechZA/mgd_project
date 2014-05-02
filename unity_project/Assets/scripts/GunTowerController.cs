@@ -160,7 +160,8 @@ public class GunTowerController : MonoBehaviour {
 	
 	private class DualBarrelGun {
 		
-		private int next = 0;
+		private int current = 0;
+		private int next = 1;
 		private float[] progress = new float[2]{1.0f, 1.0f};
 		
 		float timeBetweenShots = 1.0f;
@@ -170,17 +171,19 @@ public class GunTowerController : MonoBehaviour {
 		}
 
 		public float age () {
-			return progress[(next+1)%2];
+			return progress[current];
 		}
 
 		public bool isReady () {
-			return progress[next] >= 1.0f && progress[(next+1)%2] > 0.5f;
+			return progress[next] >= 1.0f && progress[current] > 0.5f;
 		}
 		
 		public int fire () {
 			progress[next] = 0.0f;
-			next = (next + 1) % 2;
-			return (next + 1) % 2;
+			int t = next;
+			next = current;
+			current = t;
+			return current;
 		}
 		
 		public void update () {
