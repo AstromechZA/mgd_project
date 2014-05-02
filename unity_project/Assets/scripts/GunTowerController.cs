@@ -4,7 +4,7 @@ using System.Collections;
 public class GunTowerController : MonoBehaviour {
 	
 	public float fireRate = 0.5f;
-	public float turnRate = 0.4f;
+	public float turnRate = 50;
 	 
 	// bones
 	Transform turretBone;
@@ -36,8 +36,6 @@ public class GunTowerController : MonoBehaviour {
 		barrelAnimator = new DualBarrelGun(fireRate);
 		_setTurretAngle(0);
 
-
-		turnRate = Mathf.Clamp(turnRate, 0.01f, 1f);
 	}
 
 	
@@ -89,13 +87,18 @@ public class GunTowerController : MonoBehaviour {
 		if (dp.magnitude > 0) {
 			float a = 180-Vector3.Angle(Vector3.right, dp);
 			if (dp.z > 0) {a = -a;}
-			
+
 			float diff = a -_getTurretAngle();
 			diff = diff % 360;
 			if (diff < -180) diff += 360;
-			
-			_incrementTurretAngle(diff * turnRate);
 
+			float mag = Mathf.Abs(diff);
+			if ( mag < 1) {
+				_setTurretAngle(a);
+			} else {
+				float dir = diff/mag;
+				_incrementTurretAngle(dir * turnRate * Time.deltaTime);
+			}
 		}
 		
 	}
