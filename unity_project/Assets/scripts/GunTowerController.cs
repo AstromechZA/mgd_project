@@ -40,17 +40,14 @@ public class GunTowerController : MonoBehaviour {
 
 	
 	void Update () {
-		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Plane hp = new Plane(Vector3.up, Vector3.zero);
-		float d = 0;
-		if (hp.Raycast(r, out d)) {
-			Vector3 p = r.GetPoint(d);
-			pointGunsToward(p);
-		}
+		Vector3? target = _targetMouse();
+		if(target.HasValue) {
+			bool canFireUpon = pointGunsToward(target.Value);
 
-		if(Input.GetMouseButton(0)) {
-			if(barrelAnimator.isReady()) {
-				barrelAnimator.fire();
+			if(canFireUpon && Input.GetMouseButton(0)) {
+				if(barrelAnimator.isReady()) {
+					barrelAnimator.fire();
+				}
 			}
 		}
 		barrelAnimator.update();
@@ -81,7 +78,7 @@ public class GunTowerController : MonoBehaviour {
 		}
 	}
 	
-	public void pointGunsToward(Vector3 p) {
+	public bool pointGunsToward(Vector3 p) {
 		
 		Vector3 dp = transform.position - p;
 		if (dp.magnitude > 0) {
@@ -95,14 +92,30 @@ public class GunTowerController : MonoBehaviour {
 			float mag = Mathf.Abs(diff);
 			if ( mag < 1) {
 				_setTurretAngle(a);
+				return true;
 			} else {
 				float dir = diff/mag;
 				_incrementTurretAngle(dir * turnRate * Time.deltaTime);
+				return false;
 			}
+
+
 		}
+		return false;
 		
 	}
-	
+
+	private Vector3? _targetMouse() {
+		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Plane hp = new Plane(Vector3.up, Vector3.zero);
+		float d = 0;
+		if (hp.Raycast(r, out d)) {
+			return r.GetPoint(d);
+		}
+		return null;
+	}
+
+
 	#region Turret Rotation
 	// -------------------------------------------------------------------------------------------------------------
 	
