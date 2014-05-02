@@ -29,7 +29,7 @@ public class GunTowerController : MonoBehaviour {
 		laser = (LineRenderer)gameObject.AddComponent("LineRenderer");
 		laser.material = new Material(Shader.Find("Particles/Additive"));
 		laser.SetColors(Color.red, Color.yellow);
-		laser.SetWidth(0.1f,0.1f);
+		laser.SetWidth(0.1f, 0.05f);
 		laser.SetVertexCount(2);
 		laser.enabled = false;
 
@@ -37,14 +37,14 @@ public class GunTowerController : MonoBehaviour {
 
 	
 	void Update () {
-		laser.enabled = false;
+		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
 
 		Vector3? target = _targetMouse();
 		if(target.HasValue && _withinRange(target.Value)) {
 			bool canFireUpon = pointGunsToward(target.Value);
-
 			if(canFireUpon && Input.GetMouseButton(0)) {
 				if(barrelAnimator.isReady()) {
+
 					int i = barrelAnimator.fire();
 					if( i == 1) {
 						laser.SetPosition(0, barrelRBone.position);
@@ -168,7 +168,11 @@ public class GunTowerController : MonoBehaviour {
 		public DualBarrelGun(float timeBetweenShots) {
 			this.timeBetweenShots = timeBetweenShots;
 		}
-		
+
+		public float age () {
+			return progress[(next+1)%2];
+		}
+
 		public bool isReady () {
 			return progress[next] >= 1.0f && progress[(next+1)%2] > 0.5f;
 		}
