@@ -37,28 +37,30 @@ public class GunTowerController : MonoBehaviour {
 
 	
 	void Update () {
+		// remove laser beam if it is too old
 		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
 
+		// aquire target (using mouse position for now)
 		Vector3? target = _targetMouse();
-		if(target.HasValue && _withinRange(target.Value)) {
+		// is the target within range
+		if(Input.GetMouseButton(0) && target.HasValue && _withinRange(target.Value)) {
+			// rotate towards tower, return whether within firing angle
 			bool canFireUpon = pointGunsToward(target.Value);
-			if(canFireUpon && Input.GetMouseButton(0)) {
-				if(barrelAnimator.isReady()) {
+			// if it can fire,
+			if(canFireUpon && barrelAnimator.isReady()) {
+				// FIRE, return which barrel fired
+				int i = barrelAnimator.fire();
+				laser.SetPosition(0, 
+                  (i == 0) ? barrelLBone.position : barrelRBone.position
+          		);
+				laser.enabled = true;
 
-					int i = barrelAnimator.fire();
-					if( i == 1) {
-						laser.SetPosition(0, barrelRBone.position);
-					} else {
-						laser.SetPosition(0, barrelLBone.position);
-					}
-					laser.enabled = true;
-
-					laser.SetPosition(1, target.Value);
-				}
+				laser.SetPosition(1, target.Value);
 			}
 		}
+		// update gun barrel easing functions
 		barrelAnimator.update();
-		
+		// set gun barrel progress
 		_setBarrelLProgress(1-barrelAnimator.getProgressLeft());
 		_setBarrelRProgress(1-barrelAnimator.getProgressRight());
 
@@ -89,11 +91,11 @@ public class GunTowerController : MonoBehaviour {
 			if ( mag < 10f) {
 				_setTurretAngle(a);
 				return true;
-			} else {
-				float dir = diff/mag;
-				_incrementTurretAngle(dir * turnRate * Time.deltaTime);
-				return false;
 			}
+
+			float dir = diff/mag;
+			_incrementTurretAngle(dir * turnRate * Time.deltaTime);
+			return false;
 
 
 		}
