@@ -76,7 +76,7 @@ public class GunTowerController : MonoBehaviour {
 			if (diff < -180) diff += 360;
 
 			float mag = Mathf.Abs(diff);
-			if ( mag < 1) {
+			if ( mag < 10f) {
 				_setTurretAngle(a);
 				return true;
 			} else {
