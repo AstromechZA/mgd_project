@@ -5,43 +5,31 @@ public class GunTowerController : MonoBehaviour {
 	
 	public float fireRate = 0.5f;
 	public float turnRate = 50;
+	public float range = 6;
 	 
 	// bones
-	Transform turretBone;
-	Transform rotatorRBone;
-	Transform barrelRBone;
-	Transform rotatorLBone;
-	Transform barrelLBone;
+	private Transform turretBone;
+	private Transform barrelRBone;
+	private Transform barrelLBone;
 	
 	// barrel
-	DualBarrelGun barrelAnimator;
-	
-	/* Turret Rotation orientation
-* 90
-*
-* Z
-* | 45
-* |
-* |
-* |
-* +----------X 0
-*/
+	private DualBarrelGun barrelAnimator;
 	
 	private Quaternion baseQuat = new Quaternion(0, 0, -0.7f, 0.7f);
 
 	void Start () {
 		mapBones ();
 
-
 		barrelAnimator = new DualBarrelGun(fireRate);
-		_setTurretAngle(0);
+
+		_setTurretAngle(Random.Range(0, 360));
 
 	}
 
 	
 	void Update () {
 		Vector3? target = _targetMouse();
-		if(target.HasValue) {
+		if(target.HasValue && _withinRange(target.Value)) {
 			bool canFireUpon = pointGunsToward(target.Value);
 
 			if(canFireUpon && Input.GetMouseButton(0)) {
@@ -62,10 +50,8 @@ public class GunTowerController : MonoBehaviour {
 		// have to traverse it like a tree
 		Transform a = transform.Find ("Armature");
 		turretBone = a.Find("turrent");
-		rotatorRBone = turretBone.Find("branch_R");
-		rotatorLBone = turretBone.Find("branch_L");
-		barrelRBone = rotatorRBone.Find("gun_R_0");
-		barrelLBone = rotatorLBone.Find("gun_L_0");
+		barrelRBone = turretBone.Find("branch_R").Find("gun_R_0");
+		barrelLBone = turretBone.Find("branch_L").Find("gun_L_0");
 	}
 
 	public void pointGunsAt(Vector3 p) {
@@ -105,6 +91,10 @@ public class GunTowerController : MonoBehaviour {
 		
 	}
 
+	private bool _withinRange(Vector3 t) {
+		return (transform.position - t).magnitude < this.range;
+	}
+
 	private Vector3? _targetMouse() {
 		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Plane hp = new Plane(Vector3.up, Vector3.zero);
@@ -133,13 +123,7 @@ public class GunTowerController : MonoBehaviour {
 	
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
-	
-	#region Gun Elevation
-	// -------------------------------------------------------------------------------------------------------------
 
-	// -------------------------------------------------------------------------------------------------------------
-	#endregion
-	
 	#region Gun Barrel
 	// -------------------------------------------------------------------------------------------------------------
 	
@@ -153,10 +137,6 @@ public class GunTowerController : MonoBehaviour {
 	
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
-	
-	
-	
-	
 	
 	private class DualBarrelGun {
 		
