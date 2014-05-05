@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class TowerBulk : MonoBehaviour {
-
-	public Component twr;
+	public Component[] towers;
 	public int tilesWide = 32;
 	public int tilesHigh = 18;
 
@@ -18,7 +17,8 @@ public class TowerBulk : MonoBehaviour {
 
 		for (int z=0;z<maxz;z+=2) {
 			for (int x=0;x<maxx;x+=4) {
-				Instantiate(twr, new Vector3(x-centerx+1f, 0, z-centerz+1f), Quaternion.identity);
+				int i = Random.Range(0, towers.Length);
+				Instantiate(towers[i], new Vector3(x-centerx+1f, 0, z-centerz+1f), Quaternion.identity);
 			}
 		}
 	}
