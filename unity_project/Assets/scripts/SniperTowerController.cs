@@ -4,7 +4,13 @@ using System.Collections;
 public class SniperTowerController : MonoBehaviour {
 	#region PUBLICVARS ========================================================================== //
 	
-	public float fireRate = 1.0f;
+	public float fireRate = 2.0f;
+
+	public float range = 8;
+
+	public float turnRate = 50;
+
+	public Material laserMaterial;
 
 	#endregion
 	#region PRIVATEVARS ========================================================================== //
@@ -18,6 +24,9 @@ public class SniperTowerController : MonoBehaviour {
 	// barrel
 	private SingleBarrelGun barrelAnimator;
 
+	// laser
+	private LineRenderer laser;
+
 	#endregion
 	#region STANDARD ========================================================================== //
 
@@ -26,13 +35,32 @@ public class SniperTowerController : MonoBehaviour {
 
 		barrelAnimator = new SingleBarrelGun(this.fireRate);
 
+		laser = (LineRenderer)gameObject.AddComponent("LineRenderer");
+		laser.material = laserMaterial;
+		laser.SetColors(Color.cyan, Color.magenta);
+		laser.SetWidth(0.3f, 0.15f);
+		laser.SetVertexCount(2);
+		laser.enabled = false;
+
 		setTurretAngle(Random.Range(0, 360));
 	}
 
 	void Update () {
-		incrementTurretAngle(0.5f);
+		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
 
-		if (barrelAnimator.isReady()) barrelAnimator.fire();
+		Vector3? target = targetMouse();
+		// is the target within range
+		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
+			// rotate towards tower, return whether within firing angle
+			bool canFireUpon = pointGunsToward(target.Value);
+			// if it can fire,
+			if(canFireUpon && barrelAnimator.isReady()) {
+				barrelAnimator.fire();
+				laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
+				laser.enabled = true;
+				laser.SetPosition(1, target.Value + new Vector3(0,5,0));
+			}
+		}
 
 		// update gun barrel easing functions
 		barrelAnimator.update();
@@ -41,12 +69,53 @@ public class SniperTowerController : MonoBehaviour {
 	}
 	
 	#endregion
-	#region BONES ========================================================================== //
+	#region MISC ========================================================================== //
 
 	private void mapBones () {
 		Transform a = transform.Find ("Armature");
 		turretBone = a.Find("turret");
 		barrelBone = turretBone.Find("gun");
+	}
+
+	private Vector3? targetMouse() {
+		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Plane hp = new Plane(Vector3.up, Vector3.zero);
+		float d = 0;
+		if (hp.Raycast(r, out d)) {
+			return r.GetPoint(d);
+		}
+		return null;
+	}
+
+	private bool withinRange(Vector3 t) {
+		return (transform.position - t).magnitude < this.range;
+	}
+
+	public bool pointGunsToward(Vector3 p) {
+		
+		Vector3 dp = transform.position - p;
+		if (dp.magnitude > 0) {
+			float a = 180-Vector3.Angle(Vector3.right, dp);
+			if (dp.z > 0) {a = -a;}
+			
+			float diff = a -_getTurretAngle();
+			diff = diff % 360;
+			if (diff < -180) diff += 360;
+			
+			float mag = Mathf.Abs(diff);
+			if ( mag < 10f) {
+				setTurretAngle(a);
+				return true;
+			}
+			
+			float dir = diff/mag;
+			incrementTurretAngle(dir * turnRate * Time.deltaTime);
+			return false;
+			
+			
+		}
+		return false;
+		
 	}
 
 	#endregion
