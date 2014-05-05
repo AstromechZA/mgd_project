@@ -4,7 +4,7 @@ using System.Collections;
 public class SniperTowerController : MonoBehaviour {
 	#region PUBLICVARS ========================================================================== //
 	
-	public float fireRate = 2.0f;
+	public float fireRate = 5.0f;
 
 	public float range = 8;
 
@@ -46,7 +46,7 @@ public class SniperTowerController : MonoBehaviour {
 	}
 
 	void Update () {
-		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
+		if(barrelAnimator.age() > 0.3f) laser.enabled = false;
 
 		Vector3? target = targetMouse();
 		// is the target within range
