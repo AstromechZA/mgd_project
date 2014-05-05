@@ -30,7 +30,17 @@ ModelImporter:
     400022: turret
     400024: turret_0
     2300000: base
+    2300002: barrel_L
+    2300004: barrel_R
+    2300006: rotator_L
+    2300008: rotator_R
+    2300010: turret
     3300000: base
+    3300002: barrel_L
+    3300004: barrel_R
+    3300006: rotator_L
+    3300008: rotator_R
+    3300010: turret
     4300000: rotator_L
     4300002: barrel_R
     4300004: barrel_L
@@ -52,7 +62,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -63,7 +73,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
@@ -80,7 +90,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 1
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
@@ -92,7 +102,7 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Armature
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   additionalBone: 0

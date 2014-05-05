@@ -5,6 +5,11 @@ public class GunTowerController : MonoBehaviour {
 	
 	public float fireRate = 0.5f;
 	public float turnRate = 0.4f;
+	public float maxRange = 100f;
+	public GameObject followUnit;
+	public Vector3 lookTowards;
+
+	float maxRangeSqr;
 	 
 	// bones
 	Transform turretBone;
@@ -38,6 +43,8 @@ public class GunTowerController : MonoBehaviour {
 		_setGunElevation(0);
 
 		turnRate = Mathf.Clamp(turnRate, 0.01f, 1f);
+		maxRangeSqr = (maxRange * maxRange) - 0.1f;
+		lookTowards = Vector3.zero;
 	}
 
 	
@@ -48,7 +55,13 @@ public class GunTowerController : MonoBehaviour {
 		float d = 0;
 		if (hp.Raycast(r, out d)) {
 			Vector3 p = r.GetPoint(d);
-			pointGunsToward(p);
+
+			if(followUnit != null && (followUnit.transform.position - (transform.position + new Vector3(0, turretBone.position.y, 0))).sqrMagnitude <= maxRangeSqr){
+				lookTowards = followUnit.transform.position;
+				pointGunsToward(lookTowards);
+			}else{
+				lookTowards = Vector3.zero;
+			}
 		}
 		
 		if(Input.GetMouseButton(0)) {
