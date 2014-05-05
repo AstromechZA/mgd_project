@@ -2,10 +2,13 @@
 using System.Collections;
 
 public class SonarTowerController1 : MonoBehaviour {
-	public float spinrate = 100;
+	public float spinrate = 500;
+	public float spinUpRate = 0.4f;
+	public float spinDownRate = 0.5f;
 	public float range = 6;
 
 	private Transform topBone;
+	private float velocity = 0;
 
 	void Start () {
 		mapBones ();
@@ -16,8 +19,13 @@ public class SonarTowerController1 : MonoBehaviour {
 		Vector3? target = targetMouse();
 		// is the target within range
 		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
-			topBone.rotation *= Quaternion.Euler(Time.deltaTime * spinrate, 0, 0);
+			velocity += 1;
+			velocity = Mathf.Clamp(velocity * (1 + spinUpRate * Time.deltaTime), 0, spinrate);
+		} else {
+			velocity -= 1;
+			velocity = Mathf.Clamp(velocity / (1 + spinDownRate * Time.deltaTime), 0, spinrate);
 		}
+		topBone.rotation *= Quaternion.Euler(Time.deltaTime * velocity, 0, 0);
 	}
 
 	private void mapBones () {
