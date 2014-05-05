@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SonarTowerController1 : MonoBehaviour {
+public class SonarTowerController : MonoBehaviour {
 	public float spinrate = 500;
 	public float spinUpRate = 0.4f;
 	public float spinDownRate = 0.5f;
