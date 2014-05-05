@@ -25,7 +25,7 @@ public class SonarTowerController1 : MonoBehaviour {
 			velocity -= 1;
 			velocity = Mathf.Clamp(velocity / (1 + spinDownRate * Time.deltaTime), 0, spinrate);
 		}
-		topBone.rotation *= Quaternion.Euler(Time.deltaTime * velocity, 0, 0);
+		if(velocity > 0) topBone.rotation *= Quaternion.Euler(Time.deltaTime * velocity, 0, 0);
 	}
 
 	private void mapBones () {
