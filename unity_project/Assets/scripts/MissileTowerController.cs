@@ -11,7 +11,7 @@ public class MissileTowerController : MonoBehaviour {
 	#endregion
 	#region PRIVATEVARS ===================================================================== //
 
-	private const float DOOROPENAMOUNT = 0.35f;
+	private const float DOOROPENAMOUNT = 0.3f;
 
 	// bones
 	private Transform mainBone;

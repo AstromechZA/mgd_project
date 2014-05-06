@@ -24,6 +24,7 @@ ModelImporter:
     100036: south_anchor
     100038: west
     100040: west_anchor
+    100042: Plane_000
     400000: Armature
     400002: Cube
     400004: east
@@ -45,6 +46,7 @@ ModelImporter:
     400036: south_anchor
     400038: west
     400040: west_anchor
+    400042: Plane_000
     2300000: Cube
     2300002: Plane_004
     2300004: Plane_005
@@ -67,12 +69,14 @@ ModelImporter:
     4300014: Plane
     4300016: Plane_003
     4300018: Cube
+    4300020: Plane_000
     7400000: Default Take
     9500000: //RootNode
     13700000: Plane
     13700002: Plane_001
     13700004: Plane_002
     13700006: Plane_003
+    13700008: Plane_000
   materials:
     importMaterials: 1
     materialName: 0
