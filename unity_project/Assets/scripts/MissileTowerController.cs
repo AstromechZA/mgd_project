@@ -3,7 +3,9 @@ using System.Collections;
 
 public class MissileTowerController : MonoBehaviour {
 	#region PUBLICVARS ====================================================================== //
-	
+
+	public Component projectile;
+
 	public float fireRate = 5.0f;
 	
 	public float range = 8;
@@ -20,12 +22,17 @@ public class MissileTowerController : MonoBehaviour {
 	private Transform southBone;
 	private Transform eastBone;
 	private Transform westBone;
+
+	private GameObject currentMissile;
 	
 	#endregion
 	#region STANDARD ======================================================================== //
 
 	void Start () {
 		mapBones();
+
+
+		spawnmissile();
 
 		doorControl = new DoorControl(fireRate);
 	}
@@ -34,20 +41,32 @@ public class MissileTowerController : MonoBehaviour {
 		Vector3? target = targetMouse();
 
 		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
-			if (doorControl.open()) {
+			if(doorControl.open()) {
 				// fire
+				
+				Destroy(currentMissile);
+				currentMissile = null;
+				
 				doorControl.close();
-			}
+			} 
 		} else {
 			doorControl.close();
 		}
+
 		
 		doorControl.Update();
+		
+		if (doorControl.is_closed() && currentMissile == null) spawnmissile();
+
 		setDoorProgress(doorControl.getProgress());
 	}
 
 	#endregion
 	#region MISC ============================================================================ //
+
+	private void spawnmissile() {
+		currentMissile = (GameObject)Instantiate(projectile.gameObject, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+	}
 
 	private void mapBones () {
 		Transform a = transform.Find ("Armature");
@@ -92,11 +111,9 @@ public class MissileTowerController : MonoBehaviour {
 
 		private STATE state = STATE.CLOSED;
 		private float progress = 0.0f;
-		private float timeBetweenShots;
 		private float delta;
 		
 		public DoorControl(float timeBetweenShots) {
-			this.timeBetweenShots = timeBetweenShots;
 			this.delta = 2.0f / timeBetweenShots;
 		}
 
@@ -130,8 +147,16 @@ public class MissileTowerController : MonoBehaviour {
 			return false;
 		}
 
-		public void close() {
-			if (state != STATE.CLOSED) state = STATE.CLOSING;
+		public bool close() {
+			if (state != STATE.CLOSED) {
+				state = STATE.CLOSING;
+				return false;
+			}
+			return true;
+		}
+
+		public bool is_closed() {
+			return state == STATE.CLOSED;
 		}
 
 	}
