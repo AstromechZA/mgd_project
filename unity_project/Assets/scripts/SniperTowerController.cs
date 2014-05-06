@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SniperTowerController : MonoBehaviour {
-	#region PUBLICVARS ========================================================================== //
+	#region PUBLICVARS ====================================================================== //
 	
 	public float fireRate = 5.0f;
 
@@ -13,7 +13,7 @@ public class SniperTowerController : MonoBehaviour {
 	public Material laserMaterial;
 
 	#endregion
-	#region PRIVATEVARS ========================================================================== //
+	#region PRIVATEVARS ===================================================================== //
 
 	// bones
 	private Transform turretBone;
@@ -28,7 +28,7 @@ public class SniperTowerController : MonoBehaviour {
 	private LineRenderer laser;
 
 	#endregion
-	#region STANDARD ========================================================================== //
+	#region STANDARD ======================================================================== //
 
 	void Start () {
 		mapBones ();
@@ -69,7 +69,7 @@ public class SniperTowerController : MonoBehaviour {
 	}
 	
 	#endregion
-	#region MISC ========================================================================== //
+	#region MISC ============================================================================ //
 
 	private void mapBones () {
 		Transform a = transform.Find ("Armature");
@@ -119,7 +119,7 @@ public class SniperTowerController : MonoBehaviour {
 	}
 
 	#endregion
-	#region TURRET ANGLE ========================================================================== //
+	#region TURRET ANGLE ==================================================================== //
 
 	private void setTurretAngle (float degrees) {
 		turretBone.rotation = baseQuat * Quaternion.Euler(degrees, 0, 0);
@@ -141,7 +141,7 @@ public class SniperTowerController : MonoBehaviour {
 	}
 
 	#endregion
-	#region BARREL ANIMATOR ========================================================================== //
+	#region BARREL ANIMATOR ================================================================= //
 
 	private class SingleBarrelGun {
 
