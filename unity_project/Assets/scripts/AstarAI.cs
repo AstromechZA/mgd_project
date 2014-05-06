@@ -4,28 +4,28 @@ using Pathfinding;
 
 public class AstarAI : MonoBehaviour {
 	//The point to move to
-	public Vector3 targetPosition;
-	public GameObject targetObject;
-	
+	private Vector3 targetPosition;
+	private GameObject targetObject;	
 	private Seeker seeker;
-	private CharacterController controller;
-	
-	//The calculated path
-	public Path path;
+	private Path path;
 	
 	//The AI's speed per second
 	public float speed = 1;
 	
 	//The max distance from the AI to a waypoint for it to continue to the next waypoint
 	public float nextWaypointDistance = 3;
+	private float nextWaypointDistanceSqrd;
 	
 	//The waypoint we are currently moving towards
 	private int currentWaypoint = 0;
-	private float nextWaypointDistanceSqrd;
-	
-	public void Start () {
+
+	public void Awake(){
 		seeker = GetComponent<Seeker>();
-		controller = GetComponent<CharacterController>();
+	}
+
+	// This is where you set the creep's target (i.e. the citadel) and start moving.
+	public void DestroyTarget(GameObject theTargetObject){
+		targetObject = theTargetObject;
 		targetPosition = targetObject.transform.position;
 		
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
