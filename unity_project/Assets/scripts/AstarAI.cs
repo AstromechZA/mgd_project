@@ -21,16 +21,23 @@ public class AstarAI : MonoBehaviour {
 
 	public void Awake(){
 		seeker = GetComponent<Seeker>();
+
+		// Register callback to update creeps path when a tower placement affects the graph.
+		AstarPath.OnGraphsUpdated += RecalculatePath;
 	}
 
 	// This is where you set the creep's target (i.e. the citadel) and start moving.
 	public void DestroyTarget(GameObject theTargetObject){
 		targetObject = theTargetObject;
 		targetPosition = targetObject.transform.position;
-		
-		//Start a new path to the targetPosition, return the result to the OnPathComplete function
-		seeker.StartPath (transform.position,targetPosition, OnPathComplete);
 		nextWaypointDistanceSqrd = nextWaypointDistance * nextWaypointDistance;
+
+		RecalculatePath (null);
+	}
+
+	public void RecalculatePath(AstarPath script){
+		//Start a new path to the targetPosition, return the result to the OnPathComplete function
+		seeker.StartPath (transform.position, targetPosition, OnPathComplete);
 	}
 	
 	public void OnPathComplete (Path p) {
@@ -47,7 +54,8 @@ public class AstarAI : MonoBehaviour {
 			//We have no path to move after yet
 			return;
 		}
-		
+
+		// We've come to the end of our path. Add explode logic here.
 		if (currentWaypoint >= path.vectorPath.Count) {
 			Destroy(gameObject);
 			return;
@@ -66,7 +74,8 @@ public class AstarAI : MonoBehaviour {
 		}
 	}
 
-	public void OnDisable () {
+	public void OnDestroy () {
 		seeker.pathCallback -= OnPathComplete;
+		AstarPath.OnGraphsUpdated -= RecalculatePath;
 	} 
 } 
