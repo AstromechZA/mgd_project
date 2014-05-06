@@ -34,12 +34,15 @@ public class MissileTowerController : MonoBehaviour {
 		Vector3? target = targetMouse();
 
 		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
-			if(doorControl.isReady()) {
-				doorControl.fire();
+			if (doorControl.open()) {
+				// fire
+				doorControl.close();
 			}
+		} else {
+			doorControl.close();
 		}
 		
-		doorControl.update();
+		doorControl.Update();
 		setDoorProgress(doorControl.getProgress());
 	}
 
@@ -84,39 +87,53 @@ public class MissileTowerController : MonoBehaviour {
 	#region DOORSANIMATOR ==================================================================== //
 
 	private class DoorControl {
-		
-		private float progress = 1.0f;
-		
-		float timeBetweenShots = 1.0f;
+
+		public enum STATE {CLOSED, OPENING, OPEN, CLOSING};
+
+		private STATE state = STATE.CLOSED;
+		private float progress = 0.0f;
+		private float timeBetweenShots;
+		private float delta;
 		
 		public DoorControl(float timeBetweenShots) {
 			this.timeBetweenShots = timeBetweenShots;
+			this.delta = 2.0f / timeBetweenShots;
 		}
-		
-		public float age () {
-			return progress;
+
+		public void Update() {
+			switch(state) {
+			case STATE.OPENING:
+				progress += delta * Time.deltaTime;
+				if (progress > 1) {
+					state = STATE.OPEN;
+					progress = 1;
+				}
+				break;
+			case STATE.CLOSING:
+				progress -= delta * Time.deltaTime;
+				if (progress < 0) {
+					state = STATE.CLOSED;
+					progress = 0;
+				}
+				break;
+			}
 		}
-		
-		public bool isReady () {
-			return progress >= 1.0f;
+
+		public float getProgress() { return progress; }
+
+		public bool open() {
+			if (state == STATE.CLOSED) {
+				state = STATE.OPENING;
+			} else if( state == STATE.OPEN) {
+				return true;
+			}
+			return false;
 		}
-		
-		public void fire () {
-			progress = 0.0f;
+
+		public void close() {
+			if (state != STATE.CLOSED) state = STATE.CLOSING;
 		}
-		
-		public void update () {
-			float inc = Time.deltaTime / timeBetweenShots;
-			progress = progress + inc;
-		}
-		
-		public float ease (float x) {
-			return 1.3f * Mathf.Pow(x, 1/6f) * Mathf.Cos(x * Mathf.PI/2);
-		}
-		
-		public float getProgress () {
-			return ease(Mathf.Clamp01(progress));
-		}
+
 	}
 
 	#endregion
