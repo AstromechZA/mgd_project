@@ -43,8 +43,9 @@ public class MissileTowerController : MonoBehaviour {
 		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
 			if(doorControl.open()) {
 				// fire
-				
-				Destroy(currentMissile);
+
+				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(target.Value);
+
 				currentMissile = null;
 				
 				doorControl.close();
