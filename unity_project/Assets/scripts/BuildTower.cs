@@ -37,6 +37,8 @@ public class BuildTower : MonoBehaviour {
 			PathObstacle po = GetComponent<PathObstacle>();
 			po.UpdateGraphForObject();
 
+			GetComponent<BaseTowerController>().enabled = true;
+
 			// Remove this build script from the new tower.
 			Destroy (this);
 		}
