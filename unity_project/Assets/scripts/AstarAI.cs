@@ -8,6 +8,8 @@ public class AstarAI : MonoBehaviour {
 	private GameObject targetObject;	
 	private Seeker seeker;
 	private Path path;
+
+	public float targetReachedDistance = 1f;
 	
 	//The AI's speed per second
 	public float speed = 1;
@@ -44,6 +46,8 @@ public class AstarAI : MonoBehaviour {
 		Debug.Log ("Yey, we got a path back. Did it have an error? "+p.error);
 		if (!p.error) {
 			path = p;
+			path.Claim(this);
+
 			//Reset the waypoint counter
 			currentWaypoint = 0;
 		}
@@ -57,6 +61,12 @@ public class AstarAI : MonoBehaviour {
 
 		// We've come to the end of our path. Add explode logic here.
 		if (currentWaypoint >= path.vectorPath.Count) {
+			if ((transform.position - targetPosition).sqrMagnitude <= targetReachedDistance * targetReachedDistance){
+				OnTargetReached();
+			}else{
+				OnTargetNotReached();
+			}
+
 			Destroy(gameObject);
 			return;
 		}
@@ -74,8 +84,23 @@ public class AstarAI : MonoBehaviour {
 		}
 	}
 
+	private void OnTargetReached(){
+		// Add logic here when creep reaches citadel.
+
+		Debug.Log ("Creep reached citadel.");
+	}
+
+	private void OnTargetNotReached(){
+		// Add logic here when creeps reach end of path but not citadel.
+
+		Debug.Log ("Creep could not reach citadel.");
+	}
+
 	public void OnDestroy () {
 		seeker.pathCallback -= OnPathComplete;
 		AstarPath.OnGraphsUpdated -= RecalculatePath;
+		if (path != null) {
+			path.Release (this);
+		}
 	} 
 } 

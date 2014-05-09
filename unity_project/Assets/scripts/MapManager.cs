@@ -15,6 +15,8 @@ public class MapManager : MonoBehaviour {
 	public float mapXGridOffset = 0f;
 	public float mapZGridOffset = 5f;
 
+	public GameObject citadel;
+
 	private float xShift;
 	private float zShift;
 	private float halfCellSize;
