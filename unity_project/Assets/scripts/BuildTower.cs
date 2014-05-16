@@ -41,6 +41,9 @@ public class BuildTower : MonoBehaviour {
 
 			// Remove this build script from the new tower.
 			Destroy (this);
+
+			// Increment the number of towers built
+			AchievementController.achievementController.towersBuilt++;
 		}
 	}
 }

@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<AchievementCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" towersBuilt="0" enemiesKilled="0" timePlayedInMinutes="0" totalAchieved="0" currentRank="0">
+  <Achievements>
+    <Achievement id="0">
+      <achieved>false</achieved>
+      <name>Novice Tower Builder</name>
+      <type>Tower Building</type>
+      <goal>Build 25 towers</goal>
+      <target>25</target>
+      <image>tower_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="1">
+      <achieved>false</achieved>
+      <name>Apprentice Tower Builder</name>
+      <type>Tower Building</type>
+      <goal>Build 100 towers</goal>
+      <target>100</target>
+      <image>tower_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="2">
+      <achieved>false</achieved>
+      <name>Adept Tower Builder</name>
+      <type>Tower Building</type>
+      <goal>Build 500 towers</goal>
+      <target>500</target>
+      <image>tower_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="3">
+      <achieved>false</achieved>
+      <name>Expert Tower Builder</name>
+      <type>Tower Building</type>
+      <goal>Build 2000 towers</goal>
+      <target>2000</target>
+      <image>tower_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="4">
+      <achieved>false</achieved>
+      <name>Master Tower Builder</name>
+      <type>Tower Building</type>
+      <goal>Build 5000 towers</goal>
+      <target>5000</target>
+      <image>tower_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="5">
+      <achieved>false</achieved>
+      <name>Novice Perfectionist</name>
+      <type>Targetable Ability</type>
+      <goal>Complete a level without using any targetable abilities</goal>
+      <target>1</target>
+      <image>abilities_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="6">
+      <achieved>false</achieved>
+      <name>Apprentice Perfectionist</name>
+      <type>Targetable Ability</type>
+      <goal>Complete 5 levels without using any targetable abilities</goal>
+      <target>5</target>
+      <image>abilities_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="7">
+      <achieved>false</achieved>
+      <name>Adept Perfectionist</name>
+      <type>Targetable Ability</type>
+      <goal>Complete 20 levels without using any targetable abilities</goal>
+      <target>20</target>
+      <image>abilities_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="8">
+      <achieved>false</achieved>
+      <name>Expert Perfectionist</name>
+      <type>Targetable Ability</type>
+      <goal>Complete 50 levels without using any targetable abilities</goal>
+      <target>50</target>
+      <image>abilities_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="9">
+      <achieved>false</achieved>
+      <name>Master Perfectionist</name>
+      <type>Targetable Ability</type>
+      <goal>Complete 100 levels without using any targetable abilities</goal>
+      <target>100</target>
+      <image>abilities_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="10">
+      <achieved>false</achieved>
+      <name>Tripple Play</name>
+      <type>Targetable Ability</type>
+      <goal>Use all of your targetable abilities in one level</goal>
+      <target>1</target>
+      <image>abilities_category</image>
+      <skill>tripple_play</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="11">
+      <achieved>false</achieved>
+      <name>Novice Clean Slate</name>
+      <type>Citadel</type>
+      <goal>Complete a single games without the citadel being damaged</goal>
+      <target>1</target>
+      <image>citadel_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="12">
+      <achieved>false</achieved>
+      <name>Apprentice Clean Slate</name>
+      <type>Citadel</type>
+      <goal>Complete 5 games without the citadel being damaged</goal>
+      <target>5</target>
+      <image>citadel_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="13">
+      <achieved>false</achieved>
+      <name>Adept Clean Slate</name>
+      <type>Citadel</type>
+      <goal>Complete 20 games without the citadel being damaged</goal>
+      <target>20</target>
+      <image>citadel_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="14">
+      <achieved>false</achieved>
+      <name>Expert Clean Slate</name>
+      <type>Citadel</type>
+      <goal>Complete 50 games without the citadel being damaged</goal>
+      <target>50</target>
+      <image>citadel_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="15">
+      <achieved>false</achieved>
+      <name>Master Clean Slate</name>
+      <type>Citadel</type>
+      <goal>Complete 100 games without the citadel being damaged</goal>
+      <target>100</target>
+      <image>citadel_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="16">
+      <achieved>false</achieved>
+      <name>Novice Unbreakable</name>
+      <type>Citadel</type>
+      <goal>Successfully defend against 500 attacks</goal>
+      <target>500</target>
+      <image>citadel_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="17">
+      <achieved>false</achieved>
+      <name>Apprentice Unbreakable</name>
+      <type>Citadel</type>
+      <goal>Successfully defend against 1000 attacks</goal>
+      <target>1000</target>
+      <image>citadel_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="18">
+      <achieved>false</achieved>
+      <name>Adept Unbreakable</name>
+      <type>Citadel</type>
+      <goal>Successfully defend against 3000 attacks</goal>
+      <target>3000</target>
+      <image>citadel_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="19">
+      <achieved>false</achieved>
+      <name>Expert Unbreakable</name>
+      <type>Citadel</type>
+      <goal>Successfully defend against 5000 attacks</goal>
+      <target>5000</target>
+      <image>citadel_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="20">
+      <achieved>false</achieved>
+      <name>Master Unbreakable</name>
+      <type>Citadel</type>
+      <goal>Successfully defend against 10000 attacks</goal>
+      <target>10000</target>
+      <image>citadel_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="21">
+      <achieved>false</achieved>
+      <name>First Blood</name>
+      <type>Enemies Killed</type>
+      <goal>Kill a single enemy</goal>
+      <target>1</target>
+      <image>first_blood</image>
+      <skill>shield_ring</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="22">
+      <achieved>false</achieved>
+      <name>Blood Luster</name>
+      <type>Enemies Killed</type>
+      <goal>Kill 500 enemies</goal>
+      <target>500</target>
+      <image>blood_luster</image>
+      <skill>shield_ring</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="23">
+      <achieved>false</achieved>
+      <name>Slayer</name>
+      <type>Enemies Killed</type>
+      <goal>Kill 2500 enemies</goal>
+      <target>2500</target>
+      <image>enemy_category</image>
+      <skill>shield_ring</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="24">
+      <achieved>false</achieved>
+      <name>Terminator</name>
+      <type>Enemies Killed</type>
+      <goal>Kill 10 000 enemies</goal>
+      <target>10000</target>
+      <image>terminator</image>
+      <skill>shield_ring</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="25">
+      <achieved>false</achieved>
+      <name>Medal of Honour</name>
+      <type>Enemies Killed</type>
+      <goal>Kill 50 000 enemies</goal>
+      <target>50000</target>
+      <image>medal_of_honour</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="26">
+      <achieved>false</achieved>
+      <name>God of War</name>
+      <type>Enemies Killed</type>
+      <goal>Kill 100 000 enemies</goal>
+      <target>100000</target>
+      <image>god_of_war</image>
+      <skill>shield_ring</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="27">
+      <achieved>false</achieved>
+      <name>Novice Money Maker</name>
+      <type>Resource</type>
+      <goal>Collect a total of 1000 gold in your career</goal>
+      <target>1000</target>
+      <image>resource_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="28">
+      <achieved>false</achieved>
+      <name>Apprentice Money Maker</name>
+      <type>Resource</type>
+      <goal>Collect a total of 5000 gold in your career</goal>
+      <target>5000</target>
+      <image>resource_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="29">
+      <achieved>false</achieved>
+      <name>Adept Money Maker</name>
+      <type>Resource</type>
+      <goal>Collect a total of 10 000 gold in your career</goal>
+      <target>10000</target>
+      <image>resource_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="30">
+      <achieved>false</achieved>
+      <name>Expert Money Maker</name>
+      <type>Resource</type>
+      <goal>Collect a total of 20 000 gold in your career</goal>
+      <target>20000</target>
+      <image>resource_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="31">
+      <achieved>false</achieved>
+      <name>Master Money Maker</name>
+      <type>Resource</type>
+      <goal>Collect a total of 50 000 gold in your career</goal>
+      <target>50000</target>
+      <image>resource_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="32">
+      <achieved>false</achieved>
+      <name>Silver Rank</name>
+      <type>Rank</type>
+      <goal>Complete 15% of the Achievements</goal>
+      <target>6</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="33">
+      <achieved>false</achieved>
+      <name>Gold Rank</name>
+      <type>Rank</type>
+      <goal>Complete 30% of the Achievements</goal>
+      <target>12</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="34">
+      <achieved>false</achieved>
+      <name>Platinum Rank</name>
+      <type>Rank</type>
+      <goal>Complete 50% of the Achievements</goal>
+      <target>20</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="35">
+      <achieved>false</achieved>
+      <name>Diamond Rank</name>
+      <type>Rank</type>
+      <goal>Complete 75% of the Achievements</goal>
+      <target>31</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="36">
+      <achieved>false</achieved>
+      <name>Master Rank</name>
+      <type>Rank</type>
+      <goal>Complete 90% of the Achievements</goal>
+      <target>37</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="37">
+      <achieved>false</achieved>
+      <name>Grand Master Rank</name>
+      <type>Rank</type>
+      <goal>Complete all other Achievements</goal>
+      <target>42</target>
+      <image>base2</image>
+      <skill>base_2</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="38">
+      <achieved>false</achieved>
+      <name>Novice Endurer</name>
+      <type>Endurance</type>
+      <goal>Play the game for one minute</goal>
+      <target>1</target>
+      <image>endurance_category</image>
+      <skill>novice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="39">
+      <achieved>false</achieved>
+      <name>Apprentice Endurer</name>
+      <type>Endurance</type>
+      <goal>Play the game for fifteen minutes</goal>
+      <target>15</target>
+      <image>endurance_category</image>
+      <skill>apprentice</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="40">
+      <achieved>false</achieved>
+      <name>Adept Endurer</name>
+      <type>Endurance</type>
+      <goal>Play the game for one hour</goal>
+      <target>60</target>
+      <image>endurance_category</image>
+      <skill>adept</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="41">
+      <achieved>false</achieved>
+      <name>Expert Endurer</name>
+      <type>Endurance</type>
+      <goal>Play the game for two hours</goal>
+      <target>120</target>
+      <image>endurance_category</image>
+      <skill>expert</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+    <Achievement id="42">
+      <achieved>false</achieved>
+      <name>Master Endurer</name>
+      <type>Endurance</type>
+      <goal>Play the game for five hours</goal>
+      <target>300</target>
+      <image>endurance_category</image>
+      <skill>master</skill>
+      <rewardPoints>1</rewardPoints>
+    </Achievement>
+  </Achievements>
+</AchievementCollection>
