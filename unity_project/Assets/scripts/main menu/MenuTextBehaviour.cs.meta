@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: d505f7d33fd25d34da50d162d78d9f3f
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - amazingText: {fileID: 100000, guid: f14982afd37f04e4cbfccdaa056b4b4d, type: 2}
+  - tdText: {fileID: 100000, guid: 9e2019e32631f964bacc37e6ea7336f9, type: 2}
+  - resumeGameText: {fileID: 100000, guid: ca9952cbb07901743931182fabc6f102, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

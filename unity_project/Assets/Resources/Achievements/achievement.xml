@@ -103,7 +103,7 @@
     </Achievement>
     <Achievement id="10">
       <achieved>false</achieved>
-      <name>Tripple Play</name>
+      <name>Triple Play</name>
       <type>Targetable Ability</type>
       <goal>Use all of your targetable abilities in one level</goal>
       <target>1</target>
