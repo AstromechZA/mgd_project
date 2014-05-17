@@ -7,18 +7,22 @@ public class AbilityBuff : MonoBehaviour
 		public bool castable = true;
 		public float nextCast = 0;
 		public float cooldown = 3.0F;
-		public float buffAmount = 2;
+		public float buffTime = 5.0F;
+		public float buffAmount = 2.0F; // Attack 2x faster
+		public bool buffed = false;
 		GameObject placementVisualiser;
 		Transform target;
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+		Color tower_startColor;
 	
 		void Start ()
 		{
 				startPos = transform.position;
 				startScale = transform.localScale;
 				startColor = renderer.material.color;
+				tower_startColor = GameObject.Find ("Buy_Tower1").renderer.material.color;
 		}
 	
 		void Update ()
@@ -68,14 +72,33 @@ public class AbilityBuff : MonoBehaviour
 						Destroy (placementVisualiser);
 				}
 		}
-	
+
 		void OnCollisionEnter (Collision col)
 		{
-		
-				if (col.gameObject.tag == "Tower") {
+				if (col.gameObject.tag == "Tower")
+						StartCoroutine ("buff", col);	
+		}
+	
+		IEnumerator buff (Collision col)
+		{
+				if (!buffed) {
 						Debug.Log ("Buffed a tower!");
-						col.gameObject.GetComponent<Tower> ();
+						
+						// Store initial interval
+						float startInterval = col.gameObject.GetComponent<Tower> ().interval;
+
+						// Buff tower
 						col.gameObject.GetComponent<Tower> ().interval = col.gameObject.GetComponent<Tower> ().interval / buffAmount;
+						col.gameObject.GetComponent<Tower> ().renderer.material.color = Color.magenta;
+						buffed = true;
+
+						// Wait for the buff time
+						yield return new WaitForSeconds (buffTime);
+
+						// Reset to starting interval and colour
+						col.gameObject.GetComponent<Tower> ().interval = startInterval;
+						col.gameObject.GetComponent<Tower> ().renderer.material.color = tower_startColor;
+						buffed = false;
 				}
 		}
 }

@@ -6,7 +6,9 @@ public class AbilityFreeze : MonoBehaviour
 		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
-		public float cooldown = 3.0F;
+		public float slowTime = 3.0F;
+		public float slowAmount = 0.2F; // 20% movement speed
+		public float cooldown = 5.0F;
 		GameObject placementVisualiser;
 		Transform target;
 		Vector3 startPos;
@@ -70,11 +72,17 @@ public class AbilityFreeze : MonoBehaviour
 	
 		void OnCollisionEnter (Collision col)
 		{
+				if (col.gameObject.tag == "Enemy") 
+						StartCoroutine ("freeze", col);	
+		}
 		
-				if (col.gameObject.tag == "Enemy") {
-						Debug.Log ("Froze an enemy!");
-						NavMeshAgent nma = col.gameObject.GetComponent<NavMeshAgent> ();
-						nma.speed = 0;
-				}
+		IEnumerator freeze (Collision col)
+		{
+				Debug.Log ("Froze an enemy!");
+				NavMeshAgent nma = col.gameObject.GetComponent<NavMeshAgent> ();
+				float startSpeed = nma.speed;
+				nma.speed = startSpeed*slowAmount;
+				yield return new WaitForSeconds (slowTime);
+				nma.speed = startSpeed; 
 		}
 }

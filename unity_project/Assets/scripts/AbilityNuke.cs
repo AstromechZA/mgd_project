@@ -27,7 +27,6 @@ public class AbilityNuke : MonoBehaviour
 						castable = true;
 						renderer.material.color = startColor;
 				}
-
 		}
 
 		void OnMouseDown ()
