@@ -34,8 +34,20 @@ public class GameController : MonoBehaviour {
 	private void pauseGame(){
 		Time.timeScale = 0;
 	}
+	
+	void Update(){
+		if (Input.GetKeyDown(KeyCode.Escape)) { 
+			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
+			AchievementController.achievementController.timePlayed = AchievementController.achievementController.totalTimePlayed;
+			// Pause the game
+			pauseGame();
+			// Go to Main Menu
+			Application.LoadLevel ("menu");
+		}
+	}
 
 	void OnGUI(){
+		#if UNITY_EDITOR
 		if (GUI.Button (new Rect(5, 5, 80, 30), "Back")) {
 			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
 			AchievementController.achievementController.timePlayed = AchievementController.achievementController.totalTimePlayed;
@@ -44,5 +56,6 @@ public class GameController : MonoBehaviour {
 			// Go to Main Menu
 			Application.LoadLevel ("menu");
 		}
+		#endif
 	}
 }
