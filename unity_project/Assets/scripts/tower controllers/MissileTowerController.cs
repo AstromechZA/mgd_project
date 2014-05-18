@@ -5,6 +5,7 @@ public class MissileTowerController : BaseTowerController {
 	#region PUBLICVARS ====================================================================== //
 
 	public Component projectile;
+	public AudioClip sound_launch;
 	
 	#endregion
 	#region PRIVATEVARS ===================================================================== //
@@ -48,6 +49,7 @@ public class MissileTowerController : BaseTowerController {
 		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
 			if(doorControl.open()) {
 				// fire
+				AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
 
 				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(target.Value);
 

@@ -25,6 +25,8 @@ public class GunTowerController : BaseTowerController {
 
 	private LineRenderer laser;
 
+	public AudioClip sound_fire;
+
 	public override void Start () {
 		mapBones ();
 
@@ -59,6 +61,8 @@ public class GunTowerController : BaseTowerController {
 			// if it can fire,
 			if(canFireUpon && barrelAnimator.isReady()) {
 				// FIRE, return which barrel fired
+				AudioSource.PlayClipAtPoint (sound_fire, Camera.main.transform.position);
+
 				int i = barrelAnimator.fire();
 				laser.SetPosition(0, 
                   ((i == 0) ? barrelLBone.position : barrelRBone.position) + new Vector3(0,5,0)

@@ -9,6 +9,9 @@ public class AstarAI : MonoBehaviour {
 	private Seeker seeker;
 	private Path path;
 
+	// Sounds
+	public AudioClip citadel_hit;
+
 	public float targetReachedDistance = 1f;
 	
 	//The AI's speed per second
@@ -86,7 +89,7 @@ public class AstarAI : MonoBehaviour {
 
 	private void OnTargetReached(){
 		// Add logic here when creep reaches citadel.
-
+		AudioSource.PlayClipAtPoint (citadel_hit, Camera.main.transform.position);
 		Debug.Log ("Creep reached citadel.");
 	}
 

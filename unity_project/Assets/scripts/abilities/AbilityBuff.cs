@@ -3,7 +3,8 @@ using System.Collections;
 
 public class AbilityBuff : MonoBehaviour
 {
-	public AudioClip sound_cast;
+		public AudioClip sound_cast;
+		public AudioClip sound_invalid;
 		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
@@ -16,7 +17,6 @@ public class AbilityBuff : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
-		
 	
 		void Start ()
 		{
@@ -37,6 +37,8 @@ public class AbilityBuff : MonoBehaviour
 		{
 				if (castable) {
 						screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+				} else {
+						AudioSource.PlayClipAtPoint (sound_invalid, Camera.main.transform.position);
 				}
 		}
 	
@@ -54,8 +56,8 @@ public class AbilityBuff : MonoBehaviour
 		{
 				if (castable) {
 						
-					AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
-			
+						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
+				
 						castable = false;
 						nextCast = Time.time + cooldown;
 

@@ -7,13 +7,20 @@ public class CreepSpawner : MonoBehaviour {
 	public float spawnInterval = 1f;
 	public GameObject creepObject;
 	public GameObject citadelObject = null;
+	public AudioClip wave_start;
 
 	private float timeToSpawn = 0f;
+
+	void Start()
+	{
+		//AudioSource.PlayClipAtPoint (wave_start, Camera.main.transform.position);
+	}
 
 	void Update () {
 		timeToSpawn -= Time.deltaTime;
 
 		if (timeToSpawn <= 0f) {
+
 			// Do spawn.
 			if(creepObject != null && citadelObject != null){
 				SpawnCreep();

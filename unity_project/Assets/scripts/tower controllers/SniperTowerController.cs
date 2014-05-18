@@ -6,6 +6,7 @@ public class SniperTowerController : BaseTowerController {
 	public float turnRate = 50;
 	public float laserWidthMin = 3f;
 	public float laserWidthMax = 6f;
+	public AudioClip sound_laser;
 
 	public Material laserMaterial;
 
@@ -27,6 +28,7 @@ public class SniperTowerController : BaseTowerController {
 
 	// laser
 	private LineRenderer laser;
+
 
 	#endregion
 	#region STANDARD ======================================================================== //
@@ -61,6 +63,7 @@ public class SniperTowerController : BaseTowerController {
 			bool canFireUpon = pointGunsToward(target.Value);
 			// if it can fire,
 			if(canFireUpon && barrelAnimator.isReady()) {
+				AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
 				barrelAnimator.fire();
 				laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
 				laser.enabled = true;

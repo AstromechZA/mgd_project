@@ -3,8 +3,9 @@ using System.Collections;
 
 public class AbilityFreeze : MonoBehaviour
 {
-	public AudioClip sound_cast;
-	private Vector3 screenPoint;
+		public AudioClip sound_cast;
+		public AudioClip sound_invalid;
+		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
 		public float slowTime = 3.0F;
@@ -14,7 +15,6 @@ public class AbilityFreeze : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
-		
 	
 		void Start ()
 		{
@@ -35,6 +35,9 @@ public class AbilityFreeze : MonoBehaviour
 		{
 				if (castable) 
 						screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+				else {
+						AudioSource.PlayClipAtPoint (sound_invalid, Camera.main.transform.position);
+				}
 		}
 	
 		void OnMouseDrag ()
@@ -47,10 +50,10 @@ public class AbilityFreeze : MonoBehaviour
 				}
 		}
 	
-	void OnMouseUp ()
+		void OnMouseUp ()
 		{
 				if (castable) {
-			AudioSource.PlayClipAtPoint(sound_cast, Camera.main.transform.position);  // plays dilator_cast
+						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);  // plays dilator_cast
 
 			
 						castable = false;

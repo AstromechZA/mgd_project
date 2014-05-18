@@ -3,10 +3,6 @@ using System.Collections;
 
 public class MenuTextBehaviour : MonoBehaviour {
 
-	public AudioClip menu_select;
-	public AudioClip menu_back;
-
-
 
 	void OnMouseDown () {
 
@@ -16,9 +12,8 @@ public class MenuTextBehaviour : MonoBehaviour {
 
 	void OnMouseUp () {
 		
-
 		renderer.material.color = Color.red;
-
+		
 		// Play the game (go to scene_level)
 		if (GameObject.Find ("Menu Block/Play_Game_text") == this.gameObject) {
 			// Game is paused
@@ -38,19 +33,21 @@ public class MenuTextBehaviour : MonoBehaviour {
 		else if (GameObject.Find ("Menu Block/Achievement_text") == this.gameObject) {
 			Application.LoadLevel ("achievements");
 		}
-
-
+		
+		
 		// Resume the Game
 		else if(GameObject.Find ("Resume_Game_text(Clone)") == this.gameObject){
+			
 			Application.LoadLevel ("gridtest");	
 		}
 		// Exit game
 		else{
 			Application.Quit();
 		}
+	
 	}
 
-	
+
 	private void destroyAllObjectsWithTag(string tag){
 		// Get an array of all the instantiated objects
 		GameObject[] instantiatedObjects = GameObject.FindGameObjectsWithTag(tag);

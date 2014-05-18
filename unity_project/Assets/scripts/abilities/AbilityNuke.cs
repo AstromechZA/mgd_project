@@ -3,8 +3,9 @@ using System.Collections;
 
 public class AbilityNuke : MonoBehaviour
 {
-	public AudioClip sound_cast;
-	public AudioClip sound_start;
+		public AudioClip sound_cast;
+		public AudioClip sound_start;
+		public AudioClip sound_invalid;
 		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
@@ -13,7 +14,6 @@ public class AbilityNuke : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
-		
 
 		void Start ()
 		{
@@ -34,6 +34,8 @@ public class AbilityNuke : MonoBehaviour
 		{
 				if (castable) {
 						screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+				} else {
+						AudioSource.PlayClipAtPoint (sound_invalid, Camera.main.transform.position);
 				}
 		}
 	
@@ -47,12 +49,12 @@ public class AbilityNuke : MonoBehaviour
 				}
 		}
 	
-	IEnumerator OnMouseUp ()
+		IEnumerator OnMouseUp ()
 		{
 				if (castable) {
 						
 						AudioSource.PlayClipAtPoint (sound_start, Camera.main.transform.position);
-						yield return new WaitForSeconds(sound_start.length);
+						yield return new WaitForSeconds (sound_start.length);
 			
 						castable = false;
 						nextCast = Time.time + cooldown;
