@@ -1,13 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuTextBehaviour : MonoBehaviour {	
+public class MenuTextBehaviour : MonoBehaviour {
+
+	public AudioClip menu_select;
+	public AudioClip menu_back;
+
+
 
 	void OnMouseDown () {
+
 		renderer.material.color = Color.green;
+
 	}
 
 	void OnMouseUp () {
+		
+
 		renderer.material.color = Color.red;
 
 		// Play the game (go to scene_level)

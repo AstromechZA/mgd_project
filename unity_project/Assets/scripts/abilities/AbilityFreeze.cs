@@ -3,7 +3,8 @@ using System.Collections;
 
 public class AbilityFreeze : MonoBehaviour
 {
-		private Vector3 screenPoint;
+	public AudioClip sound_cast;
+	private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
 		public float slowTime = 3.0F;
@@ -13,6 +14,7 @@ public class AbilityFreeze : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+		
 	
 		void Start ()
 		{
@@ -45,11 +47,11 @@ public class AbilityFreeze : MonoBehaviour
 				}
 		}
 	
-		IEnumerator OnMouseUp ()
+	void OnMouseUp ()
 		{
 				if (castable) {
-	
-						yield return new WaitForSeconds (0.1f);
+			AudioSource.PlayClipAtPoint(sound_cast, Camera.main.transform.position);  // plays dilator_cast
+
 			
 						castable = false;
 						nextCast = Time.time + cooldown;

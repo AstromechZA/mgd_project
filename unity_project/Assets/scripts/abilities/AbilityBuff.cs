@@ -3,6 +3,7 @@ using System.Collections;
 
 public class AbilityBuff : MonoBehaviour
 {
+	public AudioClip sound_cast;
 		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
@@ -15,6 +16,7 @@ public class AbilityBuff : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+		
 	
 		void Start ()
 		{
@@ -48,11 +50,11 @@ public class AbilityBuff : MonoBehaviour
 				}
 		}
 	
-		IEnumerator OnMouseUp ()
+		void OnMouseUp ()
 		{
 				if (castable) {
-	
-						yield return new WaitForSeconds (0.1f);
+						
+					AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
 			
 						castable = false;
 						nextCast = Time.time + cooldown;

@@ -6,6 +6,8 @@ public class BuildTower : MonoBehaviour {
 	private TowerProperties towerProperties;
 
 	private Vector3 screenPoint;
+	public AudioClip build_sound;
+	public AudioClip build_error;
 
 	// Material of the placement_lines
 	public Material placement_lines; 
@@ -51,11 +53,14 @@ public class BuildTower : MonoBehaviour {
 
 	void OnMouseUp(){
 		if (MapManager.Instance.PlacementQuery (transform.position) != Vector4.zero) {
+			AudioSource.PlayClipAtPoint(build_error, Camera.main.transform.position);
 			Destroy(gameObject);
 			// Destroy the Placement Visualiser
 			Destroy(placementVisualiser);
 		} else {
 			// Register tower on occupancy grid to stop overlaps.
+
+			AudioSource.PlayClipAtPoint(build_sound, Camera.main.transform.position);
 			MapManager.Instance.SetOccupancyForPosition(transform.position, true);
 
 			// New path finding.

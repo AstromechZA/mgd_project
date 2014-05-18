@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AbilityNuke : MonoBehaviour
 {
+	public AudioClip sound_cast;
+	public AudioClip sound_start;
 		private Vector3 screenPoint;
 		public bool castable = true;
 		public float nextCast = 0;
@@ -11,6 +13,7 @@ public class AbilityNuke : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+		
 
 		void Start ()
 		{
@@ -44,11 +47,13 @@ public class AbilityNuke : MonoBehaviour
 				}
 		}
 	
-		IEnumerator OnMouseUp ()
+	IEnumerator OnMouseUp ()
 		{
 				if (castable) {
-						yield return new WaitForSeconds (0.1f);
-
+						
+						AudioSource.PlayClipAtPoint (sound_start, Camera.main.transform.position);
+						yield return new WaitForSeconds(sound_start.length);
+			
 						castable = false;
 						nextCast = Time.time + cooldown;
 
@@ -60,6 +65,8 @@ public class AbilityNuke : MonoBehaviour
 						Vector3 currentScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 
 						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Instantiable Object");
+
+						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
 						for (int i =0; i < enemies.Length; i++) {
 								if (enemies [i].GetComponent<AstarAI> ()) { // Checks if it's a creep
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
