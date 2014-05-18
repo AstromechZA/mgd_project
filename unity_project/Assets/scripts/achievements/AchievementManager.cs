@@ -46,7 +46,6 @@ public class AchievementManager : MonoBehaviour
 	
 	// Ranks
 	private string[] rankImages = new string[7]{"bronze_rank","silver_rank", "gold_rank", "platinum_rank", "diamond_rank", "master_rank","grandmaster_rank"};
-	
 	// Position of Achievement scroll and touch
 	private Vector2 scrollPosition;
 	private Vector2 achievementScrollviewLocation = Vector2.zero;
@@ -63,7 +62,6 @@ public class AchievementManager : MonoBehaviour
 		
 		// GUI component positions
 		achievementGUIWidth = (float)Screen.width;
-		backButton = new Rect(20, 7, 80, 30);
 		resetButton = new Rect(achievementGUIWidth-100, 7, 80, 30);
 		resetBoxPosition = new Rect(achievementGUIWidth-200, 50.0f, 200.0f, 100.0f);
 		resetBoxLabelPosition = new Rect(achievementGUIWidth-190, 60.0f, 200.0f, 30.0f);
@@ -71,13 +69,13 @@ public class AchievementManager : MonoBehaviour
 		resetBoxYesButtonPosition = new Rect(achievementGUIWidth-180, 110.0f, 65.0f, 30.0f);
 		resetBoxNoButtonPosition = new Rect(achievementGUIWidth-85, 110.0f, 65.0f, 30.0f);
 		
-		headerBoxPosition = new Rect(-3.0f, 0.0f, achievementGUIWidth+5, 45.0f);
-		logoPosition = new Rect(25.0f, 30.0f, 180.0f, 180.0f);
-		amazingTdText = new Rect(230.0f, 77.0f, 200.0f, 25.0f);
-		achievementsHeading = new Rect(230.0f, 110.0f, 200.0f, 25.0f);
-		trophyPosition = new Rect(230.0f, 150.0f, 17.0f, 17.0f);
-		rewardPointTextPosition = new Rect(255.0f, 150.0f, 200.0f, 25.0f);
-		scrollViewPosition = new Rect(0.0f, 195.0f, achievementGUIWidth, (float)Screen.height - 195.0f);
+		//headerBoxPosition = new Rect(-3.0f, 0.0f, achievementGUIWidth+5, 45.0f);
+		logoPosition = new Rect(25.0f, 0.0f, 180.0f, 180.0f);
+		amazingTdText = new Rect(230.0f, 47.0f, 200.0f, 25.0f);
+		achievementsHeading = new Rect(230.0f, 80.0f, 200.0f, 25.0f);
+		trophyPosition = new Rect(230.0f, 120.0f, 17.0f, 17.0f);
+		rewardPointTextPosition = new Rect(255.0f, 120.0f, 200.0f, 25.0f);
+		scrollViewPosition = new Rect(0.0f, 160.0f, achievementGUIWidth, (float)Screen.height - 160.0f);
 		
 		// Font set up
 		GUIStyleAchievement.normal.textColor = Color.white;
@@ -90,7 +88,7 @@ public class AchievementManager : MonoBehaviour
 		guiStyleAchievmentOriginal = GUIStyleAchievement.normal.textColor; 
 		
 		// View rectangle
-		scrollViewRectangle = new Rect(0.0f, 145.0f, achievementGUIWidth, (AchievementController.achievementController.achievementsArray.Count () * 90.0f));
+		scrollViewRectangle = new Rect(0.0f, 0.0f, achievementGUIWidth, (AchievementController.achievementController.achievementsArray.Count () * 90.0f));
 		GUIStyleManagerBackground.normal.background = (Texture2D)Resources.Load ("Achievements/bases/notifier_background_2");
 			
 
@@ -135,12 +133,6 @@ public class AchievementManager : MonoBehaviour
 		// Create a box of the screen (Change its colour to the background colour required)
 		// Note -> Cant rely on camera colour as game objects appear through it
 		GUI.Box(new Rect(0,0,Screen.width, Screen.height),"",GUIStyleManagerBackground);
-
-		// Back Button
-		GUI.Box(headerBoxPosition, "");
-		if (GUI.Button (backButton, "Back")) {
-			Application.LoadLevel ("menu");
-		}
 		
 		// Reset Button
 		if (GUI.Button (resetButton, "Reset")) {
@@ -171,7 +163,7 @@ public class AchievementManager : MonoBehaviour
 		}
 		
 		// Initial start from top
-		float yValue = 145.0f; 
+		float yValue = 0.0f; 
 		
 		// Create Achievement Header
 		GUI.DrawTexture(logoPosition, iconRank);
@@ -195,7 +187,7 @@ public class AchievementManager : MonoBehaviour
 		GUI.EndScrollView();
 	}
 	
-	// Handle touch input on the scroll view
+	// Handle touch input on the scroll view & Listen for Back Button Presses
 	void Update()
 	{
 		int scrollVelocity = 3;
@@ -206,6 +198,10 @@ public class AchievementManager : MonoBehaviour
 			{
 				achievementScrollviewLocation.y += scrollVelocity*touch.deltaPosition.y;
 			}
+		}
+		// Go back to menu if user presses back button
+		if (Input.GetKeyDown (KeyCode.Escape)) { 
+			Application.LoadLevel ("menu");
 		}
 	}
 }
