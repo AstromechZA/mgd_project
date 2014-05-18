@@ -8,10 +8,10 @@ public class AstarAI : MonoBehaviour {
 	private GameObject targetObject;	
 	private Seeker seeker;
 	private Path path;
-
+	
 	// Sounds
 	public AudioClip citadel_hit;
-
+	
 	public float targetReachedDistance = 1f;
 	
 	//The AI's speed per second
@@ -23,23 +23,23 @@ public class AstarAI : MonoBehaviour {
 	
 	//The waypoint we are currently moving towards
 	private int currentWaypoint = 0;
-
+	
 	public void Awake(){
 		seeker = GetComponent<Seeker>();
-
+		
 		// Register callback to update creeps path when a tower placement affects the graph.
 		AstarPath.OnGraphsUpdated += RecalculatePath;
 	}
-
+	
 	// This is where you set the creep's target (i.e. the citadel) and start moving.
 	public void DestroyTarget(GameObject theTargetObject){
 		targetObject = theTargetObject;
 		targetPosition = targetObject.transform.position;
 		nextWaypointDistanceSqrd = nextWaypointDistance * nextWaypointDistance;
-
+		
 		RecalculatePath (null);
 	}
-
+	
 	public void RecalculatePath(AstarPath script){
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
 		seeker.StartPath (transform.position, targetPosition, OnPathComplete);
@@ -50,7 +50,7 @@ public class AstarAI : MonoBehaviour {
 		if (!p.error) {
 			path = p;
 			path.Claim(this);
-
+			
 			//Reset the waypoint counter
 			currentWaypoint = 0;
 		}
@@ -61,7 +61,7 @@ public class AstarAI : MonoBehaviour {
 			//We have no path to move after yet
 			return;
 		}
-
+		
 		// We've come to the end of our path. Add explode logic here.
 		if (currentWaypoint >= path.vectorPath.Count) {
 			if ((transform.position - targetPosition).sqrMagnitude <= targetReachedDistance * targetReachedDistance){
@@ -69,7 +69,7 @@ public class AstarAI : MonoBehaviour {
 			}else{
 				OnTargetNotReached();
 			}
-
+			
 			Destroy(gameObject);
 			return;
 		}
@@ -86,19 +86,21 @@ public class AstarAI : MonoBehaviour {
 			return;
 		}
 	}
-
+	
 	private void OnTargetReached(){
 		// Add logic here when creep reaches citadel.
 		AudioSource.PlayClipAtPoint (citadel_hit, Camera.main.transform.position);
+		// Decrement Citadel Lives
+		GameController.gameController.citadelLives--;
 		Debug.Log ("Creep reached citadel.");
 	}
-
+	
 	private void OnTargetNotReached(){
 		// Add logic here when creeps reach end of path but not citadel.
-
+		
 		Debug.Log ("Creep could not reach citadel.");
 	}
-
+	
 	public void OnDestroy () {
 		seeker.pathCallback -= OnPathComplete;
 		AstarPath.OnGraphsUpdated -= RecalculatePath;

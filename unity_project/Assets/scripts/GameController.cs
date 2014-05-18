@@ -3,47 +3,43 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 	
-	public GameObject sonarTower;
-	public GameObject missileTower;
-	public GameObject gunTower;
-	public GameObject beamTower;
-	public GameObject AIController;
-	public GameObject Globals;
-
-	void Start()
+	public int citadelCredits;
+	public int citadelLives;
+	public int numberOfWaves;
+	public int currentWave;
+	
+	public GUIStyle guiStyle;
+	
+	// Create Singleton
+	private static GameController gameController1;
+	public static GameController gameController
 	{
-		// If the game has not yet been paused (Create the HUD towers)
-		// First time Game Scene run or 'Start new Game'
-		if (Time.timeScale == 1) {
-			Instantiate (sonarTower);
-			Instantiate (missileTower);
-			Instantiate (gunTower);
-			Instantiate (beamTower);
-			Instantiate (AIController);
-			Instantiate (Globals);
-		}
-
-		// Resume Game if it was paused
-		resumeGame();
-	}
-
-	private void resumeGame(){
-		Time.timeScale = 1;
-	}
-
-	private void pauseGame(){
-		Time.timeScale = 0;
+		get{return gameController1;}
 	}
 	
-	void Update(){
-		if (Input.GetKeyDown(KeyCode.Escape)) { 
-			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
-			AchievementController.achievementController.timePlayed = AchievementController.achievementController.totalTimePlayed;
-			// Pause the game
-			GameObject.Find ("menu_back").audio.Play ();
-			pauseGame();
-			// Go to Main Menu
-			Application.LoadLevel ("menu");
+	// Keep this gameobject active from scene to scene 
+	void Awake(){
+		if (gameController1 == null)
+		{
+			gameController1 = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else if (gameController1 != this)
+		{
+			// Singleton already exists (destroy new one)
+			Destroy(this);
 		}
 	}
+	
+	void Start(){
+		setGameParameters();
+	}
+	
+	public void setGameParameters(){
+		citadelCredits = 50;
+		citadelLives = 20;
+		numberOfWaves = 10;
+		currentWave = 1;
+	}
+	
 }
