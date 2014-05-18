@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour {
 	public GameObject beamTower;
 	public GameObject AIController;
 	public GameObject Globals;
+
+	public Texture2D creditIcon;
+	public Texture2D healthIcon;
+	public Texture2D waveIcon;
 	
 	public GUIStyle guiStyle;
 		
@@ -59,8 +63,11 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		GUI.Label(new Rect(Screen.width-200,20,100,20), "Credits: "+GameController.gameController.citadelCredits.ToString(), guiStyle);
-		GUI.Label(new Rect(Screen.width-100,20,100,20), "Lives: "+GameController.gameController.citadelLives.ToString(), guiStyle);
-		GUI.Label(new Rect(20,20,100,20), "Wave: "+GameController.gameController.currentWave.ToString()+"/"+GameController.gameController.numberOfWaves.ToString(), guiStyle);	
+		GUI.DrawTexture(new Rect(Screen.width-170,10,20,20), creditIcon);
+		GUI.Label(new Rect(Screen.width-145,13,100,20), GameController.gameController.citadelCredits.ToString(), guiStyle);
+		GUI.DrawTexture(new Rect(Screen.width-110,10,20,20), healthIcon);
+		GUI.Label(new Rect(Screen.width-85,13,100,20), GameController.gameController.citadelLives.ToString(), guiStyle);
+		GUI.DrawTexture(new Rect(15,10,20,20), waveIcon);
+		GUI.Label(new Rect(40,13,100,20), GameController.gameController.currentWave.ToString()+"/"+GameController.gameController.numberOfWaves.ToString(), guiStyle);	
 	}
 }
