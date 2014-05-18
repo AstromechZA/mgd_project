@@ -18,8 +18,6 @@ public  class AchievementController : MonoBehaviour {
 	public int totalAchieved = 0;
 	public int currentRank = 0;
 	public float totalTimePlayed = 0;
-	public AudioClip play_select;
-	public AudioClip play_back;
 
 	
 	private string path;

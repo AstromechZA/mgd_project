@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour {
 			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
 			AchievementController.achievementController.timePlayed = AchievementController.achievementController.totalTimePlayed;
 			// Pause the game
+			GameObject.Find ("menu_back").audio.Play ();
 			pauseGame();
 			// Go to Main Menu
 			Application.LoadLevel ("menu");

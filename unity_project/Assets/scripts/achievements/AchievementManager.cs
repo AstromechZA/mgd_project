@@ -201,6 +201,7 @@ public class AchievementManager : MonoBehaviour
 		}
 		// Go back to menu if user presses back button
 		if (Input.GetKeyDown (KeyCode.Escape)) { 
+			GameObject.Find ("menu_back").audio.Play ();
 			Application.LoadLevel ("menu");
 		}
 	}
