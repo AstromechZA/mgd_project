@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public GameObject gunTower;
 	public GameObject beamTower;
 	public GameObject AIController;
+	public GameObject Globals;
 
 	void Start()
 	{
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour {
 			Instantiate (gunTower);
 			Instantiate (beamTower);
 			Instantiate (AIController);
+			Instantiate (Globals);
 		}
 
 		// Resume Game if it was paused
