@@ -4,6 +4,7 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
 	#region Variables
+
 	// GUI styles
 	public GUIStyle GUIStyleAchievement;
 	public GUIStyle GUIStyleAmazing;
@@ -152,6 +153,7 @@ public class AchievementManager : MonoBehaviour
 			
 			if (GUI.Button(resetBoxYesButtonPosition, "Yes")) {
 				//Reset
+				GameObject.Find ("sound_reset").audio.Play ();
 				AchievementController.achievementController.resetAchievements();
 				currentAchievementPoints = 0;
 				reset = false;

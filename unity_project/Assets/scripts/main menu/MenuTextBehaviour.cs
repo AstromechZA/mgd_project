@@ -4,8 +4,6 @@ using System.Collections;
 public class MenuTextBehaviour : MonoBehaviour {
 
 
-
-
 	void OnMouseDown () {
 
 		renderer.material.color = Color.green;
@@ -15,6 +13,7 @@ public class MenuTextBehaviour : MonoBehaviour {
 	void OnMouseUp () {
 		
 		renderer.material.color = Color.red;
+
 		GameObject.Find ("menu_select").audio.Play ();
 		
 		// Play the game (go to scene_level)
