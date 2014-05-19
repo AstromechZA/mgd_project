@@ -12,8 +12,6 @@ public class AstarAI : MonoBehaviour {
 	// Sounds
 	public AudioClip citadel_hit;
 	
-	public float targetReachedDistance = 1f;
-	
 	//The AI's speed per second
 	public float speed = 1;
 	
@@ -59,37 +57,38 @@ public class AstarAI : MonoBehaviour {
 	public void Update () {
 		//We have no path to move after yet
 		if (path == null) return;
+	
 
-		// We've come to the end of our path. Add explode logic here.
-		if (currentWaypoint >= path.vectorPath.Count) {
-			if ((transform.position - targetPosition).sqrMagnitude <= targetReachedDistance * targetReachedDistance){
+		if (currentWaypoint < path.vectorPath.Count) {
+			Vector3 diff = path.vectorPath[currentWaypoint] - transform.position;
+			Vector3 direction = diff.normalized;
+			float distance = diff.sqrMagnitude;
+			float stepDistance = speed * Time.deltaTime;
+	
+			// step toward waypoint
+			transform.position += direction * stepDistance;
+
+			// rotate to face direction
+			float angle = Vector3.Angle(direction, Vector3.right);
+			if (direction.z > 0) angle = -angle;
+			transform.rotation = Quaternion.Euler(0, angle + 90, 0);
+
+			// if we moved further than needed or are close enough to the last waypoint, then target next waypoint.
+			if (stepDistance > distance || 
+			    (transform.position - path.vectorPath[currentWaypoint]).sqrMagnitude < nextWaypointDistanceSqrd ) {
+				currentWaypoint++;
+			}
+
+		} else { // we are at the end of the list of waypoints
+
+			// are we at the target?
+			if ((transform.position - targetPosition).sqrMagnitude <= 1) {
 				OnTargetReached();
 			}else{
 				OnTargetNotReached();
 			}
 			
 			Destroy(gameObject);
-			return;
-		}
-		
-		//Direction to the next waypoint
-		Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
-		dir *= speed * Time.deltaTime;
-		transform.position += dir;
-
-		float a = Vector3.Angle(dir, Vector3.right);
-		if (dir.z > 0) {a = -a;}
-
-		transform.rotation = Quaternion.Euler(0, a+90, 0);
-
-
-
-		
-		//Check if we are close enough to the next waypoint
-		//If we are, proceed to follow the next waypoint
-		if ((transform.position - path.vectorPath[currentWaypoint]).sqrMagnitude < nextWaypointDistanceSqrd) {
-			currentWaypoint++;
-			return;
 		}
 	}
 	
