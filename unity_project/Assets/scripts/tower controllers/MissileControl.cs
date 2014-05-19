@@ -31,7 +31,7 @@ public class MissileControl : MonoBehaviour {
 			newpos.y = 10;
 			transform.position  = newpos;
 
-			float val = (-Mathf.Abs(sflightProgress-0.5f))*6 + 12;
+			float val = 4 * (-Mathf.Abs(sflightProgress - 0.5f)) + 12;
 
 			transform.localScale = val * Vector3.one;
 
