@@ -63,12 +63,17 @@ public class SniperTowerController : BaseTowerController {
 			// rotate towards tower, return whether within firing angle
 			bool canFireUpon = pointGunsToward(closest.transform.position);
 			// if it can fire,
-			if(canFireUpon && barrelAnimator.isReady()) {
-				AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
-				barrelAnimator.fire();
-				laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
-				laser.enabled = true;
-				laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+			if (canFireUpon) {
+				if(barrelAnimator.isReady()) {
+					AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
+					barrelAnimator.fire();
+					laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
+					laser.enabled = true;
+					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+				}
+				else if(barrelAnimator.age() < 0.3f) {
+					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+				}
 			}
 		}
 
