@@ -75,9 +75,11 @@ public class BuildTower : MonoBehaviour {
 				// New path finding.
 				PathObstacle po = GetComponent<PathObstacle> ();
 				po.UpdateGraphForObject ();
-				
+
+				// Enable the shooting controller for the tower and persist this object.
 				GetComponent<BaseTowerController> ().enabled = true;
-				
+				gameObject.AddComponent<Persist>();
+
 				// Remove this build script from the new tower.
 				Destroy (this);
 				
