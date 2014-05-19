@@ -27,13 +27,12 @@ public class GameManager : MonoBehaviour {
 	{
 		// Only create these objects on the first run. Not when it was paused.
 		if (!GameController.Instance.gameWasPaused) {
+
 			Instantiate(AIController);
 
 			// Create Globals
 			Instantiate (Globals);
 
-			// Reset Game Parameters
-			GameController.Instance.ResetGameParameters();
 		}
 
 		// Get the towers positions

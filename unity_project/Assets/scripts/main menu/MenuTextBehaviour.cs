@@ -18,6 +18,10 @@ public class MenuTextBehaviour : MonoBehaviour {
 		
 		// Play the game (go to scene_level)
 		if (GameObject.Find ("Menu Block/Play_Game_text") == this.gameObject) {
+			
+			// Reset Game Parameters
+			GameController.Instance.ResetGameParameters();
+
 			// Game is paused
 			if (Time.timeScale == 0){
 				destroyAllObjectsWithTag("Instantiable Object");
