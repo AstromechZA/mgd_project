@@ -57,11 +57,9 @@ public class AstarAI : MonoBehaviour {
 	}
 	
 	public void Update () {
-		if (path == null) {
-			//We have no path to move after yet
-			return;
-		}
-		
+		//We have no path to move after yet
+		if (path == null) return;
+
 		// We've come to the end of our path. Add explode logic here.
 		if (currentWaypoint >= path.vectorPath.Count) {
 			if ((transform.position - targetPosition).sqrMagnitude <= targetReachedDistance * targetReachedDistance){
@@ -78,6 +76,14 @@ public class AstarAI : MonoBehaviour {
 		Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
 		dir *= speed * Time.deltaTime;
 		transform.position += dir;
+
+		float a = Vector3.Angle(dir, Vector3.right);
+		if (dir.z > 0) {a = -a;}
+
+		transform.rotation = Quaternion.Euler(0, a+90, 0);
+
+
+
 		
 		//Check if we are close enough to the next waypoint
 		//If we are, proceed to follow the next waypoint

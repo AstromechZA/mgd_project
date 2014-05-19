@@ -57,6 +57,6 @@ public class CreepOneAnimator : MonoBehaviour {
 	}
 
 	private void setLegAngle(Transform t, float angle) {
-		t.rotation = baseQ * Quaternion.Euler(0, 0, angle);
+		t.localRotation = baseQ * Quaternion.Euler(0, 0, angle);
 	}
 }
