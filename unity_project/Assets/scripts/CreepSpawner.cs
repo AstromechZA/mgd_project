@@ -33,6 +33,6 @@ public class CreepSpawner : MonoBehaviour {
 	private void SpawnCreep(){
 		GameObject creep = Instantiate(creepObject, transform.position, Quaternion.identity) as GameObject;
 		AstarAI creepAI = creep.GetComponent<AstarAI>();
-		creepAI.DestroyTarget(citadelObject);
+		creepAI.navigateToTarget(citadelObject);
 	}
 }

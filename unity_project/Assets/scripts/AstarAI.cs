@@ -30,7 +30,7 @@ public class AstarAI : MonoBehaviour {
 	}
 	
 	// This is where you set the creep's target (i.e. the citadel) and start moving.
-	public void DestroyTarget(GameObject theTargetObject){
+	public void navigateToTarget(GameObject theTargetObject){
 		targetObject = theTargetObject;
 		targetPosition = targetObject.transform.position;
 		nextWaypointDistanceSqrd = nextWaypointDistance * nextWaypointDistance;
