@@ -56,18 +56,24 @@ public class SniperTowerController : BaseTowerController {
 	public override void Update () {
 		if(barrelAnimator.age() > 0.3f) laser.enabled = false;
 
-		Vector3? target = targetMouse();
+		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		
 		// is the target within range
-		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
+		if(closest != null && withinRange(closest.transform.position)) {
 			// rotate towards tower, return whether within firing angle
-			bool canFireUpon = pointGunsToward(target.Value);
+			bool canFireUpon = pointGunsToward(closest.transform.position);
 			// if it can fire,
-			if(canFireUpon && barrelAnimator.isReady()) {
-				AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
-				barrelAnimator.fire();
-				laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
-				laser.enabled = true;
-				laser.SetPosition(1, target.Value + new Vector3(0,5,0));
+			if (canFireUpon) {
+				if(barrelAnimator.isReady()) {
+					AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
+					barrelAnimator.fire();
+					laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
+					laser.enabled = true;
+					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+				}
+				else if(barrelAnimator.age() < 0.3f) {
+					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+				}
 			}
 		}
 

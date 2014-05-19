@@ -418,7 +418,7 @@ MonoBehaviour:
   laserMaterial: {fileID: 2100000, guid: 71a9319b8badca5408c9391cf19b22a2, type: 2}
   laserWidthMin: 1
   laserWidthMax: 2
-  sound_fire: {fileID: 8300000, guid: 44541729aaddd764598d9ee415e4c77b, type: 3}
+  sound_fire: {fileID: 8300000, guid: 7f863b6f1dcf6074b86894cbeec31641, type: 3}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1

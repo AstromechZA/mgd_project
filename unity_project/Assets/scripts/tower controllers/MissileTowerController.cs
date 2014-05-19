@@ -44,14 +44,15 @@ public class MissileTowerController : BaseTowerController {
 	}
 
 	public override void Update () {
-		Vector3? target = targetMouse();
-
-		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
+		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		
+		// is the target within range
+		if(closest != null && withinRange(closest.transform.position)) {
 			if(doorControl.open()) {
 				// fire
 				AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
 
-				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(target.Value);
+				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(closest.transform.position);
 
 				currentMissile = null;
 				

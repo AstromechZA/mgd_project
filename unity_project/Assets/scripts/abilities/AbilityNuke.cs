@@ -74,7 +74,7 @@ public class AbilityNuke : MonoBehaviour
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
 												// Do damage to creep here
 												Debug.Log ("Nuked an enemy!");
-												enemies [i].renderer.material.color = Color.red; // placeholder for testing
+												//enemies [i].renderer.material.color = Color.red; // placeholder for testing
 										}
 								}
 				

@@ -322,6 +322,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400010}
   m_Layer: 0
   m_Name: CreepOne
   m_TagString: Untagged
@@ -666,7 +667,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citadel_hit: {fileID: 8300000, guid: 6929461ff8a1547438e8c7f6a08cc463, type: 3}
-  targetReachedDistance: 50
   speed: 30
   nextWaypointDistance: 5
 --- !u!114 &11400006
@@ -708,6 +708,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ce2c58f0846e847b9bd65233d3bfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96c23a092db0d341888df13d6e218c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 10
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
