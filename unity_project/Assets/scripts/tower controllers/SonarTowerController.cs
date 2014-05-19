@@ -22,9 +22,10 @@ public class SonarTowerController : BaseTowerController {
 
 	public override void Update () {
 		// aquire target (using mouse position for now)
-		Vector3? target = targetMouse();
+		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		
 		// is the target within range
-		if(Input.GetMouseButton(0) && target.HasValue && withinRange(target.Value)) {
+		if(closest != null && withinRange(closest.transform.position)) {
 			velocity += 1;
 			velocity = Mathf.Clamp(velocity * (1 + spinUpRate * Time.deltaTime), 0, spinrate);
 		} else {
