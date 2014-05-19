@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   fireRate: .5
-  range: 40
+  range: 100
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a7a8546d89e1c4baf2fa1d96978b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRate: 50
+  turnRate: 90
   laserMaterial: {fileID: 2100000, guid: 71a9319b8badca5408c9391cf19b22a2, type: 2}
   laserWidthMin: 1
   laserWidthMax: 2

@@ -102,7 +102,7 @@ public class GunTowerController : BaseTowerController {
 			if (diff < -180) diff += 360;
 
 			float mag = Mathf.Abs(diff);
-			if ( mag < 10f) {
+			if ( mag < 5f) {
 				_setTurretAngle(a);
 				return true;
 			}
