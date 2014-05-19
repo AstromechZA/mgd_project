@@ -29,7 +29,7 @@ public class BuildTower : MonoBehaviour {
 	
 	void OnMouseDown(){
 		// Only instantiate new tower if the player has enough credits
-		if ( GameController.gameController.citadelCredits - GetComponent<TowerProperties> ().cost >= 0){
+		if ( GameController.Instance.citadelCredits - GetComponent<TowerProperties> ().cost >= 0){
 			enoughCredits = true;
 			
 			Instantiate (gameObject);
@@ -85,9 +85,9 @@ public class BuildTower : MonoBehaviour {
 				Destroy (placementVisualiser);
 				
 				// Increment the number of towers built
-				AchievementController.achievementController.towersBuilt++;
+				AchievementController.Instance.towersBuilt++;
 				// Decrement the towers cost from total credits
-				GameController.gameController.citadelCredits -= GetComponent<TowerProperties>().cost;
+				GameController.Instance.citadelCredits -= GetComponent<TowerProperties>().cost;
 			}
 		}
 	}

@@ -41,10 +41,10 @@ public class AchievementNotifier : MonoBehaviour
 		achievmentToDisplay = a;
 
 		// Add achievement to totalAchieved
-		AchievementController.achievementController.totalAchieved++;
+		AchievementController.Instance.totalAchieved++;
 
 		// Set the achievement as achieved
-		AchievementController.achievementController.achievementsArray[a.id].achieved = true;
+		AchievementController.Instance.achievementsArray[a.id].achieved = true;
 
 		// Display the achievement for 3 seconds
 		timerActive = true;
@@ -54,28 +54,28 @@ public class AchievementNotifier : MonoBehaviour
 
 	#region Update Achievement Progress
 	private void updateAchievements(){
-		if (AchievementController.achievementController.achievementsArray != null) {
-			for (int i=0; i<AchievementController.achievementController.achievementsArray.Length; i++) {
+		if (AchievementController.Instance.achievementsArray != null) {
+			for (int i=0; i<AchievementController.Instance.achievementsArray.Length; i++) {
 				// Ensure a notification is not in place
 				if (!timerActive) {
-					if (AchievementController.achievementController.achievementsArray[i].type == "Tower Building") {
-						if (AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.towersBuilt)) {
-							achievementEarned(AchievementController.achievementController.achievementsArray[i]);
+					if (AchievementController.Instance.achievementsArray[i].type == "Tower Building") {
+						if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.towersBuilt)) {
+							achievementEarned(AchievementController.Instance.achievementsArray[i]);
 						}
-					} else if (AchievementController.achievementController.achievementsArray[i].type == "Endurance") {
-						if (AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.totalTimePlayed)) {
-							achievementEarned(AchievementController.achievementController.achievementsArray[i]);
+					} else if (AchievementController.Instance.achievementsArray[i].type == "Endurance") {
+						if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.totalTimePlayed)) {
+							achievementEarned(AchievementController.Instance.achievementsArray[i]);
 						}
-					} else if (AchievementController.achievementController.achievementsArray[i].type == "Enemies Killed") {
-						if (AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.enemiesDestroyed)) {
-							achievementEarned(AchievementController.achievementController.achievementsArray[i]);
+					} else if (AchievementController.Instance.achievementsArray[i].type == "Enemies Killed") {
+						if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.enemiesDestroyed)) {
+							achievementEarned(AchievementController.Instance.achievementsArray[i]);
 						}
 					}
-					else if(AchievementController.achievementController.achievementsArray[i].type == "Rank"){
-						if (AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.totalAchieved)) {
+					else if(AchievementController.Instance.achievementsArray[i].type == "Rank"){
+						if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.totalAchieved)) {
 							// change current rank
-							AchievementController.achievementController.currentRank++;
-							achievementEarned(AchievementController.achievementController.achievementsArray[i]);
+							AchievementController.Instance.currentRank++;
+							achievementEarned(AchievementController.Instance.achievementsArray[i]);
 						}
 					}
 				}
@@ -86,7 +86,7 @@ public class AchievementNotifier : MonoBehaviour
 
 	void Update(){
 		//Update the players time played
-		AchievementController.achievementController.totalTimePlayed = AchievementController.achievementController.timePlayed + (Time.timeSinceLevelLoad/60);
+		AchievementController.Instance.totalTimePlayed = AchievementController.Instance.timePlayed + (Time.timeSinceLevelLoad/60);
 
 		// Update achievements
 		updateAchievements ();
