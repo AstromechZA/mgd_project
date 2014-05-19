@@ -58,7 +58,7 @@ public class AchievementManager : MonoBehaviour
 		setupAchievements();
 		
 		// Load player rank and trophy icon
-		iconRank = (Texture2D)Resources.Load ("Achievements/ranks/"+rankImages[AchievementController.achievementController.currentRank]);
+		iconRank = (Texture2D)Resources.Load ("Achievements/ranks/"+rankImages[AchievementController.Instance.currentRank]);
 		iconTrophy = (Texture2D)Resources.Load ("Achievements/Trophy-icon");
 		
 		// GUI component positions
@@ -89,7 +89,7 @@ public class AchievementManager : MonoBehaviour
 		guiStyleAchievmentOriginal = GUIStyleAchievement.normal.textColor; 
 		
 		// View rectangle
-		scrollViewRectangle = new Rect(0.0f, 0.0f, achievementGUIWidth, (AchievementController.achievementController.achievementsArray.Count () * 90.0f));
+		scrollViewRectangle = new Rect(0.0f, 0.0f, achievementGUIWidth, (AchievementController.Instance.achievementsArray.Count () * 90.0f));
 		GUIStyleManagerBackground.normal.background = (Texture2D)Resources.Load ("Achievements/bases/notifier_background_2");
 			
 
@@ -101,7 +101,7 @@ public class AchievementManager : MonoBehaviour
 		currentAchievementPoints = 0;
 		potentialAchievementPoints = 0;
 		
-		foreach (Achievement achievement in AchievementController.achievementController.achievementsArray)
+		foreach (Achievement achievement in AchievementController.Instance.achievementsArray)
 		{
 			// Setup current and potential achievment points
 			if (achievement.achieved)
@@ -111,18 +111,18 @@ public class AchievementManager : MonoBehaviour
 			potentialAchievementPoints += achievement.rewardPoints;
 		}
 
-		if (AchievementController.achievementController.achievementsArray != null) {
-			for (int i=0; i<AchievementController.achievementController.achievementsArray.Length; i++) {
+		if (AchievementController.Instance.achievementsArray != null) {
+			for (int i=0; i<AchievementController.Instance.achievementsArray.Length; i++) {
 				// Ensure a notification is not in place
-				if (AchievementController.achievementController.achievementsArray[i].type == "Tower Building") {
-					AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.towersBuilt);
-				} else if (AchievementController.achievementController.achievementsArray[i].type == "Endurance") {
-					AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.totalTimePlayed);
-				} else if (AchievementController.achievementController.achievementsArray[i].type == "Enemies Killed") {
-					AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.enemiesDestroyed);
+				if (AchievementController.Instance.achievementsArray[i].type == "Tower Building") {
+					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.towersBuilt);
+				} else if (AchievementController.Instance.achievementsArray[i].type == "Endurance") {
+					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.totalTimePlayed);
+				} else if (AchievementController.Instance.achievementsArray[i].type == "Enemies Killed") {
+					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.enemiesDestroyed);
 				}
-				else if(AchievementController.achievementController.achievementsArray[i].type == "Rank"){
-					AchievementController.achievementController.achievementsArray[i].SetProgress(AchievementController.achievementController.totalAchieved);
+				else if(AchievementController.Instance.achievementsArray[i].type == "Rank"){
+					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.totalAchieved);
 				}
 			}
 		}
@@ -154,7 +154,7 @@ public class AchievementManager : MonoBehaviour
 			if (GUI.Button(resetBoxYesButtonPosition, "Yes")) {
 				//Reset
 				GameObject.Find ("sound_reset").audio.Play ();
-				AchievementController.achievementController.resetAchievements();
+				AchievementController.Instance.ResetAchievements();
 				currentAchievementPoints = 0;
 				reset = false;
 			}
@@ -180,7 +180,7 @@ public class AchievementManager : MonoBehaviour
 		
 		// Scrollview Setup (full of all the achievements.
 		achievementScrollviewLocation = GUI.BeginScrollView(scrollViewPosition, achievementScrollviewLocation, scrollViewRectangle, GUIStyle.none, GUIStyle.none);
-		foreach (Achievement achievement in AchievementController.achievementController.achievementsArray)
+		foreach (Achievement achievement in AchievementController.Instance.achievementsArray)
 		{
 			Rect position = new Rect(-3.0f, yValue, achievementGUIWidth+5, 88.0f);
 			achievement.GUIManage(position,GUIStyleAchievement, GUIStyleAmazing, GUIStyleGeneral);

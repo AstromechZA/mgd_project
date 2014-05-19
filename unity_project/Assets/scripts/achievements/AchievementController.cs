@@ -1,14 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 
-public  class AchievementController : MonoBehaviour {
-
-	// Create Singleton
-	private static AchievementController achievementController1;
-	public static AchievementController achievementController
-	{
-		get{return achievementController1;}
-	}
+public  class AchievementController : Singleton<AchievementController> {
 	
 	public Achievements achievements;
 	public Achievement[] achievementsArray;
@@ -18,23 +11,8 @@ public  class AchievementController : MonoBehaviour {
 	public int totalAchieved = 0;
 	public int currentRank = 0;
 	public float totalTimePlayed = 0;
-
 	
 	private string path;
-	
-	// Keep this gameobject active from scene to scene 
-	void Awake(){
-		if (achievementController1 == null)
-		{
-			achievementController1 = this;
-			DontDestroyOnLoad(gameObject);
-		}
-		else if (achievementController1 != this)
-		{
-			// Singleton already exists (destroy new one)
-			Destroy(this);
-		}
-	}
 	
 	void Start(){
 		path = Application.persistentDataPath + "/achievement.xml";
@@ -46,10 +24,10 @@ public  class AchievementController : MonoBehaviour {
 		}
 		
 		// Load and Setup achievements
-		loadAndSetupAchievements();
+		LoadAndSetupAchievements();
 	}
 
-	private void loadAndSetupAchievements(){
+	private void LoadAndSetupAchievements(){
 		// Load and Setup achievements
 		achievements = Achievements.Load(path);
 		achievementsArray = achievements.achievementsArray;
@@ -62,12 +40,12 @@ public  class AchievementController : MonoBehaviour {
 		achievements.Setup();
 	}
 	
-	public void resetAchievements(){
+	public void ResetAchievements(){
 		// Copy original achievements file from resources to persistentDataPath
 		TextAsset texture = Resources.Load ("Achievements/achievement") as TextAsset;
 		System.IO.File.WriteAllBytes (path, texture.bytes);
 		
-		loadAndSetupAchievements();
+		LoadAndSetupAchievements();
 	}
 	
 	void OnApplicationQuit() {

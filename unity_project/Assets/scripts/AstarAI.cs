@@ -91,7 +91,7 @@ public class AstarAI : MonoBehaviour {
 		// Add logic here when creep reaches citadel.
 		AudioSource.PlayClipAtPoint (citadel_hit, Camera.main.transform.position);
 		// Decrement Citadel Lives
-		GameController.gameController.citadelLives--;
+		GameController.Instance.citadelLives--;
 		Debug.Log ("Creep reached citadel.");
 	}
 	

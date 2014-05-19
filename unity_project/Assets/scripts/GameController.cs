@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameController : MonoBehaviour {
+public class GameController : Singleton<GameController> {
 	
 	public int citadelCredits;
 	public int citadelLives;
@@ -10,36 +10,14 @@ public class GameController : MonoBehaviour {
 	
 	public GUIStyle guiStyle;
 	
-	// Create Singleton
-	private static GameController gameController1;
-	public static GameController gameController
-	{
-		get{return gameController1;}
-	}
-	
-	// Keep this gameobject active from scene to scene 
-	void Awake(){
-		if (gameController1 == null)
-		{
-			gameController1 = this;
-			DontDestroyOnLoad(gameObject);
-		}
-		else if (gameController1 != this)
-		{
-			// Singleton already exists (destroy new one)
-			Destroy(this);
-		}
-	}
-	
 	void Start(){
-		setGameParameters();
+		ResetGameParameters();
 	}
 	
-	public void setGameParameters(){
+	public void ResetGameParameters(){
 		citadelCredits = 50;
 		citadelLives = 20;
 		numberOfWaves = 10;
 		currentWave = 1;
-	}
-	
+	}	
 }
