@@ -20,17 +20,13 @@ public class GameManager : MonoBehaviour {
 	Vector3 missileTowerPos;
 	Vector3 gunTowerPos;
 	Vector3 beamTowerPos;
+
+	bool isPaused = false;
 		
 	void Start()
 	{
-		// First time Game Scene run or 'Start new Game'
-		if (Time.timeScale == 1) {
-
-			//Create the HUD towers
-			Instantiate(sonarTower);
-			Instantiate(missileTower);
-			Instantiate(gunTower);
-			Instantiate(beamTower);
+		// Only create these objects on the first run. Not when it was paused.
+		if (!isPaused) {
 			Instantiate(AIController);
 
 			// Create Globals
@@ -52,10 +48,12 @@ public class GameManager : MonoBehaviour {
 	
 	private void resumeGame(){
 		Time.timeScale = 1;
+		isPaused = false;
 	}
 	
 	private void pauseGame(){
 		Time.timeScale = 0;
+		isPaused = true;
 	}
 	
 	void Update(){
@@ -63,7 +61,6 @@ public class GameManager : MonoBehaviour {
 			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
 			AchievementController.Instance.timePlayed = AchievementController.Instance.totalTimePlayed;
 			// Pause the game
-			GameObject.Find ("menu_back").audio.Play ();
 			pauseGame();
 			// Go to Main Menu
 			Application.LoadLevel ("menu");
