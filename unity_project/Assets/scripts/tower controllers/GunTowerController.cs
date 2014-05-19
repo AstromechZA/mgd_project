@@ -53,11 +53,12 @@ public class GunTowerController : BaseTowerController {
 		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
 
 		// aquire target (using mouse position for now)
-		Vector3? target = _targetMouse();
+		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+
 		// is the target within range
-		if(Input.GetMouseButton(0) && target.HasValue && _withinRange(target.Value)) {
+		if(closest != null && _withinRange(closest.transform.position)) {
 			// rotate towards tower, return whether within firing angle
-			bool canFireUpon = pointGunsToward(target.Value);
+			bool canFireUpon = pointGunsToward(closest.transform.position);
 			// if it can fire,
 			if(canFireUpon && barrelAnimator.isReady()) {
 				// FIRE, return which barrel fired
@@ -69,7 +70,7 @@ public class GunTowerController : BaseTowerController {
           		);
 				laser.enabled = true;
 
-				laser.SetPosition(1, target.Value + new Vector3(0,5,0));
+				laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
 			}
 		}
 		// update gun barrel easing functions
