@@ -12,7 +12,7 @@ public class GameController : Singleton<GameController> {
 
 	public bool gameWasPaused = false;
 	
-	void Start(){
+	void Awake(){
 		ResetGameParameters();
 	}
 	
@@ -22,5 +22,17 @@ public class GameController : Singleton<GameController> {
 		numberOfWaves = 10;
 		currentWave = 1;
 		gameWasPaused = false;
+		Time.timeScale = 1;
 	}	
+
+	public void DestroyAllObjectsWithTag(string tag){
+		// Get an array of all the instantiated objects
+		GameObject[] instantiatedObjects = GameObject.FindGameObjectsWithTag(tag);
+		// Destroy them
+		if (instantiatedObjects != null) {
+			foreach (GameObject instantiatedObject in instantiatedObjects) {
+				Destroy (instantiatedObject);
+			}
+		}
+	}
 }

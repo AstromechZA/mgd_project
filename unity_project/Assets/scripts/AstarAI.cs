@@ -82,7 +82,7 @@ public class AstarAI : MonoBehaviour {
 		} else { // we are at the end of the list of waypoints
 
 			// are we at the target?
-			if ((transform.position - targetPosition).sqrMagnitude <= 1) {
+			if ((transform.position - targetPosition).sqrMagnitude <= 500) {
 				OnTargetReached();
 			}else{
 				OnTargetNotReached();

@@ -31,9 +31,6 @@ public class GameManager : MonoBehaviour {
 
 			// Create Globals
 			Instantiate (Globals);
-
-			// Reset Game Parameters
-			GameController.Instance.ResetGameParameters();
 		}
 
 		// Get the towers positions
