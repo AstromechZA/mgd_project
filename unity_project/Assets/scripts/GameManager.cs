@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
 	void Start()
 	{
 		// Only create these objects on the first run. Not when it was paused.
-		if (!isPaused) {
+		if (!GameController.Instance.gameWasPaused) {
 			Instantiate(AIController);
 
 			// Create Globals
@@ -48,12 +48,11 @@ public class GameManager : MonoBehaviour {
 	
 	private void resumeGame(){
 		Time.timeScale = 1;
-		isPaused = false;
 	}
 	
 	private void pauseGame(){
 		Time.timeScale = 0;
-		isPaused = true;
+		GameController.Instance.gameWasPaused = true;
 	}
 	
 	void Update(){

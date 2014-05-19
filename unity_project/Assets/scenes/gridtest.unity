@@ -2349,7 +2349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   fireRate: 5
-  range: 80
+  range: 150
 --- !u!114 &1448357870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2362,9 +2362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8342e9af7b1a866488389d3e9debfb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRate: 50
+  turnRate: 90
   laserWidthMin: 3
-  laserWidthMax: 6
+  laserWidthMax: 5
   sound_laser: {fileID: 8300000, guid: ccf4178e10ad9ec47b3da9e219362e82, type: 3}
   laserMaterial: {fileID: 0}
 --- !u!65 &1448357871
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   fireRate: .5
-  range: 40
+  range: 100
 --- !u!114 &1797939663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3068,7 +3068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a7a8546d89e1c4baf2fa1d96978b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRate: 50
+  turnRate: 90
   laserMaterial: {fileID: 2100000, guid: 71a9319b8badca5408c9391cf19b22a2, type: 2}
   laserWidthMin: 1
   laserWidthMax: 2

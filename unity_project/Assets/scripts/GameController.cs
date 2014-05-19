@@ -9,6 +9,8 @@ public class GameController : Singleton<GameController> {
 	public int currentWave;
 	
 	public GUIStyle guiStyle;
+
+	public bool gameWasPaused = false;
 	
 	void Start(){
 		ResetGameParameters();
@@ -19,5 +21,6 @@ public class GameController : Singleton<GameController> {
 		citadelLives = 20;
 		numberOfWaves = 10;
 		currentWave = 1;
+		gameWasPaused = false;
 	}	
 }

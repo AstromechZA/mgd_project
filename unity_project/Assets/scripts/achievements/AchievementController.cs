@@ -14,7 +14,8 @@ public  class AchievementController : Singleton<AchievementController> {
 	
 	private string path;
 	
-	void Start(){
+	void Awake(){
+
 		path = Application.persistentDataPath + "/achievement.xml";
 		
 		// Move file to persistentDataPath if it does not already exist
