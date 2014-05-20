@@ -5,9 +5,9 @@ TagManager:
   tags:
   - Instantiable Object
   - Enemy
-  - menu_back
-  - menu_select
-  - sound_reset
+  - GlobalSounds
+  - 
+  - 
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
