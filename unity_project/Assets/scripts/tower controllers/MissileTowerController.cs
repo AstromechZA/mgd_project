@@ -25,7 +25,7 @@ public class MissileTowerController : BaseTowerController {
 	private Transform eastBone;
 	private Transform westBone;
 
-	private GameObject currentMissile;
+	public GameObject currentMissile;
 	
 	#endregion
 	#region STANDARD ======================================================================== //
