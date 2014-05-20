@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	Vector3 missileTowerPos;
 	Vector3 gunTowerPos;
 	Vector3 beamTowerPos;
+	Vector3 interfaceTopPos;
 
 	bool isPaused = false;
 		
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		missileTowerPos = Camera.main.WorldToScreenPoint(missileTower.transform.position);
 		gunTowerPos = Camera.main.WorldToScreenPoint(gunTower.transform.position);
 		beamTowerPos = Camera.main.WorldToScreenPoint(beamTower.transform.position);
-		
+		interfaceTopPos = Camera.main.WorldToScreenPoint (GameObject.Find ("Interface top").transform.position);
 		// Resume Game if it was paused
 		resumeGame();
 	}
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-
+		
 		// Draw Tower coins and prices
 		GUI.DrawTexture(new Rect(sonarTowerPos.x+7,Screen.height-sonarTowerPos.y+7,20,20), creditIcon);
 		GUI.Label(new Rect(sonarTowerPos.x+13,Screen.height-sonarTowerPos.y+10,20,20), sonarTower.GetComponent<TowerProperties> ().cost.ToString(), guiStyle);
@@ -79,13 +80,13 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(gunTowerPos.x+13,Screen.height-gunTowerPos.y+10,20,20), gunTower.GetComponent<TowerProperties> ().cost.ToString(), guiStyle);
 		GUI.DrawTexture(new Rect(beamTowerPos.x+7,Screen.height-beamTowerPos.y+7,20,20), creditIcon);
 		GUI.Label(new Rect(beamTowerPos.x+13,Screen.height-beamTowerPos.y+10,20,20), beamTower.GetComponent<TowerProperties> ().cost.ToString(), guiStyle);
-
+		
 		// Draw Credits, health and waves
-		GUI.DrawTexture(new Rect(Screen.width-170,10,20,20), creditIcon);
-		GUI.Label(new Rect(Screen.width-145,13,100,20), GameController.Instance.citadelCredits.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(Screen.width-110,10,20,20), healthIcon);
-		GUI.Label(new Rect(Screen.width-85,13,100,20), GameController.Instance.citadelLives.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(15,10,20,20), waveIcon);
-		GUI.Label(new Rect(40,13,100,20), "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
+		GUI.DrawTexture(new Rect(Screen.width-170,Screen.height-interfaceTopPos.y-10,20,20), creditIcon);
+		GUI.Label(new Rect(Screen.width-145,Screen.height-interfaceTopPos.y-7,100,20), GameController.Instance.citadelCredits.ToString(), guiStyle);
+		GUI.DrawTexture(new Rect(Screen.width-110,Screen.height-interfaceTopPos.y-10,20,20), healthIcon);
+		GUI.Label(new Rect(Screen.width-85,Screen.height-interfaceTopPos.y-7,100,20), GameController.Instance.citadelLives.ToString(), guiStyle);
+		GUI.DrawTexture(new Rect(15,Screen.height-interfaceTopPos.y-10,20,20), waveIcon);
+		GUI.Label(new Rect(40,Screen.height-interfaceTopPos.y-7,100,20), "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
 	}
 }
