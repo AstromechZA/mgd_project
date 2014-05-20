@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : Singleton<GameController> {
 	
-	public int citadelCredits;
+	public double citadelCredits;
 	public int citadelLives;
 	public int numberOfWaves;
 	public int currentWave;
