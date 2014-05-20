@@ -30,7 +30,6 @@ public class BuildTower : MonoBehaviour {
 			enoughCredits = true;
 			
 			Instantiate(gameObject);
-			gameObject.name = "Tower";
 			
 			// Create Placement Visualiser at the same position and rotation as the tower (use y-position that is inbetween game plane and Huds)
 			// Load placement visualisation from Inspector
