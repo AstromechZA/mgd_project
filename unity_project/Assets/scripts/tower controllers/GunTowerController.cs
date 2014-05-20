@@ -28,6 +28,8 @@ public class GunTowerController : BaseTowerController {
 
 	public AudioClip sound_fire;
 
+	private AbstractCreep currentTarget;
+
 	public override void Start () {
 		mapBones ();
 
@@ -53,26 +55,29 @@ public class GunTowerController : BaseTowerController {
 		// remove laser beam if it is too old
 		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
 
-		// aquire target (using mouse position for now)
-		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		if (currentTarget == null) {
+			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
+		}
 
 		// is the target within range
-		if(closest != null && _withinRange(closest.transform.position)) {
+		if (currentTarget != null && _withinRange (currentTarget.transform.position)) {
 			// rotate towards tower, return whether within firing angle
-			bool canFireUpon = pointGunsToward(closest.transform.position);
+			bool canFireUpon = pointGunsToward (currentTarget.transform.position);
 			// if it can fire,
-			if(canFireUpon && barrelAnimator.isReady()) {
+			if (canFireUpon && barrelAnimator.isReady ()) {
 				// FIRE, return which barrel fired
 				AudioSource.PlayClipAtPoint (sound_fire, Camera.main.transform.position);
 
-				int i = barrelAnimator.fire();
-				laser.SetPosition(0, 
+				int i = barrelAnimator.fire ();
+				laser.SetPosition (0, 
 				    ((i == 0) ? barrelLBone.position : barrelRBone.position) + heightOffset
-          		);
+				);
 				laser.enabled = true;
 
-				laser.SetPosition(1, closest.transform.position + heightOffset);
+				laser.SetPosition (1, currentTarget.transform.position + heightOffset);
 			}
+		} else {
+			currentTarget = null;
 		}
 		// update gun barrel easing functions
 		barrelAnimator.update();

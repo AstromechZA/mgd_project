@@ -26,6 +26,7 @@ public class MissileTowerController : BaseTowerController {
 	private Transform westBone;
 
 	private GameObject currentMissile;
+	private AbstractCreep currentTarget;
 	
 	#endregion
 	#region STANDARD ======================================================================== //
@@ -44,21 +45,24 @@ public class MissileTowerController : BaseTowerController {
 	}
 
 	public override void Update () {
-		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		if (currentTarget == null) {
+			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
+		}
 		
 		// is the target within range
-		if(closest != null && withinRange(closest.transform.position)) {
+		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
 			if(doorControl.open()) {
 				// fire
 				AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
 
-				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(closest.transform.position);
+				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(currentTarget.transform.position);
 
 				currentMissile = null;
 				
 				doorControl.close();
 			} 
 		} else {
+			currentTarget = null;
 			doorControl.close();
 		}
 
