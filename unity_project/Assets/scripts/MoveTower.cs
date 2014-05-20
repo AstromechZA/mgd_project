@@ -126,6 +126,9 @@ public class MoveTower : MonoBehaviour {
 		}
 		// Handle tower selling
 		else{
+			// Play sell sound
+			GameObject.Find ("tower_sell").audio.Play ();
+
 			//Destroy Tower
 			Destroy (gameObject);
 			// Destroy the Placement Visualiser
