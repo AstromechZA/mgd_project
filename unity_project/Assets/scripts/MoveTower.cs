@@ -5,7 +5,7 @@ public class MoveTower : MonoBehaviour {
 	public int move_cost = 1;
 	private TowerProperties towerProperties;
 	private GameObject placementVisualiser;
-	bool canBuildHere = false;
+	bool canBuildHere = true;
 	bool enoughCredits = false;
 	private Vector3 screenPoint;
 	private Vector3 objectOriginalPosition;
@@ -25,7 +25,6 @@ public class MoveTower : MonoBehaviour {
 		// Set moveLeeway to that of the tower properties
 		moveLeeway = GetComponent<TowerProperties> ().moveLeeway;
 		
-		
 		if (GameController.Instance.citadelCredits - move_cost >= 0 || moveLeeway) {
 			enoughCredits = true;
 			// Create Placement Visualiser at the same position and rotation as the tower (use y-position that is inbetween game plane and Huds)
@@ -36,9 +35,9 @@ public class MoveTower : MonoBehaviour {
 			canBuildHere = true;
 			objectOriginalPosition = gameObject.transform.position;
 			transform.position = MapManager.Instance.SnapToGrid(gameObject.transform.position);
-			
-			// Update the Visualisers status (Red if cant build - Grey if buildable)
-			updatePlacementVisualiserStatus();
+
+			// Remove tower from occupancy grid
+			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
 		}
 	}
 	
@@ -47,8 +46,8 @@ public class MoveTower : MonoBehaviour {
 		if (enoughCredits || moveLeeway) {
 			Vector3 currentScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 			Vector3 currentWorldPoint = Camera.main.ScreenToWorldPoint (currentScreenPoint);
-			
-			transform.position = currentWorldPoint;//MapManager.Instance.SnapToGrid(currentWorldPoint);
+
+			transform.position = currentWorldPoint;
 
 			// Move the current missile with the Missile tower
 			if (GetComponent<MissileTowerController> ()){
@@ -58,20 +57,28 @@ public class MoveTower : MonoBehaviour {
 			}
 			// Disable tower shooting
 			GetComponent<BaseTowerController>().enabled = false;
-			// Remove tower from occupancy grid
-			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
 			
 			// Update the Visualisers status (Red if cant build - Grey if buildable)
 			updatePlacementVisualiserStatus();
+
+			if (!sellTower){
+				transform.position = MapManager.Instance.SnapToGrid(currentWorldPoint);
+			}
+
 			// Update the position of the Placement Visualiser, use the towers position with y-position that is inbetween game plane and Huds)
 			placementVisualiser.transform.position = new Vector3 (transform.position.x, (float)0.05, transform.position.z);
+
 		}
+		
+
 	}
 	
 	void OnMouseUp () {
 		// If the tower is not over the HUD
 		if (!sellTower){
+			transform.position = MapManager.Instance.SnapToGrid(transform.position);
 			if (enoughCredits || moveLeeway) {
+
 				// Tower placed on unbuilable area
 				if (MapManager.Instance.PlacementQuery (transform.position) != Vector4.zero) {
 					
@@ -101,9 +108,8 @@ public class MoveTower : MonoBehaviour {
 				}
 				// Tower placed on buildable area
 				else{
-					// Register tower on occupancy grid to stop overlaps.
-					
 					AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
+					// Register tower on occupancy grid to stop overlaps.
 					MapManager.Instance.SetOccupancyForPosition (transform.position, true);
 					
 					// New path finding.
@@ -153,7 +159,6 @@ public class MoveTower : MonoBehaviour {
 	}
 	
 	private void updatePlacementVisualiserStatus(){
-
 		try
 		{
 			// Check to see the Placement visualisers status (Buildable or Not)
@@ -176,7 +181,6 @@ public class MoveTower : MonoBehaviour {
 		}
 		catch(System.Exception e){
 			sellTower = true;
-
 		}
 	}
 }
