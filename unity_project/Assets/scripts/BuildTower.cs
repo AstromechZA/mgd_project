@@ -8,12 +8,6 @@ public class BuildTower : MonoBehaviour {
 	private TowerProperties towerProperties;
 	
 	private Vector3 screenPoint;
-	private AudioClip build_sound;
-	private AudioClip build_error;
-	
-	// Material of the placement_lines
-	private Material placement_lines; 
-	private Material placement_lines_red; 
 	
 	// Placement Visualiser
 	private GameObject placementVisualiser;
@@ -24,12 +18,7 @@ public class BuildTower : MonoBehaviour {
 	void Awake () {
 		// Tower properties.
 		towerProperties = GetComponent<TowerProperties> ();
-
-		build_sound = towerProperties.build_sound;
-		build_error = towerProperties.build_error;
 		placementVisualiser = towerProperties.placementVisualiser;
-		placement_lines = towerProperties.placement_lines;
-		placement_lines_red = towerProperties.placement_lines_red;
 
 		// Capture builder's location for calculation later.
 		screenPoint = Camera.main.WorldToScreenPoint (transform.position);
@@ -40,12 +29,13 @@ public class BuildTower : MonoBehaviour {
 		if ( GameController.Instance.citadelCredits - towerProperties.cost >= 0){
 			enoughCredits = true;
 			
-			Instantiate (gameObject);
+			Instantiate(gameObject);
+			gameObject.name = "Tower";
 			
 			// Create Placement Visualiser at the same position and rotation as the tower (use y-position that is inbetween game plane and Huds)
 			// Load placement visualisation from Inspector
 			placementVisualiser = (GameObject)Instantiate(placementVisualiser, new Vector3(gameObject.transform.position.x, (float)0.05, gameObject.transform.position.z), gameObject.transform.rotation);
-			
+
 			canBuildHere = true;
 			transform.position = MapManager.Instance.SnapToGrid(gameObject.transform.position);
 			
@@ -70,14 +60,15 @@ public class BuildTower : MonoBehaviour {
 	void OnMouseUp(){
 		if (enoughCredits){
 			if (MapManager.Instance.PlacementQuery (transform.position) != Vector4.zero) {
-				AudioSource.PlayClipAtPoint (build_error, Camera.main.transform.position);
+				AudioSource.PlayClipAtPoint (towerProperties.build_error, Camera.main.transform.position);
 				Destroy (gameObject);
 				// Destroy the Placement Visualiser
 				Destroy (placementVisualiser);
+
 			} else {
 				// Register tower on occupancy grid to stop overlaps.
 				
-				AudioSource.PlayClipAtPoint (build_sound, Camera.main.transform.position);
+				AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
 				MapManager.Instance.SetOccupancyForPosition (transform.position, true);
 				
 				// New path finding.
@@ -113,14 +104,14 @@ public class BuildTower : MonoBehaviour {
 			if (canBuildHere){
 				// Change Placement Visualisers material to placement_lines_red
 				foreach (Renderer child in placementVisualiser.GetComponentsInChildren<Renderer>())
-					child.material = placement_lines_red;
+					child.material = towerProperties.placement_lines_red;
 				canBuildHere = false;
 			}
 		} else {
 			if (!canBuildHere){
 				// Change Placement Visualisers material to placement_lines
 				foreach (Renderer child in placementVisualiser.GetComponentsInChildren<Renderer>())
-					child.material = placement_lines;
+					child.material = towerProperties.placement_lines;
 				canBuildHere = true;
 			}
 		}

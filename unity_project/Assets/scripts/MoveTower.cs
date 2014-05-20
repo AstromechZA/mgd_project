@@ -6,16 +6,10 @@ public class MoveTower : MonoBehaviour {
 
 	private TowerProperties towerProperties;
 
-	private AudioClip build_sound;
-	private AudioClip build_error;
 
 	// Placement Visualiser
 	private GameObject placementVisualiser;
 	bool canBuildHere = false;
-
-	// Material of the placement_lines
-	private Material placement_lines; 
-	private Material placement_lines_red; 
 
 	bool enoughCredits = false;
 	
@@ -27,11 +21,6 @@ public class MoveTower : MonoBehaviour {
 	void Awake () {
 		// Tower properties contain the cost of this tower.
 		towerProperties = GetComponent<TowerProperties> ();
-
-		build_sound = towerProperties.build_sound;
-		build_error = towerProperties.build_error;
-		placement_lines = towerProperties.placement_lines;
-		placement_lines_red = towerProperties.placement_lines_red;
 
 		// Capture builder's location for calculation later.
 		screenPoint = Camera.main.WorldToScreenPoint (transform.position);
@@ -67,7 +56,9 @@ public class MoveTower : MonoBehaviour {
 
 			// Move the current missile with the Missile tower
 			if (GetComponent<MissileTowerController> ()){
-				GetComponent<MissileTowerController> ().currentMissile.transform.position = MapManager.Instance.SnapToGrid(currentWorldPoint);
+				if (GetComponent<MissileTowerController> ().currentMissile){
+					GetComponent<MissileTowerController> ().currentMissile.transform.position = MapManager.Instance.SnapToGrid(currentWorldPoint);
+				}
 			}
 			// Disable tower shooting
 			GetComponent<BaseTowerController>().enabled = false;
@@ -84,20 +75,35 @@ public class MoveTower : MonoBehaviour {
 	void OnMouseUp () {
 		if (enoughCredits || moveLeeway) {
 			if (MapManager.Instance.PlacementQuery (transform.position) != Vector4.zero) {
-				AudioSource.PlayClipAtPoint (build_error, Camera.main.transform.position);		
+
+				AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
+
+				MapManager.Instance.SetOccupancyForPosition (objectOriginalPosition, true);
+				
+				// New path finding.
+				PathObstacle po = GetComponent<PathObstacle> ();
+				po.UpdateGraphForObject ();
+				
+				// Enable the shooting for the tower.
+				GetComponent<BaseTowerController>().enabled = true;
+
+				AudioSource.PlayClipAtPoint (towerProperties.build_error, Camera.main.transform.position);		
 				// Move object back to original position
 				transform.position = objectOriginalPosition;
 
-				// Deal with current Missile (Missile Tower)
-				GetComponent<MissileTowerController> ().currentMissile.transform.position = objectOriginalPosition;
-
+				// Move current Missile (Missile Tower)
+				if (GetComponent<MissileTowerController> ()){
+					if (GetComponent<MissileTowerController> ().currentMissile){
+						GetComponent<MissileTowerController> ().currentMissile.transform.position = objectOriginalPosition;
+					}
+				}
 				// Destroy the Placement Visualiser
 				Destroy (placementVisualiser);
 			}
 			else{
 				// Register tower on occupancy grid to stop overlaps.
 				
-				AudioSource.PlayClipAtPoint (build_sound, Camera.main.transform.position);
+				AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
 				MapManager.Instance.SetOccupancyForPosition (transform.position, true);
 
 				// New path finding.
@@ -125,14 +131,14 @@ public class MoveTower : MonoBehaviour {
 			if (canBuildHere){
 				// Change Placement Visualisers material to placement_lines_red
 				foreach (Renderer child in placementVisualiser.GetComponentsInChildren<Renderer>())
-					child.material = placement_lines_red;
+					child.material = towerProperties.placement_lines_red;
 				canBuildHere = false;
 			}
 		} else {
 			if (!canBuildHere){
 				// Change Placement Visualisers material to placement_lines
 				foreach (Renderer child in placementVisualiser.GetComponentsInChildren<Renderer>())
-					child.material = placement_lines;
+					child.material = towerProperties.placement_lines;
 				canBuildHere = true;
 			}
 		}

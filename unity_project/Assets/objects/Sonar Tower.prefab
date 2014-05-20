@@ -248,11 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4965ed8d5f45064988f9d7d02533410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
-  build_error: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
-  placement_lines: {fileID: 2100000, guid: 1835c3e5754be854a920aee516d83b83, type: 2}
-  placement_lines_red: {fileID: 2100000, guid: a2d3812ca1bb2fb429e605337548371c, type: 2}
-  placementVisualiser: {fileID: 100002, guid: 76ad42a91e110c04ba05733df36ca529, type: 2}
+  moveLeewayTime: 3
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,6 +263,13 @@ MonoBehaviour:
   cost: 1
   fireRate: 0
   range: 60
+  moveLeewayTime: 3
+  moveLeeway: 1
+  build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
+  build_error: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
+  placement_lines: {fileID: 2100000, guid: 1835c3e5754be854a920aee516d83b83, type: 2}
+  placement_lines_red: {fileID: 2100000, guid: a2d3812ca1bb2fb429e605337548371c, type: 2}
+  placementVisualiser: {fileID: 100002, guid: 76ad42a91e110c04ba05733df36ca529, type: 2}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
