@@ -35,7 +35,10 @@ public class AbilityNuke : MonoBehaviour
 				if (castable) {
 						screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
 				} else {
-						AudioSource.PlayClipAtPoint (sound_invalid, Camera.main.transform.position);
+						// Stops error sound from playing if player touches AOE during countdown
+						if (Time.time > (nextCast - cooldown + sound_start.length)) { 
+								AudioSource.PlayClipAtPoint (sound_invalid, Camera.main.transform.position);
+						}
 				}
 		}
 	
@@ -52,12 +55,11 @@ public class AbilityNuke : MonoBehaviour
 		IEnumerator OnMouseUp ()
 		{
 				if (castable) {
-						
-						AudioSource.PlayClipAtPoint (sound_start, Camera.main.transform.position);
-						yield return new WaitForSeconds (sound_start.length);
-			
 						castable = false;
 						nextCast = Time.time + cooldown;
+						AudioSource.PlayClipAtPoint (sound_start, Camera.main.transform.position);
+						yield return new WaitForSeconds (sound_start.length);
+						
 
 						Vector3 dropSpot = transform.position;
 						transform.position = startPos;
