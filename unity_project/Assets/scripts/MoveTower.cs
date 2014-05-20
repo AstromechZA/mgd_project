@@ -5,7 +5,7 @@ public class MoveTower : MonoBehaviour {
 	public int move_cost = 1;
 	private TowerProperties towerProperties;
 	private GameObject placementVisualiser;
-	bool canBuildHere = false;
+	bool canBuildHere = true;
 	bool enoughCredits = false;
 	private Vector3 screenPoint;
 	private Vector3 objectOriginalPosition;
@@ -35,9 +35,6 @@ public class MoveTower : MonoBehaviour {
 			canBuildHere = true;
 			objectOriginalPosition = gameObject.transform.position;
 			transform.position = MapManager.Instance.SnapToGrid(gameObject.transform.position);
-			
-			// Update the Visualisers status (Red if cant build - Grey if buildable)
-			updatePlacementVisualiserStatus();
 
 			// Remove tower from occupancy grid
 			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
@@ -159,7 +156,6 @@ public class MoveTower : MonoBehaviour {
 	}
 	
 	private void updatePlacementVisualiserStatus(){
-
 		try
 		{
 			// Check to see the Placement visualisers status (Buildable or Not)
