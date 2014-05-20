@@ -54,7 +54,8 @@ public class MissileTowerController : BaseTowerController {
 		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
 			if(doorControl.open()) {
 				// fire
-				AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
+				//AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
+				GameObject.Find ("SoundLimiter").GetComponent<SoundLimiter>().playMissile();
 
 				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(currentTarget.transform.position);
 

@@ -66,7 +66,8 @@ public class GunTowerController : BaseTowerController {
 			// if it can fire,
 			if (canFireUpon && barrelAnimator.isReady ()) {
 				// FIRE, return which barrel fired
-				AudioSource.PlayClipAtPoint (sound_fire, Camera.main.transform.position);
+				//AudioSource.PlayClipAtPoint (sound_fire, Camera.main.transform.position);
+				GameObject.Find ("SoundLimiter").GetComponent<SoundLimiter>().playGun();
 
 				int i = barrelAnimator.fire ();
 				laser.SetPosition (0, 

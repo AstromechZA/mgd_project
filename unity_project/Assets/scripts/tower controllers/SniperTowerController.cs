@@ -79,7 +79,8 @@ public class SniperTowerController : BaseTowerController {
 				midpoint.z += amt;
 
 				if(barrelAnimator.isReady()) {
-					AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
+					//AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
+					GameObject.Find ("SoundLimiter").GetComponent<SoundLimiter>().playLaser();
 					barrelAnimator.fire();
 					laser.SetPosition(0, start + heightOffset );
 					laser.SetPosition(1, midpoint + heightOffset );
