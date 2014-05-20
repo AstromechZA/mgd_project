@@ -131,6 +131,13 @@ public class MoveTower : MonoBehaviour {
 			// Destroy the Placement Visualiser
 			Destroy (placementVisualiser);
 
+			// Move current Missile (Missile Tower)
+			if (GetComponent<MissileTowerController> ()){
+				if (GetComponent<MissileTowerController> ().currentMissile){
+					Destroy(GetComponent<MissileTowerController> ().currentMissile);
+				}
+			}
+			
 			//Increment the citadels credits by (half of the towers value)
 			if (!moveLeeway){
 				GameController.Instance.citadelCredits += towerProperties.cost*0.5;
