@@ -30,6 +30,8 @@ public class SniperTowerController : BaseTowerController {
 	private LineRenderer laser;
 	private Vector3 heightOffset = new Vector3(0, 50, 0);
 
+	private AbstractCreep currentTarget;
+
 
 	#endregion
 	#region STANDARD ======================================================================== //
@@ -57,16 +59,18 @@ public class SniperTowerController : BaseTowerController {
 	public override void Update () {
 		if(barrelAnimator.age() > 0.3f) laser.enabled = false;
 
-		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		if (currentTarget == null) {
+			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
+		}
 		
 		// is the target within range
-		if(closest != null && withinRange(closest.transform.position)) {
+		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
 			// rotate towards tower, return whether within firing angle
-			bool canFireUpon = pointGunsToward(closest.transform.position);
+			bool canFireUpon = pointGunsToward(currentTarget.transform.position);
 			// if it can fire,
 			if (canFireUpon) {
 				Vector3 start = barrelBone.position;
-				Vector3 end = closest.transform.position;
+				Vector3 end = currentTarget.transform.position;
 				float distance = (end-start).magnitude;
 				Vector3 midpoint = (start+end)/2;
 				float amt = Random.value * distance - distance/2;
@@ -90,6 +94,7 @@ public class SniperTowerController : BaseTowerController {
 				laser.enabled = false;
 			}
 		} else {
+			currentTarget = null;
 			laser.enabled = false;
 		}
 

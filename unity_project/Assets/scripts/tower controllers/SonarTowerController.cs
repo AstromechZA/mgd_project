@@ -12,6 +12,8 @@ public class SonarTowerController : BaseTowerController {
 	private Transform topBone;
 	private float velocity = 0;
 
+	private AbstractCreep currentTarget;
+
 	public override void Start () {
 		mapBones ();
 
@@ -21,16 +23,18 @@ public class SonarTowerController : BaseTowerController {
 	}
 
 	public override void Update () {
-		// aquire target (using mouse position for now)
-		AbstractCreep closest = NearestCreepFinder.Instance.getNearest(transform.position);
+		if (currentTarget == null) {
+			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
+		}
 		
 		// is the target within range
-		if(closest != null && withinRange(closest.transform.position)) {
+		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
 			velocity += 1;
 			velocity = Mathf.Clamp(velocity * (1 + spinUpRate * Time.deltaTime), 0, spinrate);
 		} else {
 			velocity -= 1;
 			velocity = Mathf.Clamp(velocity / (1 + spinDownRate * Time.deltaTime), 0, spinrate);
+			currentTarget = null;
 		}
 		if(velocity > 0) topBone.rotation *= Quaternion.Euler(Time.deltaTime * velocity, 0, 0);
 	}
