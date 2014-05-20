@@ -26,6 +26,7 @@ public class MissileControl : MonoBehaviour {
 			float sflightProgress = squish(flightProgress);
 
 			transform.localRotation = angleQuat * Quaternion.Euler(0,0,-sflightProgress*180);
+			transform.localRotation *= Quaternion.Euler(0, flightProgress*1000, 0);
 
 			Vector3 newpos = origin + sflightProgress * flightVector;
 			newpos.y = 10;
