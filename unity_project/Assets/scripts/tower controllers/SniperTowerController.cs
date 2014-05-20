@@ -47,7 +47,7 @@ public class SniperTowerController : BaseTowerController {
 		laser.material = laserMaterial;
 		laser.SetColors(Color.cyan, Color.magenta);
 		laser.SetWidth(laserWidthMax, laserWidthMin);
-		laser.SetVertexCount(2);
+		laser.SetVertexCount(3);
 		laser.enabled = false;
 
 		setTurretAngle(Random.Range(0, 360));
@@ -64,17 +64,32 @@ public class SniperTowerController : BaseTowerController {
 			bool canFireUpon = pointGunsToward(closest.transform.position);
 			// if it can fire,
 			if (canFireUpon) {
+				Vector3 start = barrelBone.position;
+				Vector3 end = closest.transform.position;
+				float distance = (end-start).magnitude;
+				Vector3 midpoint = (start+end)/2;
+				float amt = Random.value * distance - distance/2;
+				amt /= 3;
+				midpoint.x += amt;
+				midpoint.z += amt;
+
 				if(barrelAnimator.isReady()) {
 					AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
 					barrelAnimator.fire();
-					laser.SetPosition(0, barrelBone.position + new Vector3(0,5,0) );
+					laser.SetPosition(0, start + new Vector3(0,5,0) );
+					laser.SetPosition(1, midpoint + new Vector3(0,5,0) );
+					laser.SetPosition(2, end + new Vector3(0,5,0));
 					laser.enabled = true;
-					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
 				}
 				else if(barrelAnimator.age() < 0.3f) {
-					laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+					laser.SetPosition(1, midpoint + new Vector3(0,5,0) );
+					laser.SetPosition(2, end + new Vector3(0,5,0));
 				}
+			} else {
+				laser.enabled = false;
 			}
+		} else {
+			laser.enabled = false;
 		}
 
 		// update gun barrel easing functions
