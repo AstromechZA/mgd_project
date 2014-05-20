@@ -126,7 +126,7 @@ public class AbilityBuff : MonoBehaviour
 						else if (enemy.GetComponent<SniperTowerController> ())
 								enemy.GetComponent<SniperTowerController> ().setFireRate (startRate);
 						else if (enemy.GetComponent<SonarTowerController> ()) {
-								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate * buffAmount);
+								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate / buffAmount);
 								enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate - (buffAmount / 10));
 								enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate - (buffAmount / 10));
 						}
