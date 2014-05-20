@@ -168,6 +168,10 @@ public class GunTowerController : BaseTowerController {
 	private void _setBarrelRProgress (float percent) {
 		barrelRBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
+
+	public void setFireRate(float rate){
+		barrelAnimator.setTime (rate);
+	}
 	
 	// -------------------------------------------------------------------------------------------------------------
 	#endregion
@@ -216,6 +220,10 @@ public class GunTowerController : BaseTowerController {
 		
 		public float getProgressRight () {
 			return ease(Mathf.Clamp01(progress[1]));
+		}
+
+		public void setTime(float time){
+			this.timeBetweenShots = time;
 		}
 		
 	}

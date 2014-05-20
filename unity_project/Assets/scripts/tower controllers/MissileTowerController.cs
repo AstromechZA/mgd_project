@@ -117,6 +117,10 @@ public class MissileTowerController : BaseTowerController {
 		westBone.transform.localPosition = new Vector3(-1, d, 0);
 	}
 
+	public void setOpenRate(float rate){
+		doorControl.setTime (rate);
+	}
+
 	#endregion
 	#region DOORSANIMATOR ==================================================================== //
 
@@ -172,6 +176,10 @@ public class MissileTowerController : BaseTowerController {
 
 		public bool is_closed() {
 			return state == STATE.CLOSED;
+		}
+
+		public void setTime(float time){
+			this.delta = 2.0f / time;
 		}
 
 	}

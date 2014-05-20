@@ -94,6 +94,13 @@ public class AbilityBuff : MonoBehaviour
 
 						// Buff tower
 						enemy.GetComponent<TowerProperties> ().fireRate = startRate / buffAmount;
+						
+						if (enemy.GetComponent<GunTowerController> ())
+								enemy.GetComponent<GunTowerController> ().setFireRate (startRate / buffAmount);
+						else if (enemy.GetComponent<MissileTowerController> ())
+								enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate / buffAmount);
+
+
 						// TODO: change tower visual while buffed
 						buffed = true;
 
