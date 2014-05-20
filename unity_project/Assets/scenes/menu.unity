@@ -1835,7 +1835,7 @@ GameObject:
   - 82: {fileID: 936176066}
   m_Layer: 0
   m_Name: sound_reset
-  m_TagString: sound_reset
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2243,7 +2243,7 @@ GameObject:
   - 82: {fileID: 1137477746}
   m_Layer: 0
   m_Name: menu_select
-  m_TagString: menu_select
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2439,7 +2439,7 @@ GameObject:
   - 114: {fileID: 1387747091}
   m_Layer: 0
   m_Name: GlobalSounds
-  m_TagString: Untagged
+  m_TagString: GlobalSounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3175,7 +3175,7 @@ GameObject:
   - 82: {fileID: 1798991551}
   m_Layer: 0
   m_Name: menu_back
-  m_TagString: menu_back
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
