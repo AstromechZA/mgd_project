@@ -177,6 +177,10 @@ public class SniperTowerController : BaseTowerController {
 		barrelBone.localScale = new Vector3(percent*0.3f + 0.75f, 1, 1);
 	}
 
+	public void setFireRate(float rate){
+		barrelAnimator.setTime (rate);
+	}
+
 	#endregion
 	#region BARREL ANIMATOR ================================================================= //
 
@@ -213,6 +217,10 @@ public class SniperTowerController : BaseTowerController {
 		
 		public float getProgress () {
 			return ease(Mathf.Clamp01(progress));
+		}
+
+		public void setTime(float time){
+			this.timeBetweenShots = time;
 		}
 		
 	}

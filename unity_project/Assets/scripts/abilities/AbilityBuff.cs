@@ -95,10 +95,18 @@ public class AbilityBuff : MonoBehaviour
 						// Buff tower
 						enemy.GetComponent<TowerProperties> ().fireRate = startRate / buffAmount;
 						
+						// Set animation rates
 						if (enemy.GetComponent<GunTowerController> ())
 								enemy.GetComponent<GunTowerController> ().setFireRate (startRate / buffAmount);
 						else if (enemy.GetComponent<MissileTowerController> ())
 								enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate / buffAmount);
+						else if (enemy.GetComponent<SniperTowerController> ())
+								enemy.GetComponent<SniperTowerController> ().setFireRate (startRate / buffAmount);
+						else if (enemy.GetComponent<SonarTowerController> ()) {
+								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate * buffAmount);
+								enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate + (buffAmount / 10));
+								enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate + (buffAmount / 10));
+						}
 
 
 						// TODO: change tower visual while buffed
@@ -109,6 +117,22 @@ public class AbilityBuff : MonoBehaviour
 
 						// Reset to starting firerate
 						enemy.GetComponent<TowerProperties> ().fireRate = startRate;
+
+						// Animation rates reset
+						if (enemy.GetComponent<GunTowerController> ())
+								enemy.GetComponent<GunTowerController> ().setFireRate (startRate);
+						else if (enemy.GetComponent<MissileTowerController> ())
+								enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate);
+						else if (enemy.GetComponent<SniperTowerController> ())
+								enemy.GetComponent<SniperTowerController> ().setFireRate (startRate);
+						else if (enemy.GetComponent<SonarTowerController> ()) {
+								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate * buffAmount);
+								enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate - (buffAmount / 10));
+								enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate - (buffAmount / 10));
+						}
+
+
+
 						buffed = false;
 				}
 		}
