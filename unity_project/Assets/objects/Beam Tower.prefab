@@ -321,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnRate: 90
   laserWidthMin: 3
-  laserWidthMax: 5
+  laserWidthMax: 4
   sound_laser: {fileID: 8300000, guid: ccf4178e10ad9ec47b3da9e219362e82, type: 3}
   laserMaterial: {fileID: 2100000, guid: 71a9319b8badca5408c9391cf19b22a2, type: 2}
 --- !u!114 &11400006

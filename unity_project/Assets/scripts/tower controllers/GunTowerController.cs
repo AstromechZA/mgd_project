@@ -24,6 +24,7 @@ public class GunTowerController : BaseTowerController {
 	private Quaternion baseQuat = new Quaternion(0, 0, -0.7f, 0.7f);
 
 	private LineRenderer laser;
+	private Vector3 heightOffset = new Vector3(0, 50, 0);
 
 	public AudioClip sound_fire;
 
@@ -66,11 +67,11 @@ public class GunTowerController : BaseTowerController {
 
 				int i = barrelAnimator.fire();
 				laser.SetPosition(0, 
-                  ((i == 0) ? barrelLBone.position : barrelRBone.position) + new Vector3(0,5,0)
+				    ((i == 0) ? barrelLBone.position : barrelRBone.position) + heightOffset
           		);
 				laser.enabled = true;
 
-				laser.SetPosition(1, closest.transform.position + new Vector3(0,5,0));
+				laser.SetPosition(1, closest.transform.position + heightOffset);
 			}
 		}
 		// update gun barrel easing functions

@@ -28,6 +28,7 @@ public class SniperTowerController : BaseTowerController {
 
 	// laser
 	private LineRenderer laser;
+	private Vector3 heightOffset = new Vector3(0, 50, 0);
 
 
 	#endregion
@@ -76,14 +77,14 @@ public class SniperTowerController : BaseTowerController {
 				if(barrelAnimator.isReady()) {
 					AudioSource.PlayClipAtPoint (sound_laser, Camera.main.transform.position);
 					barrelAnimator.fire();
-					laser.SetPosition(0, start + new Vector3(0,5,0) );
-					laser.SetPosition(1, midpoint + new Vector3(0,5,0) );
-					laser.SetPosition(2, end + new Vector3(0,5,0));
+					laser.SetPosition(0, start + heightOffset );
+					laser.SetPosition(1, midpoint + heightOffset );
+					laser.SetPosition(2, end + heightOffset );
 					laser.enabled = true;
 				}
 				else if(barrelAnimator.age() < 0.3f) {
-					laser.SetPosition(1, midpoint + new Vector3(0,5,0) );
-					laser.SetPosition(2, end + new Vector3(0,5,0));
+					laser.SetPosition(1, midpoint + heightOffset );
+					laser.SetPosition(2, end + heightOffset );
 				}
 			} else {
 				laser.enabled = false;
