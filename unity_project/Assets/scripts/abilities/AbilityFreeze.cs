@@ -82,8 +82,16 @@ public class AbilityFreeze : MonoBehaviour
 		{
 				Debug.Log ("Froze an enemy!");
 				float startSpeed = enemy.GetComponent<AstarAI> ().speed;
+				Color startColor = enemy.transform.FindChild ("model/Cube").renderer.material.color;
+			
+				// Slow down enemy and change it's main colour -- Note 
+				enemy.transform.FindChild ("model/Cube").renderer.material.color = Color.blue;
 				enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
+
 				yield return new WaitForSeconds (slowTime);
+
+				// Return enemy to original speed and colour
 				enemy.GetComponent<AstarAI> ().speed = startSpeed; 
+				enemy.transform.FindChild ("model/Cube").renderer.material.color = startColor;
 		}
 }
