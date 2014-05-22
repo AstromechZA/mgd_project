@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PerkInterface : MonoBehaviour {
@@ -37,7 +37,7 @@ public class PerkInterface : MonoBehaviour {
 	
 	void Awake () {
 		fullScreen = new Rect(0, 0, Screen.width, Screen.height);
-		backgroundT = TextureFactory.ColorTexture(51, 51, 51);
+		backgroundT = TextureFactory.RGBTexture(51, 51, 51);
 		
 		sideBar = new Rect(Screen.width - sidebarWidth, 0, sidebarWidth, Screen.height);
 		

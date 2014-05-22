@@ -41,5 +41,15 @@
 				<pr>2</pr>
 			</Prereqs>
 		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>4</id>>
+			<name>Deadly Detonations</name>
+			<description>Blah blah blah</description>
+			<type>derp-derp</type>
+			<value>1</value>
+			<Prereqs>
+				<pr>3</pr>
+			</Prereqs>
+		</PerkXMLStruct>
 	</Perks>
 </PerkCollection>
