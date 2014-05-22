@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pathfinding;
 
 public class MoveTower : MonoBehaviour {
 	public int move_cost = 1;
@@ -11,6 +12,9 @@ public class MoveTower : MonoBehaviour {
 	private Vector3 objectOriginalPosition;
 	bool moveLeeway = false;
 	bool sellTower = false;
+
+	MissileTowerController missileTowerController;
+	GraphUpdateObject oldGraphUpdateObj;
 	
 	void Awake () {
 		// Tower properties contain the cost of this tower.
@@ -23,7 +27,11 @@ public class MoveTower : MonoBehaviour {
 	void OnMouseDown () {
 		
 		// Set moveLeeway to that of the tower properties
-		moveLeeway = GetComponent<TowerProperties> ().moveLeeway;
+		moveLeeway = GetComponent<TowerProperties>().HasMoveLeeway;
+		missileTowerController = GetComponent<MissileTowerController>();
+
+		// Generate the old collider bounds in case we do move.
+		oldGraphUpdateObj = new GraphUpdateObject(collider.bounds);
 		
 		if (GameController.Instance.citadelCredits - move_cost >= 0 || moveLeeway) {
 			enoughCredits = true;
@@ -36,8 +44,8 @@ public class MoveTower : MonoBehaviour {
 			objectOriginalPosition = gameObject.transform.position;
 			transform.position = MapManager.Instance.SnapToGrid(gameObject.transform.position);
 
-			// Remove tower from occupancy grid
-			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
+			// Disable tower shooting
+			GetComponent<BaseTowerController>().enabled = false;
 		}
 	}
 	
@@ -50,13 +58,11 @@ public class MoveTower : MonoBehaviour {
 			transform.position = currentWorldPoint;
 
 			// Move the current missile with the Missile tower
-			if (GetComponent<MissileTowerController> ()){
-				if (GetComponent<MissileTowerController> ().currentMissile){
-					GetComponent<MissileTowerController> ().currentMissile.transform.position = transform.position;
+			if (missileTowerController){
+				if (missileTowerController.currentMissile){
+					missileTowerController.currentMissile.transform.position = transform.position;
 				}
 			}
-			// Disable tower shooting
-			GetComponent<BaseTowerController>().enabled = false;
 			
 			// Update the Visualisers status (Red if cant build - Grey if buildable)
 			updatePlacementVisualiserStatus();
@@ -67,33 +73,19 @@ public class MoveTower : MonoBehaviour {
 
 			// Update the position of the Placement Visualiser, use the towers position with y-position that is inbetween game plane and Huds)
 			placementVisualiser.transform.position = new Vector3 (transform.position.x, (float)0.05, transform.position.z);
-
 		}
-		
-
 	}
 	
 	void OnMouseUp () {
 		// If the tower is not over the HUD
 		if (!sellTower){
-			transform.position = MapManager.Instance.SnapToGrid(transform.position);
 			if (enoughCredits || moveLeeway) {
 
 				// Tower placed on unbuilable area
 				if (MapManager.Instance.PlacementQuery (transform.position) != Vector4.zero) {
-					
-					AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
-					
-					MapManager.Instance.SetOccupancyForPosition (objectOriginalPosition, true);
-					
-					// New path finding.
-					PathObstacle po = GetComponent<PathObstacle> ();
-					po.UpdateGraphForObject ();
-					
-					// Enable the shooting for the tower.
-					GetComponent<BaseTowerController>().enabled = true;
-					
-					AudioSource.PlayClipAtPoint (towerProperties.build_error, Camera.main.transform.position);		
+
+					AudioSource.PlayClipAtPoint (towerProperties.build_error, Camera.main.transform.position);
+
 					// Move object back to original position
 					transform.position = objectOriginalPosition;
 					
@@ -103,24 +95,20 @@ public class MoveTower : MonoBehaviour {
 							GetComponent<MissileTowerController> ().currentMissile.transform.position = objectOriginalPosition;
 						}
 					}
-					// Destroy the Placement Visualiser
-					Destroy (placementVisualiser);
 				}
 				// Tower placed on buildable area
 				else{
 					AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
-					// Register tower on occupancy grid to stop overlaps.
+					
+					// Remove tower from occupancy grid at original position.
+					MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
+					// Register tower on occupancy grid at new position.
 					MapManager.Instance.SetOccupancyForPosition (transform.position, true);
 					
-					// New path finding.
+					// New path finding. Update grid at old and new collider positions.
 					PathObstacle po = GetComponent<PathObstacle> ();
 					po.UpdateGraphForObject ();
-					
-					// Enable the shooting for the tower.
-					GetComponent<BaseTowerController>().enabled = true;
-					
-					// Destroy the Placement Visualiser
-					Destroy (placementVisualiser);
+					po.UpdateGraphForObject(oldGraphUpdateObj);
 					
 					// Only decrement if there is no more moveLeeway
 					if (!moveLeeway){
@@ -128,22 +116,21 @@ public class MoveTower : MonoBehaviour {
 						GameController.Instance.citadelCredits -= move_cost;
 					}
 				}
+
+				// Enable the shooting for the tower.
+				GetComponent<BaseTowerController>().enabled = true;
 			}
 		}
 		// Handle tower selling
 		else{
+
 			// Play sell sound
 			GameObject.Find ("tower_sell").audio.Play ();
 
-			//Destroy Tower
-			Destroy (gameObject);
-			// Destroy the Placement Visualiser
-			Destroy (placementVisualiser);
-
 			// Move current Missile (Missile Tower)
-			if (GetComponent<MissileTowerController> ()){
-				if (GetComponent<MissileTowerController> ().currentMissile){
-					Destroy(GetComponent<MissileTowerController> ().currentMissile);
+			if (missileTowerController){
+				if (missileTowerController.currentMissile){
+					Destroy(missileTowerController.currentMissile);
 				}
 			}
 			
@@ -155,7 +142,19 @@ public class MoveTower : MonoBehaviour {
 			else{
 				GameController.Instance.citadelCredits += towerProperties.cost;
 			}
+
+			// Remove tower from occupancy grid at original position.
+			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
+
+			PathObstacle po = GetComponent<PathObstacle>();
+			po.UpdateGraphForObject(oldGraphUpdateObj);
+
+			//Destroy Tower
+			Destroy (gameObject);
 		}
+
+		// Destroy the Placement Visualiser
+		Destroy (placementVisualiser);
 	}
 	
 	private void updatePlacementVisualiserStatus(){

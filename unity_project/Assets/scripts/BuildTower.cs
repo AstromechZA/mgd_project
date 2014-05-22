@@ -91,9 +91,8 @@ public class BuildTower : MonoBehaviour {
 				// Decrement the towers cost from total credits
 				GameController.Instance.citadelCredits -= towerProperties.cost;
 
-				// Set moveLeeway to true and set a move Leeway Time
-				towerProperties.moveLeewayTime = moveLeewayTime;
-				towerProperties.moveLeeway = true;
+				// Set the time the tower was built.
+				towerProperties.placementTime = Time.time;
 			}
 		}
 	}

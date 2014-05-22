@@ -6,8 +6,9 @@ public class TowerProperties : MonoBehaviour {
 	public float fireRate = 1f;
 	public float range = 40f;
 
-	public float moveLeewayTime = 0.0f;
-	public bool moveLeeway = false;
+	public float moveLeewayTime = 3.0f;
+	private bool moveLeeway = true;
+	public float placementTime;
 
 	public AudioClip build_sound;
 	public AudioClip build_error;
@@ -15,13 +16,16 @@ public class TowerProperties : MonoBehaviour {
 	public Material placement_lines_red; 
 	public GameObject placementVisualiser;
 
-	void Update(){
-		if (moveLeeway) {
-			moveLeewayTime -= Time.deltaTime;
-
-			if (moveLeewayTime <= 0){
-				moveLeeway = false;
+	public bool HasMoveLeeway{
+		get{
+			// No point recalculating if it's already expired.
+			if (moveLeeway) {
+				if (Time.time - placementTime <= 0) {
+					moveLeeway = false;
+				}
 			}
+
+			return moveLeeway;
 		}
 	}
 }
