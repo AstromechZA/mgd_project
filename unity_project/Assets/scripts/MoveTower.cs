@@ -104,21 +104,24 @@ public class MoveTower : MonoBehaviour {
 				}
 				// Tower placed on buildable area
 				else{
-					AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
+					// Don't charge gold if it's dropped on the old position.
+					if(objectOriginalPosition != transform.position){
+						AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
+						
+						// New path finding. Update grid at old and new collider positions.
+						PathObstacle po = GetComponent<PathObstacle> ();
+						po.UpdateGraphForObject ();
+						po.UpdateGraphForObject(oldGraphUpdateObj);
+						
+						// Only decrement if there is no more moveLeeway
+						if (!moveLeeway){
+							// Decrement the towers cost from total credits
+							GameController.Instance.citadelCredits -= move_cost;
+						}
+					}
 
 					// Register tower on occupancy grid at new position.
 					MapManager.Instance.SetOccupancyForPosition (transform.position, true);
-					
-					// New path finding. Update grid at old and new collider positions.
-					PathObstacle po = GetComponent<PathObstacle> ();
-					po.UpdateGraphForObject ();
-					po.UpdateGraphForObject(oldGraphUpdateObj);
-					
-					// Only decrement if there is no more moveLeeway
-					if (!moveLeeway){
-						// Decrement the towers cost from total credits
-						GameController.Instance.citadelCredits -= move_cost;
-					}
 				}
 
 				// Enable the shooting for the tower.
