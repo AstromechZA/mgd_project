@@ -8,9 +8,9 @@ public class PerkInterface : MonoBehaviour {
 	public Texture2D perkCircleTexture;
 	
 	private int sidebarWidth = 300;
+	private Texture2D backgroundT;
 	
 	#region GUISTYLES
-		private Texture2D backgroundT;
 		public GUIStyle sidebarNameStyle;
 		public GUIStyle sidebarDescriptionStyle;
 	#endregion
@@ -29,6 +29,8 @@ public class PerkInterface : MonoBehaviour {
 		private Perk selectedPerk = null;
 		private Rect selectedNameRect;
 		private Rect selectedDescriptionRect;
+		private Rect selectedBuyButton;
+		private bool selectedCanBeBought = false;
 	#endregion
 	
 	void Awake () {
@@ -47,10 +49,19 @@ public class PerkInterface : MonoBehaviour {
 		
 		selectedDescriptionRect = new Rect(
 			Screen.width - sidebarWidth + 20,
-			60,
+			70,
 			sideBar.width - 40,
 			500
 		);
+		
+		selectedBuyButton = new Rect(
+			Screen.width - sidebarWidth + 20,
+			sideBar.height - 120,
+			sideBar.width - 40,
+			100
+		);
+		
+		
 	}
 
 	void Start () {
@@ -71,8 +82,6 @@ public class PerkInterface : MonoBehaviour {
 			Perk p = SelectPerkAtPosition(clickpos);
 			if (p != null) {
 				Select (p);
-			} else {
-				Deselect();
 			} 
 		}
 	}
@@ -100,6 +109,8 @@ public class PerkInterface : MonoBehaviour {
 			v.x,
 			v.y
 		);
+		
+		selectedCanBeBought = p.CanBeBought();
 		
 	}
 	
@@ -143,6 +154,14 @@ public class PerkInterface : MonoBehaviour {
 			// description text
 			GUI.Box(selectedDescriptionRect, selectedPerk.longDescription, sidebarDescriptionStyle);
 			
+			GUI.enabled = selectedCanBeBought;
+			if (GUI.Button(selectedBuyButton, "Buy")) {
+				// by the perk
+				selectedPerk.bought = true;
+				// rerender
+				Select (selectedPerk);
+			}
+			GUI.enabled = true;
 		}
 	
 		

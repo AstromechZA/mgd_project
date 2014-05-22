@@ -29,5 +29,14 @@ public class Perk
 	public void Reset() {
 		this.bought = false;	
 	}
+	
+	public bool CanBeBought() {
+		if (bought) return false;
+		if (prereqs.Length == 0) return true;
+		foreach (Perk p in prereqs) {
+			if (p.bought) return true;
+		}
+		return false;
+	}
 }
 
