@@ -15,5 +15,9 @@ public class Geometry
 	public static Vector3 Vector2To3(Vector2 input) {
 		return new Vector3(input.x, input.y, 0);
 	}
+	
+	public static Vector2 FlipInScreenVertical(Vector2 input) {
+		return new Vector2(input.x, Screen.height - input.y);
+	}
 }
 

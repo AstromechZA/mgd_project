@@ -51,12 +51,15 @@ public class PerkInterface : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			bool actioned = false;
 			
+			Vector2 clickpos = Geometry.FlipInScreenVertical(Geometry.Vector2To3(Input.mousePosition));
+			
 			// check which perk if any is selected
 			foreach (Perk p in PerkController.Instance.Perks) {
 				Vector2 pos = treeRoot + p.center;
-				if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(Geometry.Vector2To3(Input.mousePosition))) {
+				if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(clickpos)) {
 					Select (p);
 					actioned = true;
+					p.bought = true;
 				}
 			}
 			if (!actioned) Deselect();
