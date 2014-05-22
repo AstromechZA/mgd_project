@@ -23,7 +23,6 @@ public class MissileTowerController : BaseTowerController {
 
 
 	public GameObject currentMissile;
-	private AbstractCreep currentTarget;
 	
 	#endregion
 	#region STANDARD ======================================================================== //

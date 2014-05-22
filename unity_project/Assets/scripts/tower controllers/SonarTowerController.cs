@@ -9,8 +9,6 @@ public class SonarTowerController : BaseTowerController {
 	private Transform topBone;
 	private float velocity = 0;
 
-	private AbstractCreep currentTarget;
-
 	public override void Start () {
 		mapBones ();
 	}
