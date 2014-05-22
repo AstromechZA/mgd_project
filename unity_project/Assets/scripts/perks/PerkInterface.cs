@@ -5,6 +5,7 @@ public class PerkInterface : MonoBehaviour {
 	
 	public Texture2D sidebarTexture;
 	public Texture2D titleTexture;
+	public Texture2D perkCircleTexture;
 	
 	private int sidebarWidth = 300;
 	
@@ -18,6 +19,7 @@ public class PerkInterface : MonoBehaviour {
 		private Rect sideBar;
 		private Rect titleBox;
 		private Rect backBtn;
+		private Vector2 treeRoot;
 	#endregion
 
 	void Awake () {
@@ -29,6 +31,10 @@ public class PerkInterface : MonoBehaviour {
 		titleBox = new Rect((Screen.width - sidebarWidth - titleTexture.width)/2, 0, titleTexture.width, titleTexture.height);
 		
 		backBtn = new Rect(0, 0, 65, 35);
+		
+		treeRoot = new Vector2(0, Screen.height/2);
+		
+		PerkController.Instance.Space(100, 100);
 	}
 
 	void Start () {
@@ -49,5 +55,14 @@ public class PerkInterface : MonoBehaviour {
 		if (GUI.Button (backBtn, "Back")) {
 			Application.LoadLevel ("gridtest");
 		}
+		
+		foreach (Perk p in PerkController.Instance.Perks) {
+			Vector2 pos = treeRoot + p.center;
+			Rect rr = new Rect(pos.x, pos.y, perkCircleTexture.width, perkCircleTexture.height);
+			GUI.DrawTexture(rr, perkCircleTexture);
+		}
+		
+		
+		
 	}
 }
