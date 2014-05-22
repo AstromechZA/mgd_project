@@ -6,6 +6,11 @@ public class PerkController : Singleton<PerkController>
 {	
 	private Perk[] perks;
 	public Perk[] Perks { get {return perks;}}
+	
+	private float currentExperience = 0.0f;
+	private float maxExperience = 10;
+	public float perPointExpMultiplier = 2;
+	private int perkPointsAvailable = 0;
 
 	public PerkController ()
 	{
@@ -21,12 +26,33 @@ public class PerkController : Singleton<PerkController>
 		this.perks = new Perk[]{p1, p2, p3, p4};
 	}
 	
+	// reset all the perks
 	private void ResetAll() {
 		foreach (Perk p in perks) {
 			p.Reset();		
 		}	
 	}
 	
+	#region --- PERK POINTS AND EXPERIENCE ---
+	private void AddExperience(float val) {
+		currentExperience += val;
+		while (currentExperience > maxExperience) {
+			currentExperience -= maxExperience;
+			perkPointsAvailable += 1;
+			maxExperience *= perPointExpMultiplier;
+		}
+	}
+	
+	// return the current progress to next point
+	private void GetExperienceProgress() {
+		return currentExperience / maxExperience;
+	}
+	
+	#endregion
+	
+	#region --- TREE STRUCTURE SPACING AND GENERATION ---
+	// calculate a tree structure and spacing
+	// this sets the 'center' property of each perk
 	public Vector2 Space(int colSpace, int rowSpace) {
 
 		ArrayList columns = FindColumns();
@@ -92,6 +118,6 @@ public class PerkController : Singleton<PerkController>
 		// return
 		return seen.ToArrayList();		
 	}
-	
+	#endregion
 }
 
