@@ -37,7 +37,11 @@ public class GameManager : MonoBehaviour {
 	int beamTowerCost;
 
 	bool isPaused = false;
-		
+
+	Rect sonarCreditRect, sonarCostRect, missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
+	Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect;
+
+	          
 	void Start()
 	{
 		// Only create these objects on the first run. Not when it was paused.
@@ -75,6 +79,25 @@ public class GameManager : MonoBehaviour {
 		beamTowerPosX = beamTowerPos.x;
 		beamTowerPosY = beamTowerPos.y;
 
+		// Draw Tower coins and prices
+		sonarCreditRect = new Rect (sonarTowerPosX + 7, Screen.height - sonarTowerPosY + 7, 20, 20);
+		sonarCostRect = new Rect (sonarTowerPosX + 13, Screen.height - sonarTowerPosY + 10, 20, 20);
+		missileCreditRect = new Rect (missileTowerPosX + 7, Screen.height - missileTowerPosY + 7, 20, 200);
+		missileCostRect = new Rect (missileTowerPosX + 13, Screen.height - missileTowerPosY + 10, 20, 20);
+		gunCreditRect = new Rect (gunTowerPosX + 7, Screen.height - gunTowerPosY + 7, 20, 20);
+		gunCostRect = new Rect (gunTowerPosX + 13, Screen.height - gunTowerPosY + 10, 20, 20);
+		beamCreditRect = new Rect (beamTowerPosX + 7, Screen.height - beamTowerPosY + 7, 20, 20);
+		beamCostRect = new Rect (beamTowerPosX + 13, Screen.height - beamTowerPosY + 10, 20, 20);
+		
+		// Draw Credits, health and waves
+		creditRect = new Rect (Screen.width - 170, Screen.height - interfaceTopPos.y - 10, 20, 20);
+		creditCountRect = new Rect (Screen.width - 145, Screen.height - interfaceTopPos.y - 7, 100, 20);
+		healthRect = new Rect (Screen.width - 110, Screen.height - interfaceTopPos.y - 10, 20, 20);
+		healthCountRect = new Rect (Screen.width - 85, Screen.height - interfaceTopPos.y - 7, 100, 20);
+		waveRect = new Rect (15, Screen.height - interfaceTopPos.y - 10, 20, 20);
+		waveCountRect = new Rect (40, Screen.height - interfaceTopPos.y - 7, 100, 20);	
+
+		
 		// Resume Game if it was paused
 		resumeGame();
 	}
@@ -107,21 +130,21 @@ public class GameManager : MonoBehaviour {
 	void OnGUI(){
 		
 		// Draw Tower coins and prices
-		GUI.DrawTexture(new Rect(sonarTowerPosX+7,Screen.height-sonarTowerPosY+7,20,20), creditIcon);
-		GUI.Label(new Rect(sonarTowerPosX+13,Screen.height-sonarTowerPosY+10,20,20), sonarTowerCost.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(missileTowerPosX+7,Screen.height-missileTowerPosY+7,20,20), creditIcon);
-		GUI.Label(new Rect(missileTowerPosX+13,Screen.height-missileTowerPosY+10,20,20), missileTowerCost.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(gunTowerPosX+7,Screen.height-gunTowerPosY+7,20,20), creditIcon);
-		GUI.Label(new Rect(gunTowerPosX+13,Screen.height-gunTowerPosY+10,20,20), gunTowerCost.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(beamTowerPosX+7,Screen.height-beamTowerPosY+7,20,20), creditIcon);
-		GUI.Label(new Rect(beamTowerPosX+13,Screen.height-beamTowerPosY+10,20,20), beamTowerCost.ToString(), guiStyle);
+		GUI.DrawTexture(sonarCreditRect, creditIcon);
+		GUI.Label(sonarCostRect, sonarTowerCost.ToString(), guiStyle);
+		GUI.DrawTexture(missileCreditRect, creditIcon);
+		GUI.Label(missileCostRect, missileTowerCost.ToString(), guiStyle);
+		GUI.DrawTexture(gunCreditRect, creditIcon);
+		GUI.Label(gunCostRect, gunTowerCost.ToString(), guiStyle);
+		GUI.DrawTexture(beamCreditRect, creditIcon);
+		GUI.Label(beamCostRect, beamTowerCost.ToString(), guiStyle);
 		
 		// Draw Credits, health and waves
-		GUI.DrawTexture(new Rect(Screen.width-170,Screen.height-interfaceTopPos.y-10,20,20), creditIcon);
-		GUI.Label(new Rect(Screen.width-145,Screen.height-interfaceTopPos.y-7,100,20), GameController.Instance.citadelCredits.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(Screen.width-110,Screen.height-interfaceTopPos.y-10,20,20), healthIcon);
-		GUI.Label(new Rect(Screen.width-85,Screen.height-interfaceTopPos.y-7,100,20), GameController.Instance.citadelLives.ToString(), guiStyle);
-		GUI.DrawTexture(new Rect(15,Screen.height-interfaceTopPos.y-10,20,20), waveIcon);
-		GUI.Label(new Rect(40,Screen.height-interfaceTopPos.y-7,100,20), "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
+		GUI.DrawTexture(creditRect, creditIcon);
+		GUI.Label(creditCountRect, GameController.Instance.citadelCredits.ToString(), guiStyle);
+		GUI.DrawTexture(healthRect, healthIcon);
+		GUI.Label(healthCountRect, GameController.Instance.citadelLives.ToString(), guiStyle);
+		GUI.DrawTexture(waveRect, waveIcon);
+		GUI.Label(waveCountRect, "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
 	}
 }
