@@ -11,7 +11,6 @@ public class PerkInterface : MonoBehaviour {
 	
 	#region GUISTYLES
 		private Texture2D backgroundT;
-
 	#endregion
 
 	#region REGIONS
@@ -21,7 +20,11 @@ public class PerkInterface : MonoBehaviour {
 		private Rect backBtn;
 		private Vector2 treeRoot;
 	#endregion
-
+	
+	#region SELECTED
+		private bool selected = false;
+	#endregion
+	
 	void Awake () {
 		fullScreen = new Rect(0, 0, Screen.width, Screen.height);
 		backgroundT = TextureFactory.ColorTexture(51, 51, 51);
@@ -43,11 +46,33 @@ public class PerkInterface : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) { 
 			Application.LoadLevel ("gridtest");
 		}
+		
+		// is mouse down?
+		if (Input.GetMouseButtonDown(0)) {
+			bool actioned = false;
+			
+			// check which perk if any is selected
+			foreach (Perk p in PerkController.Instance.Perks) {
+				Vector2 pos = treeRoot + p.center;
+				if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(Geometry.Vector2To3(Input.mousePosition))) {
+					Select (p);
+					actioned = true;
+				}
+			}
+			if (!actioned) Deselect();
+		}
+	}
+
+	void Select(Perk p) {
+		selected = true;
+	}
+	
+	void Deselect () {
+		selected = false;
 	}
 
 	void OnGUI () {
 		GUI.DrawTexture(fullScreen, backgroundT);
-		GUI.DrawTexture(sideBar, sidebarTexture);
 		GUI.DrawTexture(titleBox, titleTexture);
 		
 		if (GUI.Button (backBtn, "Back")) {
@@ -57,22 +82,25 @@ public class PerkInterface : MonoBehaviour {
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
 			foreach (Perk r in p.prereqs) {
-				LineDrawer.DrawLine(pos, treeRoot + r.center, Color.blue, 10, false);
+				if (p.bought) {
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.blue, 10, true);
+				} else if (r.bought) {
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.gray, 8, true);
+				} else {
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.black, 7, true);
+				}
 			}
 		}
 		
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
-			Rect rr = new Rect(pos.x - perkCircleTexture.width/2, 
-			                   pos.y - perkCircleTexture.height/2, 
-			                   perkCircleTexture.width, 
-			                   perkCircleTexture.height );
-			GUI.DrawTexture(rr, perkCircleTexture);
+			GUI.DrawTexture(Geometry.CenterRectOnPoint(perkCircleTexture.width, perkCircleTexture.height, pos), perkCircleTexture);
 		}
 		
-		
-		
-		
+		if (selected) {
+			GUI.DrawTexture(sideBar, sidebarTexture);
+		}
+	
 		
 	}
 }
