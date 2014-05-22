@@ -53,19 +53,33 @@ public class PerkInterface : MonoBehaviour {
 			
 			Vector2 clickpos = Geometry.FlipInScreenVertical(Geometry.Vector2To3(Input.mousePosition));
 			
-			// check which perk if any is selected
-			foreach (Perk p in PerkController.Instance.Perks) {
-				Vector2 pos = treeRoot + p.center;
-				if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(clickpos)) {
-					Select (p);
-					actioned = true;
-					p.bought = true;
-				}
-			}
-			if (!actioned) Deselect();
+			Perk p = SelectPerkAtPosition(clickpos);
+			if (p != null) {
+				Select (p);
+				p.bought = true;
+			} else {
+				Deselect();
+			} 
 		}
 	}
 
+	private Perk SelectPerkAtPosition(Vector2 v) {
+		// check which perk if any is selected
+		foreach (Perk p in PerkController.Instance.Perks) {
+			Vector2 pos = treeRoot + p.center;
+			// is it on top of a perk block
+			if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(v)) {
+				if (p.prereqs.Length == 0) return p;
+				foreach (Perk r in p.prereqs) {
+					if (r.bought) {
+						return p;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 	void Select(Perk p) {
 		selected = true;
 	}
@@ -85,7 +99,7 @@ public class PerkInterface : MonoBehaviour {
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
 			foreach (Perk r in p.prereqs) {
-				if (p.bought) {
+				if (p.bought && r.bought) {
 					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.blue, 10, true);
 				} else if (r.bought) {
 					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.gray, 8, true);
