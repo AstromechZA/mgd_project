@@ -13,6 +13,7 @@ public class PerkInterface : MonoBehaviour {
 	#region GUISTYLES
 		public GUIStyle sidebarNameStyle;
 		public GUIStyle sidebarDescriptionStyle;
+		public GUIStyle availablePointsBoxStyle;
 	#endregion
 
 	#region REGIONS
@@ -22,6 +23,7 @@ public class PerkInterface : MonoBehaviour {
 		private Rect backBtn;
 		private Rect perkCircleR;
 		private Vector2 treeRoot;
+		private Rect availablePointsBox;
 	#endregion
 	
 	#region SELECTED
@@ -40,7 +42,7 @@ public class PerkInterface : MonoBehaviour {
 		sideBar = new Rect(Screen.width - sidebarWidth, 0, sidebarWidth, Screen.height);
 		
 		titleBox = new Rect((Screen.width - sidebarWidth - titleTexture.width)/2, 0, titleTexture.width, titleTexture.height);
-		
+				
 		backBtn = new Rect(0, 0, 65, 35);
 		
 		treeRoot = PerkController.Instance.Space(100, 150);
@@ -61,7 +63,12 @@ public class PerkInterface : MonoBehaviour {
 			100
 		);
 		
-		
+		availablePointsBox = new Rect(
+			(Screen.width - sidebarWidth - titleTexture.width)/2, 
+			titleTexture.height + 10, 
+			titleTexture.width, 
+			titleTexture.height 
+		);	
 	}
 
 	void Start () {
@@ -110,9 +117,9 @@ public class PerkInterface : MonoBehaviour {
 			v.y
 		);
 		
-		selectedCanBeBought = p.CanBeBought();
-		
+		selectedCanBeBought = p.CanBeBought() && (PerkController.Instance.GetPoints() > 0);
 	}
+	
 	
 	void Deselect () {
 		selected = false;
@@ -121,6 +128,9 @@ public class PerkInterface : MonoBehaviour {
 	void OnGUI () {
 		GUI.DrawTexture(fullScreen, backgroundT);
 		GUI.DrawTexture(titleBox, titleTexture);
+		
+		string av = "" + PerkController.Instance.GetPoints() + " points available";
+		GUI.Box(availablePointsBox, av, availablePointsBoxStyle);
 		
 		if (GUI.Button (backBtn, "Back")) {
 			Application.LoadLevel ("gridtest");

@@ -44,8 +44,17 @@ public class PerkController : Singleton<PerkController>
 	}
 	
 	// return the current progress to next point
-	private void GetExperienceProgress() {
+	public float GetExperienceProgress() {
 		return currentExperience / maxExperience;
+	}
+	
+	public int GetPoints() {
+		return perkPointsAvailable;
+	}
+	
+	public void SpendPoint() {
+		if (perkPointsAvailable <= 0) throw new Exception("No more perk points!");
+		perkPointsAvailable--;
 	}
 	
 	#endregion
