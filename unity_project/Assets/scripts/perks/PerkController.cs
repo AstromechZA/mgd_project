@@ -61,7 +61,7 @@ public class PerkController : Singleton<PerkController>
 	}
 	
 	#region --- PERK POINTS AND EXPERIENCE ---
-	private void AddExperience(float val) {
+	public void AddExperience(float val) {
 		currentExperience += val;
 		while (currentExperience > maxExperience) {
 			currentExperience -= maxExperience;
@@ -82,6 +82,10 @@ public class PerkController : Singleton<PerkController>
 	public void SpendPoint() {
 		if (perkPointsAvailable <= 0) throw new Exception("No more perk points!");
 		perkPointsAvailable--;
+	}
+	
+	public void AddPoint() {
+		perkPointsAvailable++;
 	}
 	
 	#endregion

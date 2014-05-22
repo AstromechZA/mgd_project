@@ -78,6 +78,9 @@ public class PerkInterface : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) { 
 			Application.LoadLevel ("gridtest");
+		} else if (Input.GetKeyDown (KeyCode.P)) { 
+			PerkController.Instance.AddPoint();
+			if (selected) Select (selectedPerk);
 		}
 		
 		// is mouse down?
@@ -168,12 +171,14 @@ public class PerkInterface : MonoBehaviour {
 			if (GUI.Button(selectedBuyButton, "Buy")) {
 				// by the perk
 				selectedPerk.bought = true;
+				
+				PerkController.Instance.SpendPoint();
+				
 				// rerender
 				Select (selectedPerk);
 			}
 			GUI.enabled = true;
 		}
-	
 		
 	}
 }
