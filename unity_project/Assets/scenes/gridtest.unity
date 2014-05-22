@@ -717,6 +717,7 @@ MonoBehaviour:
   cost: 1
   fireRate: 5
   range: 80
+  damage: 1
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
@@ -738,6 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 400000, guid: f59c956feeaeebc4ab5b2042ed17ff0f, type: 2}
   sound_launch: {fileID: 8300000, guid: 9718426d5e61798429be9071b703aeac, type: 3}
+  damageRadius: 5
   currentMissile: {fileID: 0}
 --- !u!65 &321483990
 BoxCollider:
@@ -2686,6 +2688,7 @@ MonoBehaviour:
   cost: 1
   fireRate: 5
   range: 150
+  damage: 3
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
@@ -3395,6 +3398,7 @@ MonoBehaviour:
   cost: 1
   fireRate: .5
   range: 100
+  damage: 1
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
@@ -3716,6 +3720,10 @@ Prefab:
     - target: {fileID: 100014, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
       propertyPath: m_Name
       value: Beam Tower Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
+      propertyPath: damage
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
@@ -4374,6 +4382,7 @@ MonoBehaviour:
   cost: 1
   fireRate: 0
   range: 60
+  damage: 1
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 0107732829168d74c9fcae14f6960206, type: 3}
