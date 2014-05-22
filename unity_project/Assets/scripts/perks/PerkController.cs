@@ -27,7 +27,7 @@ public class PerkController : Singleton<PerkController>
 		}	
 	}
 	
-	public void Space(int colSpace, int rowSpace) {
+	public Vector2 Space(int colSpace, int rowSpace) {
 
 		ArrayList columns = FindColumns();
 	
@@ -46,6 +46,8 @@ public class PerkController : Singleton<PerkController>
 			x += colSpace;
 		}
 		
+		// return root anchor point
+		return new Vector2(colSpace, Screen.height/2);
 	}
 	
 	private ArrayList FindColumns() {

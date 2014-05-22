@@ -32,9 +32,7 @@ public class PerkInterface : MonoBehaviour {
 		
 		backBtn = new Rect(0, 0, 65, 35);
 		
-		treeRoot = new Vector2(0, Screen.height/2);
-		
-		PerkController.Instance.Space(100, 100);
+		treeRoot = PerkController.Instance.Space(100, 150);
 	}
 
 	void Start () {
@@ -58,9 +56,21 @@ public class PerkInterface : MonoBehaviour {
 		
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
-			Rect rr = new Rect(pos.x, pos.y, perkCircleTexture.width, perkCircleTexture.height);
+			foreach (Perk r in p.prereqs) {
+				LineDrawer.DrawLine(pos, treeRoot + r.center, Color.blue, 10, false);
+			}
+		}
+		
+		foreach (Perk p in PerkController.Instance.Perks) {
+			Vector2 pos = treeRoot + p.center;
+			Rect rr = new Rect(pos.x - perkCircleTexture.width/2, 
+			                   pos.y - perkCircleTexture.height/2, 
+			                   perkCircleTexture.width, 
+			                   perkCircleTexture.height );
 			GUI.DrawTexture(rr, perkCircleTexture);
 		}
+		
+		
 		
 		
 		
