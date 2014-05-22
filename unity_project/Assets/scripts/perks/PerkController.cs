@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Xml.Serialization;
+using System.IO;
 using System.Collections;
 
 public class PerkController : Singleton<PerkController>
@@ -18,12 +20,37 @@ public class PerkController : Singleton<PerkController>
 	}
 	
 	private void CreatePerks() {
-		Perk p1 = new Perk("Lead Streamlining", "All of your Gun Towers gain +20 range.", "twr-gun-range", 50, new Perk[]{});
-		Perk p2 = new Perk("Heated Shot", "All of your Gun Towers gain +1 damage", "twr-gun-damage", 1, new Perk[]{p1});
-		Perk p3 = new Perk("Alien Bankers", "Gain +1 credits per kill.", "creep-all-reward", 1, new Perk[]{p1});
-		Perk p4 = new Perk("High Frequency Occilators", "Increase Beam Tower burst length by 1 seconds", "twr-beam-time", 1, new Perk[]{p2, p3});
+		var serializer = new XmlSerializer(typeof(PerkArrayXMLStruct));
+		TextAsset perktext = Resources.Load ("Perks/perks") as TextAsset;
 		
-		this.perks = new Perk[]{p1, p2, p3, p4};
+		using(var sr = new StringReader(perktext.text))
+		{
+			PerkArrayXMLStruct perks = serializer.Deserialize(sr) as PerkArrayXMLStruct;
+			
+			this.perks = new Perk[perks.perks.Length];
+			
+			Hashtable perkByID = new Hashtable();
+			
+			// assemble perk objects
+			foreach (PerkXMLStruct pxml in perks.perks) {
+				perkByID[pxml.id] = new Perk(pxml.name, pxml.description, pxml.type, pxml.value, new Perk[]{});
+			}
+			// assemble linked perks
+			for(int j=0;j<perks.perks.Length;j++) {
+				PerkXMLStruct pxml = perks.perks[j];
+				
+				Perk p = perkByID[pxml.id] as Perk;
+				
+				Perk[] pr = new Perk[pxml.prereqs.Length];
+				for(int i=0;i<pxml.prereqs.Length;i++) {
+					pr[i] = perkByID[pxml.prereqs[i]] as Perk;
+				}	
+				// bind
+				p.prereqs = pr;		
+				
+				this.perks[j] = p;
+			}
+		}
 	}
 	
 	// reset all the perks
