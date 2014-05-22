@@ -6,9 +6,9 @@ public class PerkInterface : MonoBehaviour {
 	public Texture2D sidebarTexture;
 	public Texture2D titleTexture;
 	public Texture2D perkCircleTexture;
+	public Texture2D backgroundT;
 	
 	private int sidebarWidth = 300;
-	private Texture2D backgroundT;
 	
 	#region GUISTYLES
 		public GUIStyle sidebarNameStyle;
@@ -18,6 +18,7 @@ public class PerkInterface : MonoBehaviour {
 
 	#region REGIONS
 		private Rect fullScreen;
+		private Rect fullScreenUVs;
 		private Rect sideBar;
 		private Rect titleBox;
 		private Rect backBtn;
@@ -37,7 +38,8 @@ public class PerkInterface : MonoBehaviour {
 	
 	void Awake () {
 		fullScreen = new Rect(0, 0, Screen.width, Screen.height);
-		backgroundT = TextureFactory.RGBTexture(51, 51, 51);
+		fullScreenUVs = new Rect(0, 0, Screen.width / backgroundT.width, Screen.height / backgroundT.height);
+		backgroundT.wrapMode = TextureWrapMode.Repeat;
 		
 		sideBar = new Rect(Screen.width - sidebarWidth, 0, sidebarWidth, Screen.height);
 		
@@ -129,7 +131,8 @@ public class PerkInterface : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		GUI.DrawTexture(fullScreen, backgroundT);
+		GUI.DrawTextureWithTexCoords(fullScreen, backgroundT, fullScreenUVs);
+		
 		GUI.DrawTexture(titleBox, titleTexture);
 		
 		string av = "" + PerkController.Instance.GetPoints() + " points available";
