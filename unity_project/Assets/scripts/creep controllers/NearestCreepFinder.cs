@@ -4,6 +4,11 @@ using System.Collections;
 public class NearestCreepFinder : Singleton<NearestCreepFinder> {
 
 	ArrayList creeps;
+	public ArrayList CreepList {
+		get {
+			return creeps;
+		}
+	}
 
 	void Awake() {
 		creeps = new ArrayList();

@@ -5,6 +5,7 @@ public class TowerProperties : MonoBehaviour {
 	public int cost = 1;
 	public float fireRate = 1f;
 	public float range = 40f;
+	public float damage = 1f;
 
 	public float moveLeewayTime = 3.0f;
 	private bool moveLeeway = true;

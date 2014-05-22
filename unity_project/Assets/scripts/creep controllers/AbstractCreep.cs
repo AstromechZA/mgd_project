@@ -3,8 +3,8 @@ using System.Collections;
 
 public class AbstractCreep : MonoBehaviour {
 
-	public float startingHealth;
-	public int bountyValue;
+	public float startingHealth = 10;
+	public int bountyValue = 1;
 
 	// -----------------------
 	private float healthValue;
@@ -19,13 +19,16 @@ public class AbstractCreep : MonoBehaviour {
 
 	public void Hit(float damage) {
 		healthValue -= damage;
-		if( damage < 0) {
+		if( healthValue <= 0) {
+			GameController.Instance.citadelCredits += bountyValue;
 			Destroy(gameObject);
 		}
 	}
 
 	public void OnDestroy() {
 		Debug.Log("Deregister creep");
-		NearestCreepFinder.Instance.Deregister(this);
+		if (NearestCreepFinder.Instance != null) {
+			NearestCreepFinder.Instance.Deregister (this);
+		}
 	}
 }

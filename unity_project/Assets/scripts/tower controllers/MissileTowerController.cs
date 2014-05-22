@@ -6,14 +6,10 @@ public class MissileTowerController : BaseTowerController {
 
 	public Component projectile;
 	public AudioClip sound_launch;
+	public float damageRadius = 5f;
 	
 	#endregion
 	#region PRIVATEVARS ===================================================================== //
-
-	// set via TowerProperties
-	private float fireRate;
-	private float range;
-	private float cost;
 
 	private DoorControl doorControl;
 	private const float DOOROPENAMOUNT = 0.3f;
@@ -35,11 +31,6 @@ public class MissileTowerController : BaseTowerController {
 	public override void Start () {
 		mapBones();
 
-		TowerProperties tp = GetComponent<TowerProperties> ();
-		cost = tp.cost;
-		range = tp.range;
-		fireRate = tp.fireRate;
-
 		spawnmissile();
 
 		doorControl = new DoorControl(fireRate);
@@ -51,7 +42,7 @@ public class MissileTowerController : BaseTowerController {
 		}
 		
 		// is the target within range
-		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
+		if(currentTarget != null && WithinRange(currentTarget.transform.position)) {
 			if(doorControl.open()) {
 				// fire
 				//AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
@@ -81,6 +72,8 @@ public class MissileTowerController : BaseTowerController {
 
 	private void spawnmissile() {
 		currentMissile = (GameObject)Instantiate(projectile.gameObject, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+		currentMissile.GetComponent<MissileControl> ().Damage = this.damage;
+		currentMissile.GetComponent<MissileControl> ().DamageRadius = this.damageRadius;
 	}
 
 	private void mapBones () {
@@ -90,20 +83,6 @@ public class MissileTowerController : BaseTowerController {
 		southBone = mainBone.Find("south");
 		eastBone = mainBone.Find("east");
 		westBone = mainBone.Find("west");
-	}
-
-	private Vector3? targetMouse() {
-		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Plane hp = new Plane(Vector3.up, Vector3.zero);
-		float d = 0;
-		if (hp.Raycast(r, out d)) {
-			return r.GetPoint(d);
-		}
-		return null;
-	}
-
-	private bool withinRange(Vector3 t) {
-		return (transform.position - t).magnitude < this.range;
 	}
 	
 	#endregion

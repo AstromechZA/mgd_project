@@ -80,6 +80,7 @@ public class BuildTower : MonoBehaviour {
 				gameObject.AddComponent ("MoveTower");
 				gameObject.AddComponent<Persist>();
 
+
 				// Remove this build script from the new tower.
 				Destroy (this);
 				

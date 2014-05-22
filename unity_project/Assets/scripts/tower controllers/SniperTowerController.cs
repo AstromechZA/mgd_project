@@ -12,11 +12,6 @@ public class SniperTowerController : BaseTowerController {
 
 	#endregion
 	#region PRIVATEVARS ===================================================================== //
-	// set via TowerProperties
-	private float fireRate;
-	private float range;
-	private float cost;
-
 	// bones
 	private Transform turretBone;
 	private Transform barrelBone;
@@ -30,19 +25,12 @@ public class SniperTowerController : BaseTowerController {
 	private LineRenderer laser;
 	private Vector3 heightOffset = new Vector3(0, 50, 0);
 
-	private AbstractCreep currentTarget;
-
 
 	#endregion
 	#region STANDARD ======================================================================== //
 
 	public override void Start () {
 		mapBones ();
-
-		TowerProperties tp = GetComponent<TowerProperties> ();
-		cost = tp.cost;
-		fireRate = tp.fireRate;
-		range = tp.range;
 
 		barrelAnimator = new SingleBarrelGun(this.fireRate);
 
@@ -64,7 +52,7 @@ public class SniperTowerController : BaseTowerController {
 		}
 		
 		// is the target within range
-		if(currentTarget != null && withinRange(currentTarget.transform.position)) {
+		if(currentTarget != null && WithinRange(currentTarget.transform.position)) {
 			// rotate towards tower, return whether within firing angle
 			bool canFireUpon = pointGunsToward(currentTarget.transform.position);
 			// if it can fire,
@@ -86,11 +74,15 @@ public class SniperTowerController : BaseTowerController {
 					laser.SetPosition(1, midpoint + heightOffset );
 					laser.SetPosition(2, end + heightOffset );
 					laser.enabled = true;
+					Fire ();
 				}
 				else if(barrelAnimator.age() < 0.3f) {
 					laser.SetPosition(1, midpoint + heightOffset );
 					laser.SetPosition(2, end + heightOffset );
+					Fire ();
 				}
+
+
 			} else {
 				laser.enabled = false;
 			}
@@ -112,20 +104,6 @@ public class SniperTowerController : BaseTowerController {
 		Transform a = transform.Find ("Armature");
 		turretBone = a.Find("turret");
 		barrelBone = turretBone.Find("gun");
-	}
-
-	private Vector3? targetMouse() {
-		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Plane hp = new Plane(Vector3.up, Vector3.zero);
-		float d = 0;
-		if (hp.Raycast(r, out d)) {
-			return r.GetPoint(d);
-		}
-		return null;
-	}
-
-	private bool withinRange(Vector3 t) {
-		return (transform.position - t).magnitude < this.range;
 	}
 
 	public bool pointGunsToward(Vector3 p) {

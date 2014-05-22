@@ -7,11 +7,6 @@ public class GunTowerController : BaseTowerController {
 	public Material laserMaterial;
 	public float laserWidthMin = 1f;
 	public float laserWidthMax = 2f;
-
-	// retrieved from TowerProperties
-	private float fireRate;
-	private float range;
-	private float cost;
 	 
 	// bones
 	private Transform turretBone;
@@ -28,15 +23,8 @@ public class GunTowerController : BaseTowerController {
 
 	public AudioClip sound_fire;
 
-	private AbstractCreep currentTarget;
-
 	public override void Start () {
 		mapBones ();
-
-		TowerProperties tp = GetComponent<TowerProperties> ();
-		fireRate = tp.fireRate;
-		range = tp.range;
-		cost = tp.cost;
 
 		barrelAnimator = new DualBarrelGun(fireRate);
 
@@ -53,14 +41,16 @@ public class GunTowerController : BaseTowerController {
 	
 	public override void Update () {
 		// remove laser beam if it is too old
-		if(barrelAnimator.age() > 0.2f) laser.enabled = false;
+		if (barrelAnimator.age () > 0.2f) {
+			laser.enabled = false;
+		}
 
 		if (currentTarget == null) {
 			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
 		}
 
 		// is the target within range
-		if (currentTarget != null && _withinRange (currentTarget.transform.position)) {
+		if (currentTarget != null && WithinRange (currentTarget.transform.position)) {
 			// rotate towards tower, return whether within firing angle
 			bool canFireUpon = pointGunsToward (currentTarget.transform.position);
 			// if it can fire,
@@ -76,6 +66,8 @@ public class GunTowerController : BaseTowerController {
 				laser.enabled = true;
 
 				laser.SetPosition (1, currentTarget.transform.position + heightOffset);
+
+				Fire (false);
 			}
 		} else {
 			currentTarget = null;
@@ -124,21 +116,6 @@ public class GunTowerController : BaseTowerController {
 		return false;
 		
 	}
-
-	private bool _withinRange(Vector3 t) {
-		return (transform.position - t).magnitude < this.range;
-	}
-
-	private Vector3? _targetMouse() {
-		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Plane hp = new Plane(Vector3.up, Vector3.zero);
-		float d = 0;
-		if (hp.Raycast(r, out d)) {
-			return r.GetPoint(d);
-		}
-		return null;
-	}
-
 
 	#region Turret Rotation
 	// -------------------------------------------------------------------------------------------------------------

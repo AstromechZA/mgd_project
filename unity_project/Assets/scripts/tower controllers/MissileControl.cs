@@ -5,6 +5,25 @@ public class MissileControl : MonoBehaviour {
 
 	public float horizantalSpeed = 5f;
 	public float flightDuration = 1.5f; //seconds
+	private float damage = 1f;
+	public float Damage{
+		get {
+			return damage;
+		}
+		set{
+			damage = value;
+		}
+	}
+
+	private float damageRadius = 5f;
+	public float DamageRadius {
+		get {
+			return damageRadius;
+		}
+		set {
+			damageRadius = value;
+		}
+	}
 
 	private Vector3 origin;
 	private Vector3 destination;
@@ -36,7 +55,12 @@ public class MissileControl : MonoBehaviour {
 
 			transform.localScale = val * Vector3.one;
 
-			if (flightProgress > 1) Destroy(this.gameObject);
+			// Missile has landed.
+			if (flightProgress > 1){
+				// Damage all units within the landing area.
+
+				Destroy(this.gameObject);
+			}
 		}
 	}
 
@@ -61,5 +85,15 @@ public class MissileControl : MonoBehaviour {
 		float a = Vector3.Angle(Vector3.right, dp);
 		if (dp.z < 0) {a = -a;}
 		return a;
+	}
+
+	private void ApplyMissileDamage(){
+		float damageRadiusSqr = DamageRadius * DamageRadius;
+
+		foreach (AbstractCreep creep in NearestCreepFinder.Instance.CreepList) {
+			if((creep.transform.position - transform.position).sqrMagnitude <= damageRadiusSqr){
+				creep.Hit(Damage);
+			}
+		}
 	}
 }
