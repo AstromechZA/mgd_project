@@ -46,6 +46,9 @@ public class MoveTower : MonoBehaviour {
 
 			// Disable tower shooting
 			GetComponent<BaseTowerController>().enabled = false;
+
+			// Remove tower from occupancy grid at original position.
+			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
 		}
 	}
 	
@@ -90,18 +93,19 @@ public class MoveTower : MonoBehaviour {
 					transform.position = objectOriginalPosition;
 					
 					// Move current Missile (Missile Tower)
-					if (GetComponent<MissileTowerController> ()){
-						if (GetComponent<MissileTowerController> ().currentMissile){
-							GetComponent<MissileTowerController> ().currentMissile.transform.position = objectOriginalPosition;
+					if (missileTowerController){
+						if (missileTowerController.currentMissile){
+							missileTowerController.currentMissile.transform.position = objectOriginalPosition;
 						}
 					}
+
+					// Register tower on occupancy grid at old position.
+					MapManager.Instance.SetOccupancyForPosition (objectOriginalPosition, true);
 				}
 				// Tower placed on buildable area
 				else{
 					AudioSource.PlayClipAtPoint (towerProperties.build_sound, Camera.main.transform.position);
-					
-					// Remove tower from occupancy grid at original position.
-					MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
+
 					// Register tower on occupancy grid at new position.
 					MapManager.Instance.SetOccupancyForPosition (transform.position, true);
 					
@@ -142,9 +146,6 @@ public class MoveTower : MonoBehaviour {
 			else{
 				GameController.Instance.citadelCredits += towerProperties.cost;
 			}
-
-			// Remove tower from occupancy grid at original position.
-			MapManager.Instance.SetOccupancyForPosition(objectOriginalPosition, false);
 
 			PathObstacle po = GetComponent<PathObstacle>();
 			po.UpdateGraphForObject(oldGraphUpdateObj);

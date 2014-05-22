@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 		// Draw Tower coins and prices
 		sonarCreditRect = new Rect (sonarTowerPosX + 7, Screen.height - sonarTowerPosY + 7, 20, 20);
 		sonarCostRect = new Rect (sonarTowerPosX + 13, Screen.height - sonarTowerPosY + 10, 20, 20);
-		missileCreditRect = new Rect (missileTowerPosX + 7, Screen.height - missileTowerPosY + 7, 20, 200);
+		missileCreditRect = new Rect (missileTowerPosX + 7, Screen.height - missileTowerPosY + 7, 20, 20);
 		missileCostRect = new Rect (missileTowerPosX + 13, Screen.height - missileTowerPosY + 10, 20, 20);
 		gunCreditRect = new Rect (gunTowerPosX + 7, Screen.height - gunTowerPosY + 7, 20, 20);
 		gunCostRect = new Rect (gunTowerPosX + 13, Screen.height - gunTowerPosY + 10, 20, 20);

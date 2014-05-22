@@ -20,7 +20,7 @@ public class TowerProperties : MonoBehaviour {
 		get{
 			// No point recalculating if it's already expired.
 			if (moveLeeway) {
-				if (Time.time - placementTime <= 0) {
+				if (Time.time - placementTime > moveLeewayTime) {
 					moveLeeway = false;
 				}
 			}
