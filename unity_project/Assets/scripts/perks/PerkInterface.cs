@@ -11,6 +11,8 @@ public class PerkInterface : MonoBehaviour {
 	
 	#region GUISTYLES
 		private Texture2D backgroundT;
+		public GUIStyle sidebarNameStyle;
+		public GUIStyle sidebarDescriptionStyle;
 	#endregion
 
 	#region REGIONS
@@ -18,11 +20,15 @@ public class PerkInterface : MonoBehaviour {
 		private Rect sideBar;
 		private Rect titleBox;
 		private Rect backBtn;
+		private Rect perkCircleR;
 		private Vector2 treeRoot;
 	#endregion
 	
 	#region SELECTED
 		private bool selected = false;
+		private Perk selectedPerk = null;
+		private Rect selectedNameRect;
+		private Rect selectedDescriptionRect;
 	#endregion
 	
 	void Awake () {
@@ -36,6 +42,15 @@ public class PerkInterface : MonoBehaviour {
 		backBtn = new Rect(0, 0, 65, 35);
 		
 		treeRoot = PerkController.Instance.Space(100, 150);
+		
+		perkCircleR = new Rect(0, 0, perkCircleTexture.width, perkCircleTexture.height);
+		
+		selectedDescriptionRect = new Rect(
+			Screen.width - sidebarWidth + 20,
+			60,
+			sideBar.width - 40,
+			500
+		);
 	}
 
 	void Start () {
@@ -56,7 +71,6 @@ public class PerkInterface : MonoBehaviour {
 			Perk p = SelectPerkAtPosition(clickpos);
 			if (p != null) {
 				Select (p);
-				p.bought = true;
 			} else {
 				Deselect();
 			} 
@@ -68,13 +82,8 @@ public class PerkInterface : MonoBehaviour {
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
 			// is it on top of a perk block
-			if (Geometry.CenterRectOnPoint(50, 50, pos).Contains(v)) {
-				if (p.prereqs.Length == 0) return p;
-				foreach (Perk r in p.prereqs) {
-					if (r.bought) {
-						return p;
-					}
-				}
+			if (Geometry.CenterRectOnPoint(perkCircleR, pos).Contains(v)) {
+				return p;
 			}
 		}
 		return null;
@@ -82,6 +91,16 @@ public class PerkInterface : MonoBehaviour {
 	
 	void Select(Perk p) {
 		selected = true;
+		selectedPerk = p;
+		
+		Vector2 v = sidebarNameStyle.CalcSize(new GUIContent(selectedPerk.name));		
+		selectedNameRect = new Rect(
+			Screen.width - sidebarWidth/2 - v.x/2,
+			20,
+			v.x,
+			v.y
+		);
+		
 	}
 	
 	void Deselect () {
@@ -115,7 +134,15 @@ public class PerkInterface : MonoBehaviour {
 		}
 		
 		if (selected) {
+			// background
 			GUI.DrawTexture(sideBar, sidebarTexture);
+			
+			// title text
+			GUI.Box(selectedNameRect, selectedPerk.name, sidebarNameStyle);
+			
+			// description text
+			GUI.Box(selectedDescriptionRect, selectedPerk.longDescription, sidebarDescriptionStyle);
+			
 		}
 	
 		
