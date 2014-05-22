@@ -5,7 +5,6 @@ public class PerkInterface : MonoBehaviour {
 	
 	public Texture2D sidebarTexture;
 	public Texture2D titleTexture;
-	public Texture2D backbtnTexture;
 	
 	private int sidebarWidth = 300;
 	
@@ -29,7 +28,7 @@ public class PerkInterface : MonoBehaviour {
 		
 		titleBox = new Rect((Screen.width - sidebarWidth - titleTexture.width)/2, 0, titleTexture.width, titleTexture.height);
 		
-		backBtn = new Rect(0, 0, backbtnTexture.width, backbtnTexture.height);
+		backBtn = new Rect(0, 0, 65, 35);
 	}
 
 	void Start () {
@@ -37,13 +36,18 @@ public class PerkInterface : MonoBehaviour {
 	}
 
 	void Update () {
-	
+		if (Input.GetKeyDown (KeyCode.Escape)) { 
+			Application.LoadLevel ("gridtest");
+		}
 	}
 
 	void OnGUI () {
 		GUI.DrawTexture(fullScreen, backgroundT);
 		GUI.DrawTexture(sideBar, sidebarTexture);
 		GUI.DrawTexture(titleBox, titleTexture);
-		GUI.DrawTexture(backBtn, backbtnTexture);
+		
+		if (GUI.Button (backBtn, "Back")) {
+			Application.LoadLevel ("gridtest");
+		}
 	}
 }
