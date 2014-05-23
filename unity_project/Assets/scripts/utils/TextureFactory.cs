@@ -26,7 +26,6 @@ public class TextureFactory
 		Texture2D t = new Texture2D(1,1);
 		t.SetPixel(0, 0, c);
 		t.Apply();
-		t.alphaIsTransparency = true;
 		return t;
 	}
 	
