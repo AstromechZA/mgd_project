@@ -27,8 +27,6 @@ public class AbstractCreep : MonoBehaviour {
 
 	public void OnDestroy() {
 		Debug.Log("Deregister creep");
-		if (NearestCreepFinder.Instance != null) {
-			NearestCreepFinder.Instance.Deregister (this);
-		}
+		if (NearestCreepFinder.Instance != null) NearestCreepFinder.Instance.Deregister(this);
 	}
 }

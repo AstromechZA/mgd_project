@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<PerkCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Perks>
+		<PerkXMLStruct>
+			<id>0</id>>
+			<name>Lead Streamlining</name>
+			<description>All of your Gun Towers gain +20 range</description>
+			<type>TWR_GUN_RANGE</type>
+			<value>50</value>
+			<Prereqs>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>1</id>>
+			<name>Heated Shot</name>
+			<description>All of your Gun Towers gain +1 damage</description>
+			<type>TWR_GUN_DMG</type>
+			<value>1</value>
+			<Prereqs>
+				<pr>0</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>2</id>>
+			<name>Alien Bankers</name>
+			<description>Gain +1 credits per kill</description>
+			<type>CREEP_ALL_REWARD</type>
+			<value>1</value>
+			<Prereqs>
+				<pr>0</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>3</id>>
+			<name>High Frequency Occilators</name>
+			<description>Increase Beam Tower burst length by 1 seconds</description>
+			<type>TWR_BEAM_SPEED</type>
+			<value>1</value>
+			<Prereqs>
+				<pr>1</pr>
+				<pr>2</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>4</id>>
+			<name>Deadly Detonations</name>
+			<description>Blah blah blah</description>
+			<type>TWR_MISSILE_DMG</type>
+			<value>1</value>
+			<Prereqs>
+				<pr>3</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+	</Perks>
+</PerkCollection>
