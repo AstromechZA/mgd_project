@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour {
 
 	Rect sonarCreditRect, sonarCostRect, missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
 	Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect;
-
+	
+	const int perkTreeButtonWidth = 100;
+	Rect perkTreeButtonRect;
 	          
 	void Start()
 	{
@@ -96,7 +98,13 @@ public class GameManager : MonoBehaviour {
 		healthCountRect = new Rect (Screen.width - 85, Screen.height - interfaceTopPos.y - 7, 100, 20);
 		waveRect = new Rect (15, Screen.height - interfaceTopPos.y - 10, 20, 20);
 		waveCountRect = new Rect (40, Screen.height - interfaceTopPos.y - 7, 100, 20);	
-
+	
+		perkTreeButtonRect = new Rect(
+			(Screen.width - perkTreeButtonWidth)/2,
+			Screen.height - 40,
+			perkTreeButtonWidth,
+			30
+		);
 		
 		// Resume Game if it was paused
 		resumeGame();
@@ -146,5 +154,10 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(healthCountRect, GameController.Instance.citadelLives.ToString(), guiStyle);
 		GUI.DrawTexture(waveRect, waveIcon);
 		GUI.Label(waveCountRect, "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
+	
+		if (GUI.Button(perkTreeButtonRect, "Perk Tree")) {
+			pauseGame();
+			Application.LoadLevel ("perktree");
+		}
 	}
 }
