@@ -646,8 +646,8 @@ GameObject:
   - 65: {fileID: 321483990}
   - 114: {fileID: 321483989}
   - 114: {fileID: 321483988}
-  - 114: {fileID: 321483987}
   - 114: {fileID: 321483986}
+  - 114: {fileID: 321483985}
   m_Layer: 0
   m_Name: Missile Tower Builder
   m_TagString: Untagged
@@ -677,6 +677,17 @@ Transform:
   - {fileID: 469102221}
   - {fileID: 581031836}
   m_Father: {fileID: 0}
+--- !u!114 &321483985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 321483983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b5fbd8d0b14f34e83490aaa568baee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &321483986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,19 +700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c71c3850f3cbf14b9a6cc7f9669a31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &321483987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 3de3ae81d9be7634d9449900a437f015,
-    type: 2}
-  m_PrefabInternal: {fileID: 2027547025}
-  m_GameObject: {fileID: 321483983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4965ed8d5f45064988f9d7d02533410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveLeewayTime: 3
 --- !u!114 &321483988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2283,6 +2281,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 7ea0050cbb2c7204f8991cd43ae976f9, type: 2}
+    - {fileID: 11400002, guid: 7ea0050cbb2c7204f8991cd43ae976f9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7ea0050cbb2c7204f8991cd43ae976f9, type: 2}
   m_RootGameObject: {fileID: 2066196439}
   m_IsPrefabParent: 0
@@ -2623,8 +2622,8 @@ GameObject:
   - 65: {fileID: 1448357871}
   - 114: {fileID: 1448357870}
   - 114: {fileID: 1448357869}
-  - 114: {fileID: 1448357868}
   - 114: {fileID: 1448357867}
+  - 114: {fileID: 1448357866}
   m_Layer: 0
   m_Name: Beam Tower Builder
   m_TagString: Untagged
@@ -2648,6 +2647,17 @@ Transform:
   - {fileID: 1211673499}
   - {fileID: 1926097768}
   m_Father: {fileID: 0}
+--- !u!114 &1448357866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1448357864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b5fbd8d0b14f34e83490aaa568baee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1448357867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,19 +2670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c71c3850f3cbf14b9a6cc7f9669a31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1448357868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 335d33b748578024ab4b68f9c1f9572e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1912184211}
-  m_GameObject: {fileID: 1448357864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4965ed8d5f45064988f9d7d02533410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveLeewayTime: 3
 --- !u!114 &1448357869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2911,6 +2908,7 @@ GameObject:
   - 33: {fileID: 1499657628}
   - 64: {fileID: 1499657627}
   - 23: {fileID: 1499657626}
+  - 114: {fileID: 1499657630}
   m_Layer: 0
   m_Name: Ground Plane
   m_TagString: Untagged
@@ -2973,6 +2971,18 @@ Transform:
   m_LocalScale: {x: 45.1540718, y: 1.1882652, z: 22.5770397}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1499657630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1499657625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6494d60b542a44c90ab796d6683ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementVisualiser: {fileID: 100002, guid: 76ad42a91e110c04ba05733df36ca529, type: 2}
 --- !u!1 &1504604830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,6 +3246,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
+    - {fileID: 11400002, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
   m_RootGameObject: {fileID: 1797939657}
   m_IsPrefabParent: 0
@@ -3333,8 +3344,8 @@ GameObject:
   - 65: {fileID: 1797939664}
   - 114: {fileID: 1797939663}
   - 114: {fileID: 1797939662}
-  - 114: {fileID: 1797939661}
   - 114: {fileID: 1797939660}
+  - 114: {fileID: 1797939659}
   m_Layer: 0
   m_Name: Gun Tower Builder
   m_TagString: Untagged
@@ -3358,6 +3369,17 @@ Transform:
   - {fileID: 1345962447}
   - {fileID: 139325027}
   m_Father: {fileID: 0}
+--- !u!114 &1797939659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1797939657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b5fbd8d0b14f34e83490aaa568baee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1797939660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3370,19 +3392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c71c3850f3cbf14b9a6cc7f9669a31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1797939661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: a7da6a90505786644a1e8c858c21fd43,
-    type: 2}
-  m_PrefabInternal: {fileID: 1778135389}
-  m_GameObject: {fileID: 1797939657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4965ed8d5f45064988f9d7d02533410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveLeewayTime: 3
 --- !u!114 &1797939662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3727,6 +3736,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
+    - {fileID: 11400002, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
   m_RootGameObject: {fileID: 1448357864}
   m_IsPrefabParent: 0
@@ -4302,6 +4312,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
+    - {fileID: 11400004, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
   m_RootGameObject: {fileID: 321483983}
   m_IsPrefabParent: 0
@@ -4318,8 +4329,8 @@ GameObject:
   - 65: {fileID: 2066196446}
   - 114: {fileID: 2066196445}
   - 114: {fileID: 2066196444}
-  - 114: {fileID: 2066196443}
   - 114: {fileID: 2066196442}
+  - 114: {fileID: 2066196441}
   m_Layer: 0
   m_Name: Sonar Tower Builder
   m_TagString: Untagged
@@ -4342,6 +4353,17 @@ Transform:
   - {fileID: 107999914}
   - {fileID: 1858611395}
   m_Father: {fileID: 0}
+--- !u!114 &2066196441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2066196439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b5fbd8d0b14f34e83490aaa568baee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2066196442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4354,19 +4376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c71c3850f3cbf14b9a6cc7f9669a31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2066196443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 7ea0050cbb2c7204f8991cd43ae976f9,
-    type: 2}
-  m_PrefabInternal: {fileID: 1254944710}
-  m_GameObject: {fileID: 2066196439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4965ed8d5f45064988f9d7d02533410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveLeewayTime: 3
 --- !u!114 &2066196444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4529,3 +4538,85 @@ SkinnedMeshRenderer:
     m_Center: {x: -.376356095, y: -.255314469, z: 2.98023224e-08}
     m_Extent: {x: .0614000559, y: .229147494, z: .463034123}
   m_DirtyAABB: 0
+--- !u!1 &2137765778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2137765782}
+  - 33: {fileID: 2137765781}
+  - 64: {fileID: 2137765780}
+  - 23: {fileID: 2137765779}
+  - 114: {fileID: 2137765783}
+  m_Layer: 0
+  m_Name: Selected Tower Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &2137765779
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137765778}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 8d67e5702bcacc54482a90fae4dd18ed, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!64 &2137765780
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137765778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &2137765781
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137765778}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2137765782
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137765778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -210, y: 1, z: -113}
+  m_LocalScale: {x: 2.3499999, y: 2.3499999, z: 2.3499999}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &2137765783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137765778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab34c55e533c7fe44a67714067644226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

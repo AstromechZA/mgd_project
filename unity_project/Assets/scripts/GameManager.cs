@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour {
 	int gunTowerCost;
 	int beamTowerCost;
 
-	bool isPaused = false;
-
 	Rect sonarCreditRect, sonarCostRect, missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
 	Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect;
 	
