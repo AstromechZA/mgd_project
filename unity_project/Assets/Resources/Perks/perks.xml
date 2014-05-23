@@ -5,7 +5,7 @@
 			<id>0</id>>
 			<name>Lead Streamlining</name>
 			<description>All of your Gun Towers gain +20 range</description>
-			<type>twr-gun-range</type>
+			<type>TWR_GUN_RANGE</type>
 			<value>50</value>
 			<Prereqs>
 			</Prereqs>
@@ -14,7 +14,7 @@
 			<id>1</id>>
 			<name>Heated Shot</name>
 			<description>All of your Gun Towers gain +1 damage</description>
-			<type>twr-gun-damage</type>
+			<type>TWR_GUN_DMG</type>
 			<value>1</value>
 			<Prereqs>
 				<pr>0</pr>
@@ -24,7 +24,7 @@
 			<id>2</id>>
 			<name>Alien Bankers</name>
 			<description>Gain +1 credits per kill</description>
-			<type>creep-all-reward</type>
+			<type>CREEP_ALL_REWARD</type>
 			<value>1</value>
 			<Prereqs>
 				<pr>0</pr>
@@ -34,7 +34,7 @@
 			<id>3</id>>
 			<name>High Frequency Occilators</name>
 			<description>Increase Beam Tower burst length by 1 seconds</description>
-			<type>twr-beam-time</type>
+			<type>TWR_BEAM_SPEED</type>
 			<value>1</value>
 			<Prereqs>
 				<pr>1</pr>
@@ -45,7 +45,7 @@
 			<id>4</id>>
 			<name>Deadly Detonations</name>
 			<description>Blah blah blah</description>
-			<type>derp-derp</type>
+			<type>TWR_MISSILE_DMG</type>
 			<value>1</value>
 			<Prereqs>
 				<pr>3</pr>

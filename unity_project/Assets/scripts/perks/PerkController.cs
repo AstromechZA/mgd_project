@@ -33,7 +33,8 @@ public class PerkController : Singleton<PerkController>
 			
 			// assemble perk objects
 			foreach (PerkXMLStruct pxml in perks.perks) {
-				perkByID[pxml.id] = new Perk(pxml.name, pxml.description, pxml.type, pxml.value, new Perk[]{});
+				Perk.PerkType pt = Perk.StringToPerkType(pxml.type);
+				perkByID[pxml.id] = new Perk(pxml.name, pxml.description, pt, pxml.value, new Perk[]{});
 			}
 			// assemble linked perks
 			for(int j=0;j<perks.perks.Length;j++) {
