@@ -41,8 +41,13 @@ public class GameManager : MonoBehaviour {
 	Rect sonarCreditRect, sonarCostRect, missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
 	Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect;
 	
-	const int perkTreeButtonWidth = 100;
+	const int perkTreeButtonWidth = 200;
+	Rect perkTreeProgressBarRect;
+	Rect perkTreeProgressBarForeRect;
 	Rect perkTreeButtonRect;
+	Texture2D perkTreeProgressBarBack;
+	Texture2D perkTreeProgressBarFore;
+	string perkTreeButtonText = "";
 	          
 	void Start()
 	{
@@ -106,6 +111,21 @@ public class GameManager : MonoBehaviour {
 			30
 		);
 		
+		perkTreeProgressBarRect = new Rect(
+			(Screen.width - perkTreeButtonWidth)/2,
+			Screen.height - 60,
+			perkTreeButtonWidth,
+			20
+		);
+		perkTreeProgressBarForeRect = new Rect(
+			perkTreeProgressBarRect.x,
+			perkTreeProgressBarRect.y,
+			0,
+			perkTreeProgressBarRect.height
+		);
+		perkTreeProgressBarBack = TextureFactory.RGBTexture(30, 30, 30);
+		perkTreeProgressBarFore = TextureFactory.RGBTexture(200, 255, 0);
+		
 		// Resume Game if it was paused
 		resumeGame();
 	}
@@ -129,10 +149,17 @@ public class GameManager : MonoBehaviour {
 			// Go to Main Menu
 			Application.LoadLevel ("menu");
 		}
+		
+		if (Input.GetKeyDown(KeyCode.O)) { 
+			PerkController.Instance.AddExperience(2);
+		}
 
 		if (GameController.Instance.citadelLives == 0) {
 			Debug.Log("Add Lose Game stuff here");
 		}
+		
+		perkTreeButtonText = "Perk Tree [ " + PerkController.Instance.GetPoints() + " ]";
+		perkTreeProgressBarForeRect.width = perkTreeProgressBarRect.width * PerkController.Instance.GetExperienceProgress();
 	}
 	
 	void OnGUI(){
@@ -154,8 +181,10 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(healthCountRect, GameController.Instance.citadelLives.ToString(), guiStyle);
 		GUI.DrawTexture(waveRect, waveIcon);
 		GUI.Label(waveCountRect, "WAVE "+GameController.Instance.currentWave.ToString()+"/"+GameController.Instance.numberOfWaves.ToString(), guiStyle);	
-	
-		if (GUI.Button(perkTreeButtonRect, "Perk Tree")) {
+		
+		GUI.DrawTexture(perkTreeProgressBarRect, perkTreeProgressBarBack);
+		GUI.DrawTexture(perkTreeProgressBarForeRect, perkTreeProgressBarFore);
+		if (GUI.Button(perkTreeButtonRect, perkTreeButtonText)) {
 			pauseGame();
 			Application.LoadLevel ("perktree");
 		}
