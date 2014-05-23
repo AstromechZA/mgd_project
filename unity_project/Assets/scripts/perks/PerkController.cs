@@ -14,8 +14,17 @@ public class PerkController : Singleton<PerkController>
 	public float perPointExpMultiplier = 2;
 	private int perkPointsAvailable = 0;
 
+	// bonuses
+	private float[] perkTypeBonuses;
+
 	public PerkController ()
 	{
+		int numperktypes = Enum.GetNames(typeof(Perk.PerkType)).Length;
+		perkTypeBonuses = new float[numperktypes];
+		for(int i=0;i<numperktypes;i++) {
+			perkTypeBonuses[i] = 0;
+		}	
+		
 		CreatePerks();
 	}
 	
@@ -80,9 +89,20 @@ public class PerkController : Singleton<PerkController>
 		return perkPointsAvailable;
 	}
 	
-	public void SpendPoint() {
+	public void SpendPoint(Perk p) {
 		if (perkPointsAvailable <= 0) throw new Exception("No more perk points!");
+		if (p.bought) throw new Exception("Perk already bought.");
+		
+		// buy the perk
+		p.bought = true;
+		
+		// add bonus!
+		perkTypeBonuses[(int)p.type] += p.value;
+		
+		// decrement
 		perkPointsAvailable--;
+		
+		Debug.Log("" + p.type + " bonus = " + perkTypeBonuses[(int)p.type]);
 	}
 	
 	public void AddPoint() {
@@ -160,5 +180,10 @@ public class PerkController : Singleton<PerkController>
 		return seen.ToArrayList();		
 	}
 	#endregion
+	
+	public float GetPerkBonus(Perk.PerkType p) {
+		return perkTypeBonuses[(int)p];
+	}
+
 }
 

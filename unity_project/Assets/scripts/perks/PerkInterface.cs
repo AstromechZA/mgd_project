@@ -187,10 +187,9 @@ public class PerkInterface : MonoBehaviour {
 			if (! selectedPerk.bought) {
 				GUI.enabled = selectedCanBeBought;
 				if (GUI.Button(selectedBuyButton, "Buy")) {
-					// by the perk
-					selectedPerk.bought = true;
 					
-					PerkController.Instance.SpendPoint();
+					
+					PerkController.Instance.SpendPoint(selectedPerk);
 					
 					// rerender
 					Select (selectedPerk);
