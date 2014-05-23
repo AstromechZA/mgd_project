@@ -47,7 +47,7 @@ public class PerkInterface : MonoBehaviour {
 		sideBar = new Rect(Screen.width - sidebarWidth, 0, sidebarWidth, Screen.height);
 		sideBarBg = TextureFactory.RGBATexture(0, 0, 0, 60);
 		
-		titleBox = new Rect((Screen.width - sidebarWidth - titleTexture.width)/2, 0, titleTexture.width, titleTexture.height);
+		titleBox = new Rect((Screen.width - titleTexture.width)/2, 0, titleTexture.width, titleTexture.height);
 				
 		backBtn = new Rect(0, 0, 65, 35);
 		
@@ -70,7 +70,7 @@ public class PerkInterface : MonoBehaviour {
 		);
 		
 		availablePointsBox = new Rect(
-			(Screen.width - sidebarWidth - titleTexture.width)/2, 
+			(Screen.width - titleTexture.width)/2, 
 			titleTexture.height + 10, 
 			titleTexture.width, 
 			titleTexture.height 
