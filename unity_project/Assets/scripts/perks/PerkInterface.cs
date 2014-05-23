@@ -6,6 +6,8 @@ public class PerkInterface : MonoBehaviour {
 	public Texture2D sidebarTexture;
 	public Texture2D titleTexture;
 	public Texture2D perkCircleTexture;
+	public Texture2D perkCircleSelectedTexture;
+	public Texture2D perkCircleBoughtTexture;
 	public Texture2D backgroundT;
 	
 	private int sidebarWidth = 300;
@@ -146,18 +148,27 @@ public class PerkInterface : MonoBehaviour {
 			Vector2 pos = treeRoot + p.center;
 			foreach (Perk r in p.prereqs) {
 				if (p.bought && r.bought) {
-					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.blue, 10, true);
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.cyan, 8, true);
 				} else if (r.bought) {
-					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.gray, 8, true);
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.gray, 6, true);
 				} else {
-					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.black, 7, true);
+					LineDrawer.DrawLine(pos, treeRoot + r.center, Color.black, 4, true);
 				}
 			}
 		}
 		
 		foreach (Perk p in PerkController.Instance.Perks) {
 			Vector2 pos = treeRoot + p.center;
-			GUI.DrawTexture(Geometry.CenterRectOnPoint(perkCircleTexture.width, perkCircleTexture.height, pos), perkCircleTexture);
+			
+			Rect r = Geometry.CenterRectOnPoint(perkCircleTexture.width, perkCircleTexture.height, pos);
+			
+			if (p.bought) {
+				GUI.DrawTexture(r, perkCircleBoughtTexture);
+			} else if (p == selectedPerk) {
+				GUI.DrawTexture(r, perkCircleSelectedTexture);
+			} else {
+				GUI.DrawTexture(r, perkCircleTexture);
+			}
 		}
 		
 		if (selected) {
