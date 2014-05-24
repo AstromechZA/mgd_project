@@ -2781,6 +2781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bfe23c4e24e0b46912f7cb73fac336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nukeEffect: {fileID: 100000, guid: 59b60abe3eb89a947be744dac7b1cd3b, type: 2}
   sound_cast: {fileID: 8300000, guid: f07ae5dfd4276af41ba556a77b21b095, type: 3}
   sound_start: {fileID: 8300000, guid: f629f1a4973b9f14e964df960fff6235, type: 3}
   sound_invalid: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
