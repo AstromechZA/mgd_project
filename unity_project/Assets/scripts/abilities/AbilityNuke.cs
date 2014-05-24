@@ -3,7 +3,6 @@ using System.Collections;
 
 public class AbilityNuke : MonoBehaviour
 {
-		public GameObject nukeEffect;
 		public AudioClip sound_cast;
 		public AudioClip sound_start;
 		public AudioClip sound_invalid;
@@ -75,7 +74,7 @@ public class AbilityNuke : MonoBehaviour
 
 						// Playsound and show nuke effect
 						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
-						GameObject nuke = (GameObject)Instantiate (nukeEffect, transform.position, transform.rotation);
+						// TODO: Nuke effect
 						
 						// Restore ability position
 						transform.position = startPos;
@@ -83,8 +82,8 @@ public class AbilityNuke : MonoBehaviour
 						renderer.material.color = Color.black;
 
 						// Wait for sound to finish then destroy effect
-						yield return new WaitForSeconds (sound_cast.length);
-						Destroy (nuke);
+						//yield return new WaitForSeconds (sound_cast.length);
+						// TODO: Destroy effect
 				}
 		}
 }

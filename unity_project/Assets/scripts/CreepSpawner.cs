@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CreepSpawner : MonoBehaviour {
-	
+
+	public AudioClip sound_countdown;
+	public AudioClip sound_ready;
+	private bool played_countdown = false;
+	private bool played_ready = false;
 	public GameObject citadelObject = null;
 	
 	// Different types of enemies
@@ -86,7 +90,20 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.lengthOfWave = lengthOfWave;
 		GameController.Instance.currentDurationOfWave = currentDurationOfWave;
 		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
+
+
+		if (GameController.Instance.currentWave == 0 && !played_ready && GameController.Instance.timeTillNextWave >= 24.0F ) {
+			played_ready = true;
+			AudioSource.PlayClipAtPoint (sound_ready, Camera.main.transform.position);
+				}
+
+
+		if (GameController.Instance.timeTillNextWave <= 4.00F && !played_countdown) {
+			played_countdown = true;
+						AudioSource.PlayClipAtPoint (sound_countdown, Camera.main.transform.position);
+				}
 		
+
 		// Update the position of the Boss enemy (Total Enemies changes)
 		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
 		
@@ -99,7 +116,7 @@ public class CreepSpawner : MonoBehaviour {
 				if (wave)
 				{
 					timeToSpawn -= Time.deltaTime;
-					
+									
 					if (timeToSpawn <= 0f){
 						if (citadelObject!=null){
 							// Spawn Boss enemy
@@ -122,6 +139,8 @@ public class CreepSpawner : MonoBehaviour {
 				// checks if the time is equal to the time required for a new wave
 				if (currentDurationOfWave >= lengthOfWave)
 				{
+					// Lets countdown sound be played again
+					played_countdown = false;
 					// Enables next wave
 					wave = true;
 					// sets the time back to zero
