@@ -3,36 +3,246 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CreepSpawner : MonoBehaviour {
-
-	public float spawnInterval = 1f;
-	public GameObject creepObject;
+	
 	public GameObject citadelObject = null;
-	public AudioClip wave_start;
-
+	
+	// Different types of enemies
+	public enum EnemyTypes
+	{
+		Easy,
+		Medium,
+		Hard,
+		Boss
+	}
+	
+	// Enemy Prefabs
+	public GameObject easyEnemy;
+	public GameObject mediumEnemy;
+	public GameObject hardEnemy;
+	
+	public GameObject groupOfEnemies;
+	
+	public GameObject bossEnemy;
+	
+	private Dictionary<EnemyTypes, GameObject> enemies = new Dictionary<EnemyTypes, GameObject>(4);
+	
+	// Enemies
+	public int totalEnemies = 20;
+	private int numEnemies = 0;
+	private int spawnedEnemies = 0;
+	
+	// States
+	private bool wave = false;
+	public bool spawn = true;
+	
+	// Wave timers
+	public float lengthOfWave = 25.0f;
+	private float timeTillNextWave = 0.0f;
+	
+	//Waves
+	public int totalWaves = 10;
+	private int numWaves = 0;
+	
+	// Spawn Interval
+	public float spawnInterval = 1f;
 	private float timeToSpawn = 0f;
-
+	
+	private float chanceToSpawnCluster = 0.1f;
+	
+	// Boss enemy spawned after a number of enemies have been spawned (randomly selected between 70% of the enemies and the total enemies)
+	private int bossEnemySpawnPosition = 0;
+	private bool bossSpawned = false;
+	
 	void Start()
 	{
-		//AudioSource.PlayClipAtPoint (wave_start, Camera.main.transform.position);
+		// Add different enemies and their associated difficulty level to the enemies dictionary
+		enemies.Add(EnemyTypes.Easy, easyEnemy);
+		enemies.Add(EnemyTypes.Medium, mediumEnemy);
+		enemies.Add(EnemyTypes.Hard, hardEnemy);
+		enemies.Add(EnemyTypes.Boss, bossEnemy);
+		
+		GameController.Instance.currentWave = numWaves;
+		GameController.Instance.numberOfWaves = totalWaves;
+		
+		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
+		//int range = Random.Range(numWaves, numWaves+1);
 	}
-
-	void Update () {
-		timeToSpawn -= Time.deltaTime;
-
-		if (timeToSpawn <= 0f) {
-
-			// Do spawn.
-			if(creepObject != null && citadelObject != null){
-				SpawnCreep();
+	
+	void Update ()
+	{
+		// Update Game variables
+		GameController.Instance.enemiesInWave = totalEnemies;
+		GameController.Instance.enemiesSpawned = spawnedEnemies;
+		GameController.Instance.currentWave = numWaves;
+		GameController.Instance.numberOfWaves = totalWaves;
+		GameController.Instance.timeTillnextWave = lengthOfWave-timeTillNextWave;
+		
+		// Update the position of the Boss enemy (Total Enemies changes)
+		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
+		
+		if(spawn)
+		{
+			if(numWaves <= totalWaves)
+			{
+				// Increases the timer to allow the timed waves to work
+				timeTillNextWave += Time.deltaTime;
+				if (wave)
+				{
+					timeToSpawn -= Time.deltaTime;
+					
+					if (timeToSpawn <= 0f){
+						if (citadelObject!=null){
+							// Spawn Boss enemy
+							if (bossEnemySpawnPosition==spawnedEnemies && bossSpawned==false){
+								spawnSingleEnemy(EnemyTypes.Boss);
+								bossSpawned = true;
+							}
+							// Spawn Cluster of enemies
+							else if (chanceToSpawnCluster >= Random.Range(0f,1f)){
+								spawnPackOfEnemies();
+							}
+							// Spawn single enemey
+							else{
+								spawnSingleEnemy(getEnemyDifficulty());
+							}
+						}
+						timeToSpawn = spawnInterval;
+					}
+				}
+				// checks if the time is equal to the time required for a new wave
+				if (timeTillNextWave >= lengthOfWave)
+				{
+					// Enables next wave
+					wave = true;
+					// sets the time back to zero
+					timeTillNextWave = 0.0f;
+					// increases the number of waves
+					numWaves++;
+					//Ensure numEnemies is 0 (spawn right amount of enemies on new wave)
+					numEnemies = 0;
+					
+					//Reset spawned enemies
+					spawnedEnemies = 0;
+					
+					// Modify the chance to spawn a cluster (Increase to a point as waves increase)
+					chanceToSpawnCluster = Mathf.Clamp (chanceToSpawnCluster,chanceToSpawnCluster*(1+numWaves/totalWaves), 0.6f);
+					
+					lengthOfWave += numWaves*10f;
+					
+					// Reset Boss
+					bossSpawned = false;
+					
+					// Increase Bosses Health and bounty (Multiply by 2)
+					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue = enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue*2;
+					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth = enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth*2;
+				}
+				if(numEnemies >= totalEnemies)
+				{
+					// Disable the wave
+					wave = false;
+				}
 			}
-
-			timeToSpawn = spawnInterval;
+			else
+			{
+				spawn = false;
+			}
 		}
 	}
-
-	private void SpawnCreep(){
-		GameObject creep = Instantiate(creepObject, transform.position, Quaternion.identity) as GameObject;
-		AstarAI creepAI = creep.GetComponent<AstarAI>();
+	
+	// Spawn single enemy
+	private void spawnSingleEnemy(EnemyTypes enemyLevel){
+		GameObject Enemy = Instantiate(enemies[enemyLevel], gameObject.transform.position, Quaternion.identity) as GameObject;
+		AstarAI creepAI = Enemy.GetComponent<AstarAI>();
 		creepAI.navigateToTarget(citadelObject);
+		numEnemies++;
+		spawnedEnemies++;
 	}
+	
+	// Use this for a Prefab which contains multiple enemies
+	private void spawnEnemyCluster(EnemyTypes enemyLevel)
+	{
+		GameObject Enemy = Instantiate(enemies[enemyLevel]) as GameObject;
+		foreach (Transform child in Enemy.transform)
+		{
+			AstarAI creepAI = child.GetComponent<AstarAI>();
+			creepAI.navigateToTarget(citadelObject);
+			//child is your child transform
+			
+			numEnemies++;
+			spawnedEnemies++;
+		}
+		// Account for the extra 4 enemies
+		totalEnemies += 4;
+	}
+	
+	// Spawn a pack of enemies
+	// Formation:
+	//		*
+	//	*	*	*
+	//		*
+	private void spawnPackOfEnemies(){
+		Vector3 spawnPos = gameObject.transform.position;
+		
+		GameObject Enemy1 = Instantiate (enemies[getEnemyDifficulty()], spawnPos, Quaternion.identity) as GameObject;
+		AstarAI creepAI1 = Enemy1.GetComponent<AstarAI> ();
+		creepAI1.navigateToTarget(citadelObject);
+		
+		GameObject Enemy2 = (GameObject)Instantiate (enemies[getEnemyDifficulty()], new Vector3(spawnPos.x+10, spawnPos.y, spawnPos.z), Quaternion.identity);
+		AstarAI creepAI2 = Enemy2.GetComponent<AstarAI> ();
+		creepAI2.navigateToTarget(citadelObject);
+		
+		GameObject Enemy3 = (GameObject)Instantiate (enemies[getEnemyDifficulty()], new Vector3(spawnPos.x-16, spawnPos.y, spawnPos.z), Quaternion.identity);
+		AstarAI creepAI3 = Enemy3.GetComponent<AstarAI> ();
+		creepAI3.navigateToTarget(citadelObject);
+		
+		GameObject Enemy4 = (GameObject)Instantiate (enemies[getEnemyDifficulty()], new Vector3(spawnPos.x, spawnPos.y, spawnPos.z+15), Quaternion.identity);
+		AstarAI creepAI4 = Enemy4.GetComponent<AstarAI> ();
+		creepAI4.navigateToTarget(citadelObject);
+		
+		GameObject Enemy5 = (GameObject)Instantiate (enemies[getEnemyDifficulty()], new Vector3(spawnPos.x, spawnPos.y, spawnPos.z-3), Quaternion.identity);
+		AstarAI creepAI5 = Enemy5.GetComponent<AstarAI> ();
+		creepAI5.navigateToTarget(citadelObject);
+		
+		// Increase the total number of enemies spawned and the number of spawned enemies
+		numEnemies+=5;
+		spawnedEnemies+=5;
+		
+		// Account for the extra 4 enemies
+		totalEnemies += 4;
+	}
+	
+	// Get a semi-randomly generated Enemy Difficulty determined by the current and number of waves
+	private EnemyTypes getEnemyDifficulty(){
+		
+		int range = Random.Range(numWaves, numWaves+1);
+		float range2 = Random.Range(0f,1f);
+		
+		// 20% difficulty offset
+		float difficultyOffset = 0.2f;
+		
+		if (range > totalWaves*0.8) {
+			if (range2 < difficultyOffset){
+				return EnemyTypes.Medium;
+			}
+			else{
+				return EnemyTypes.Hard;
+			}
+			
+		} else if (range > totalWaves*0.5) {
+			if(range2 < difficultyOffset){
+				return EnemyTypes.Hard;
+			}
+			else{
+				return EnemyTypes.Medium;
+			}
+		} else {
+			if (range2 < difficultyOffset){
+				return EnemyTypes.Medium;
+			}
+			else{
+				return EnemyTypes.Easy;
+			}
+		}
+	}
+	
 }

@@ -2785,7 +2785,7 @@ MonoBehaviour:
   castable: 1
   nextCast: 0
   cooldown: 10
-  damage: 4
+  multiplier: 1
 --- !u!23 &1455635681
 Renderer:
   m_ObjectHideFlags: 0
@@ -3201,10 +3201,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b99f325b969bc47a53a8036d05d77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 10
-  creepObject: {fileID: 100040, guid: 176dd906bd549694bbbfe5227d0743ca, type: 2}
   citadelObject: {fileID: 1781161179}
-  wave_start: {fileID: 8300000, guid: 7f5b174708b041a4a99f7c79d6a7240e, type: 3}
+  easyEnemy: {fileID: 100040, guid: 176dd906bd549694bbbfe5227d0743ca, type: 2}
+  mediumEnemy: {fileID: 100000, guid: 587777304cd10bb41aa0eb10cbcf1457, type: 2}
+  hardEnemy: {fileID: 100000, guid: 46af78b47d8f2cf42873709cac77126d, type: 2}
+  groupOfEnemies: {fileID: 0}
+  bossEnemy: {fileID: 100054, guid: fc9ef976bdfd07e48a9a62eff13bd051, type: 2}
+  totalEnemies: 25
+  spawn: 1
+  lengthOfWave: 30
+  totalWaves: 10
+  spawnInterval: 1
 --- !u!1001 &1778135389
 Prefab:
   m_ObjectHideFlags: 0
