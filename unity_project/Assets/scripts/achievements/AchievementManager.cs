@@ -4,7 +4,7 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
 	#region Variables
-
+	
 	// GUI styles
 	public GUIStyle GUIStyleAchievement;
 	public GUIStyle GUIStyleAmazing;
@@ -56,6 +56,7 @@ public class AchievementManager : MonoBehaviour
 	void Start(){
 		
 		setupAchievements();
+		sortAchievements();
 		
 		// Load player rank and trophy icon
 		iconRank = (Texture2D)Resources.Load ("Achievements/ranks/"+rankImages[AchievementController.Instance.currentRank]);
@@ -91,9 +92,42 @@ public class AchievementManager : MonoBehaviour
 		// View rectangle
 		scrollViewRectangle = new Rect(0.0f, 0.0f, achievementGUIWidth, (AchievementController.Instance.achievementsArray.Count () * 90.0f));
 		GUIStyleManagerBackground.normal.background = (Texture2D)Resources.Load ("Achievements/bases/notifier_background_2");
-			
-
+		
+		
 	}
+	
+	#region Sort Achievements
+	private void sortAchievements(){
+		Achievement[] tempAchievementsArray = new Achievement[AchievementController.Instance.achievementsArray.Length];
+		
+		int index = 0;
+		int index2 = 0;
+		
+		// Add achieved achievements to the temp Array
+		foreach (Achievement achievement in AchievementController.Instance.achievementsArray) 
+		{
+			if (achievement.achieved==true){
+				tempAchievementsArray[index] = AchievementController.Instance.achievementsArray[index2];
+				index++;
+			}
+			index2++;
+		}
+		index2 = 0;
+		// Add the rest of the achievements
+		foreach (Achievement achievement in AchievementController.Instance.achievementsArray) 
+		{
+			if (achievement.achieved==false){
+				tempAchievementsArray[index] = AchievementController.Instance.achievementsArray[index2];
+				index++;
+			}
+			
+			index2++;
+		}
+		
+		AchievementController.Instance.achievementsArray = tempAchievementsArray;
+		
+	}
+	#endregion
 	
 	#region Setup Achievements
 	private void setupAchievements()
@@ -110,7 +144,7 @@ public class AchievementManager : MonoBehaviour
 			}			
 			potentialAchievementPoints += achievement.rewardPoints;
 		}
-
+		
 		if (AchievementController.Instance.achievementsArray != null) {
 			for (int i=0; i<AchievementController.Instance.achievementsArray.Length; i++) {
 				// Ensure a notification is not in place
