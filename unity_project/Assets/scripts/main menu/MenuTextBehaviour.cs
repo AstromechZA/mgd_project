@@ -3,6 +3,11 @@ using System.Collections;
 
 public class MenuTextBehaviour : MonoBehaviour {
 
+	void Update(){
+		if (!(GameObject.Find ("soundtrack_menu").audio.isPlaying))
+			GameObject.Find ("soundtrack_menu").audio.Play();
+	}
+
 
 	void OnMouseDown () {
 
@@ -18,6 +23,10 @@ public class MenuTextBehaviour : MonoBehaviour {
 		
 		// Play the game (go to scene_level)
 		if (GameObject.Find ("Menu Block/Play_Game_text") == this.gameObject) {
+			GameObject.Find ("soundtrack_menu").audio.Pause();
+
+			GameObject.Find ("soundtrack_level").audio.Stop ();
+			GameObject.Find ("soundtrack_level").audio.PlayDelayed (4.0F);
 			// Reset Game Parameters
 			GameController.Instance.ResetGameParameters();
 			GameController.Instance.DestroyAllObjectsWithTag("Instantiable Object");
@@ -28,7 +37,8 @@ public class MenuTextBehaviour : MonoBehaviour {
 			Application.LoadLevel ("achievements");
 		}		
 		// Resume the Game
-		else if(GameObject.Find ("Resume_Game_text(Clone)") == this.gameObject){			
+		else if(GameObject.Find ("Resume_Game_text(Clone)") == this.gameObject){
+			GameObject.Find ("soundtrack_menu").audio.Pause();
 			Application.LoadLevel ("gridtest");	
 		}
 		// Exit game

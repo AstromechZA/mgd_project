@@ -100,6 +100,10 @@ public class PerkInterface : MonoBehaviour {
 				Select (p);
 			} 
 		}
+
+		if (!(GameObject.Find ("soundtrack_menu").audio.isPlaying))
+			GameObject.Find ("soundtrack_menu").audio.Play();
+	
 	}
 
 	private Perk SelectPerkAtPosition(Vector2 v) {

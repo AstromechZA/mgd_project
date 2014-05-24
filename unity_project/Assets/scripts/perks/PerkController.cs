@@ -74,6 +74,7 @@ public class PerkController : Singleton<PerkController>
 	public void AddExperience(float val) {
 		currentExperience += val;
 		while (currentExperience > maxExperience) {
+			GameObject.Find ("perk_point").audio.Play ();
 			currentExperience -= maxExperience;
 			perkPointsAvailable += 1;
 			maxExperience *= perPointExpMultiplier;

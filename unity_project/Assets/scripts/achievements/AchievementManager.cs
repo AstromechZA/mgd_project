@@ -240,5 +240,8 @@ public class AchievementManager : MonoBehaviour
 			GameObject.Find ("menu_back").audio.Play ();
 			Application.LoadLevel ("menu");
 		}
+
+		if (!(GameObject.Find ("soundtrack_menu").audio.isPlaying))
+			GameObject.Find ("soundtrack_menu").audio.Play();
 	}
 }
