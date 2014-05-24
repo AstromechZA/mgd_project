@@ -83,26 +83,31 @@ public class AbilityFreeze : MonoBehaviour
 				Debug.Log ("Froze an enemy!");
 				float startSpeed = enemy.GetComponent<AstarAI> ().speed;
 				
+				// if a normal enemy
 				if (enemy.transform.FindChild ("model/Cube")) {
-						Color startColor = enemy.transform.FindChild ("model/Cube").renderer.material.color;
-				}
-
-
-				// Slow down enemy and change it's main colour -- Note 
-				if (enemy.transform.FindChild ("model/Cube")) {
+						Color creepColor = enemy.transform.FindChild ("model/Cube").renderer.material.color;
 						enemy.transform.FindChild ("model/Cube").renderer.material.color = Color.blue;
-				}
+						enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
+			
+						yield return new WaitForSeconds (slowTime);
 
-				enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
-
-				yield return new WaitForSeconds (slowTime);
-
-				// Return enemy to original speed and colour
-				if (enemy) { // check if enemy still exists
-						enemy.GetComponent<AstarAI> ().speed = startSpeed;
-						if (enemy.transform.FindChild ("model/Cube")) {
-								enemy.transform.FindChild ("model/Cube").renderer.material.color = startColor;
+						if (enemy) {
+								enemy.GetComponent<AstarAI> ().speed = startSpeed;
+								enemy.transform.FindChild ("model/Cube").renderer.material.color = creepColor;
 						}
+
 				}
+
+			// if a boss
+
+		else {
+						enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
+						yield return new WaitForSeconds (slowTime);
+						if (enemy) 
+								enemy.GetComponent<AstarAI> ().speed = startSpeed;
+				}
+	
+
+
 		}
 }

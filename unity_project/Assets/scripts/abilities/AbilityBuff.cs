@@ -4,7 +4,6 @@ using System.Collections;
 public class AbilityBuff : MonoBehaviour
 {
 		public GameObject buffEffect;
-		public float radius = 20.0F;
 		public AudioClip sound_cast;
 		public AudioClip sound_invalid;
 		private Vector3 screenPoint;
@@ -70,7 +69,7 @@ public class AbilityBuff : MonoBehaviour
 						GameObject[] towers = GameObject.FindGameObjectsWithTag ("Instantiable Object");
 						for (int i =0; i < towers.Length; i++) {
 								if (towers [i].GetComponent<TowerProperties> ()) { // check if it's a tower
-										if (Vector3.Distance (dropSpot, towers [i].transform.position) < radius) {
+										if (Vector3.Distance (dropSpot, towers [i].transform.position) < 30) {
 												StartCoroutine ("buff", towers [i]);
 										}
 								}
