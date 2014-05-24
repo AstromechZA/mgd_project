@@ -145,7 +145,8 @@ public class GameManager : MonoBehaviour {
 	
 	void Update(){
 		
-		if (Input.GetKeyDown(KeyCode.Escape)) { 
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			GameObject.Find ("menu_back").audio.Play ();
 			// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
 			AchievementController.Instance.timePlayed = AchievementController.Instance.totalTimePlayed;
 			// Pause the game
@@ -193,6 +194,7 @@ public class GameManager : MonoBehaviour {
 		GUI.DrawTexture(perkTreeProgressBarRect, perkTreeProgressBarBack);
 		GUI.DrawTexture(perkTreeProgressBarForeRect, perkTreeProgressBarFore);
 		if (GUI.Button(perkTreeButtonRect, perkTreeButtonText)) {
+			GameObject.Find ("menu_select").audio.Play ();
 			pauseGame();
 			Application.LoadLevel ("perktree");
 		}

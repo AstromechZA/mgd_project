@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c2ca394addc914784cc7e7eb7b0e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound_perkBought: {fileID: 8300000, guid: 27bd4addb175fa64cbd57fc4e1663ad0, type: 3}
   sidebarTexture: {fileID: 2800000, guid: 5a3fd81b5b86e3748b7092b231760e1e, type: 3}
   titleTexture: {fileID: 2800000, guid: 30d5bd73c77e4514fa7771881feb8e7c, type: 3}
   perkCircleTexture: {fileID: 2800000, guid: 9108c63b779e45448ac215ac18877c57, type: 3}

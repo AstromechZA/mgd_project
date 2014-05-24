@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class PerkInterface : MonoBehaviour {
-	
+
 	public Texture2D sidebarTexture;
 	public Texture2D titleTexture;
 	public Texture2D perkCircleTexture;
@@ -82,7 +82,8 @@ public class PerkInterface : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape)) { 
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			GameObject.Find ("menu_back").audio.Play ();
 			Application.LoadLevel ("gridtest");
 		} else if (Input.GetKeyDown (KeyCode.P)) { 
 			PerkController.Instance.AddPoint();
@@ -142,6 +143,7 @@ public class PerkInterface : MonoBehaviour {
 		GUI.Box(availablePointsBox, av, availablePointsBoxStyle);
 		
 		if (GUI.Button (backBtn, "Back")) {
+			GameObject.Find ("menu_back").audio.Play ();
 			Application.LoadLevel ("gridtest");
 		}
 		
@@ -187,7 +189,7 @@ public class PerkInterface : MonoBehaviour {
 				GUI.enabled = selectedCanBeBought;
 				if (GUI.Button(selectedBuyButton, "Buy")) {
 					
-					
+					GameObject.Find ("perk_bought").audio.Play ();
 					PerkController.Instance.SpendPoint(selectedPerk);
 					
 					// rerender
