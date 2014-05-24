@@ -11,7 +11,6 @@ public class AbilityNuke : MonoBehaviour
 		public bool castable = true;
 		public float nextCast = 0;
 		public float cooldown = 10.0F;
-		public float multiplier = 1.0F;
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
@@ -68,7 +67,7 @@ public class AbilityNuke : MonoBehaviour
 								if (enemies [i] && enemies [i].GetComponent<AstarAI> ()) { // Checks if it's a creep
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
 												Debug.Log ("Nuked an enemy!");
-												enemies [i].GetComponent<AbstractCreep> ().Hit (15 * multiplier);
+												enemies [i].GetComponent<AbstractCreep> ().Hit (50);
 										}
 					
 								}
