@@ -3207,9 +3207,9 @@ MonoBehaviour:
   hardEnemy: {fileID: 100000, guid: 46af78b47d8f2cf42873709cac77126d, type: 2}
   groupOfEnemies: {fileID: 0}
   bossEnemy: {fileID: 100054, guid: fc9ef976bdfd07e48a9a62eff13bd051, type: 2}
-  totalEnemies: 25
+  totalEnemies: 20
   spawn: 1
-  lengthOfWave: 30
+  lengthOfWave: 25
   totalWaves: 10
   spawnInterval: 1
 --- !u!1001 &1778135389
