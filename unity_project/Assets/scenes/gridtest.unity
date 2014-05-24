@@ -1837,6 +1837,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935b4af77019a604fb3000a123ab9a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffEffect: {fileID: 100000, guid: dd016730a4844c940aab30e812aab9fd, type: 2}
+  radius: 20
   sound_cast: {fileID: 8300000, guid: edca3a20e97c1be44bd5f980825e2180, type: 3}
   sound_invalid: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
   castable: 1

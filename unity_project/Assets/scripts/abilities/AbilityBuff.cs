@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AbilityBuff : MonoBehaviour
 {
+		public GameObject buffEffect;
+		public float radius = 20.0F;
 		public AudioClip sound_cast;
 		public AudioClip sound_invalid;
 		private Vector3 screenPoint;
@@ -68,7 +70,7 @@ public class AbilityBuff : MonoBehaviour
 						GameObject[] towers = GameObject.FindGameObjectsWithTag ("Instantiable Object");
 						for (int i =0; i < towers.Length; i++) {
 								if (towers [i].GetComponent<TowerProperties> ()) { // check if it's a tower
-										if (Vector3.Distance (dropSpot, towers [i].transform.position) < 20) {
+										if (Vector3.Distance (dropSpot, towers [i].transform.position) < radius) {
 												StartCoroutine ("buff", towers [i]);
 										}
 								}
@@ -79,54 +81,52 @@ public class AbilityBuff : MonoBehaviour
 
 		IEnumerator buff (GameObject enemy)
 		{
-				if (!buffed) {
-						Debug.Log ("Buffed a tower!");
+				Debug.Log ("Buffed a tower!");
 						
-						// Store initial firerate
-						float startRate = enemy.GetComponent<TowerProperties> ().fireRate;
+				// Store initial firerate
+				float startRate = enemy.GetComponent<TowerProperties> ().fireRate;
 
-						// Buff tower
-						enemy.GetComponent<TowerProperties> ().fireRate = startRate / buffAmount;
+				// Buff tower
+				enemy.GetComponent<TowerProperties> ().fireRate = startRate / buffAmount;
 						
-						// Set animation rates
-						if (enemy.GetComponent<GunTowerController> ())
-								enemy.GetComponent<GunTowerController> ().setFireRate (startRate / buffAmount);
-						else if (enemy.GetComponent<MissileTowerController> ())
-								enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate / buffAmount);
-						else if (enemy.GetComponent<SniperTowerController> ())
-								enemy.GetComponent<SniperTowerController> ().setFireRate (startRate / buffAmount);
-						else if (enemy.GetComponent<SonarTowerController> ()) {
-								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate * buffAmount);
-								enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate + (buffAmount / 10));
-								enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate + (buffAmount / 10));
-						}
-
-
-						// TODO: change tower visual while buffed
-						buffed = true;
-
-						// Wait for the buff time
-						yield return new WaitForSeconds (buffTime);
-
-						// Reset to starting firerate
-						enemy.GetComponent<TowerProperties> ().fireRate = startRate;
-
-						// Animation rates reset
-						if (enemy.GetComponent<GunTowerController> ())
-								enemy.GetComponent<GunTowerController> ().setFireRate (startRate);
-						else if (enemy.GetComponent<MissileTowerController> ())
-								enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate);
-						else if (enemy.GetComponent<SniperTowerController> ())
-								enemy.GetComponent<SniperTowerController> ().setFireRate (startRate);
-						else if (enemy.GetComponent<SonarTowerController> ()) {
-								enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate / buffAmount);
-								enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate - (buffAmount / 10));
-								enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate - (buffAmount / 10));
-						}
-
-
-
-						buffed = false;
+				// Set animation rates
+				if (enemy.GetComponent<GunTowerController> ())
+						enemy.GetComponent<GunTowerController> ().setFireRate (startRate / buffAmount);
+				else if (enemy.GetComponent<MissileTowerController> ())
+						enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate / buffAmount);
+				else if (enemy.GetComponent<SniperTowerController> ())
+						enemy.GetComponent<SniperTowerController> ().setFireRate (startRate / buffAmount);
+				else if (enemy.GetComponent<SonarTowerController> ()) {
+						enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate * buffAmount);
+						enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate + (buffAmount / 10));
+						enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate + (buffAmount / 10));
 				}
+
+
+
+				GameObject buff = (GameObject)Instantiate (buffEffect, new Vector3 (enemy.transform.position.x, buffEffect.transform.position.y, enemy.transform.position.z), enemy.transform.rotation);
+				yield return new WaitForSeconds (buffTime);
+				Destroy (buff);
+
+				// Reset to starting firerate
+				enemy.GetComponent<TowerProperties> ().fireRate = startRate;
+
+				// Animation rates reset
+				if (enemy.GetComponent<GunTowerController> ())
+						enemy.GetComponent<GunTowerController> ().setFireRate (startRate);
+				else if (enemy.GetComponent<MissileTowerController> ())
+						enemy.GetComponent<MissileTowerController> ().setOpenRate (startRate);
+				else if (enemy.GetComponent<SniperTowerController> ())
+						enemy.GetComponent<SniperTowerController> ().setFireRate (startRate);
+				else if (enemy.GetComponent<SonarTowerController> ()) {
+						enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate / buffAmount);
+						enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate - (buffAmount / 10));
+						enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate - (buffAmount / 10));
+				}
+
+
+
+
+				
 		}
 }
