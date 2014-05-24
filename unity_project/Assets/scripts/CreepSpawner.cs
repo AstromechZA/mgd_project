@@ -27,7 +27,7 @@ public class CreepSpawner : MonoBehaviour {
 	private Dictionary<EnemyTypes, GameObject> enemies = new Dictionary<EnemyTypes, GameObject>(4);
 	
 	// Enemies
-	public int totalEnemies = 20;
+	private int totalEnemies;
 	private int numEnemies = 0;
 	private int spawnedEnemies = 0;
 	
@@ -36,12 +36,13 @@ public class CreepSpawner : MonoBehaviour {
 	public bool spawn = true;
 	
 	// Wave timers
-	public float lengthOfWave = 25.0f;
-	private float timeTillNextWave = 0.0f;
+	private float lengthOfWave;
+	private float timeTillNextWave;
+	private float currentDurationOfWave;
 	
 	//Waves
-	public int totalWaves = 10;
-	private int numWaves = 0;
+	private int totalWaves;
+	private int numWaves;
 	
 	// Spawn Interval
 	public float spawnInterval = 1f;
@@ -61,9 +62,16 @@ public class CreepSpawner : MonoBehaviour {
 		enemies.Add(EnemyTypes.Hard, hardEnemy);
 		enemies.Add(EnemyTypes.Boss, bossEnemy);
 		
-		GameController.Instance.currentWave = numWaves;
-		GameController.Instance.numberOfWaves = totalWaves;
-		
+		numWaves = GameController.Instance.currentWave;
+		totalWaves = GameController.Instance.numberOfWaves;
+		totalEnemies = GameController.Instance.enemiesInWave;
+		spawnedEnemies = GameController.Instance.enemiesSpawned;
+		lengthOfWave = GameController.Instance.lengthOfWave;
+		timeTillNextWave = GameController.Instance.timeTillNextWave;
+		currentDurationOfWave = GameController.Instance.currentDurationOfWave;
+
+		//GameController.Instance.timeTillNextWave = timeTillNextWave;
+
 		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
 		//int range = Random.Range(numWaves, numWaves+1);
 	}
@@ -75,7 +83,9 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.enemiesSpawned = spawnedEnemies;
 		GameController.Instance.currentWave = numWaves;
 		GameController.Instance.numberOfWaves = totalWaves;
-		GameController.Instance.timeTillnextWave = lengthOfWave-timeTillNextWave;
+		GameController.Instance.lengthOfWave = lengthOfWave;
+		GameController.Instance.currentDurationOfWave = currentDurationOfWave;
+		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 		
 		// Update the position of the Boss enemy (Total Enemies changes)
 		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
@@ -85,7 +95,7 @@ public class CreepSpawner : MonoBehaviour {
 			if(numWaves <= totalWaves)
 			{
 				// Increases the timer to allow the timed waves to work
-				timeTillNextWave += Time.deltaTime;
+				currentDurationOfWave += Time.deltaTime;
 				if (wave)
 				{
 					timeToSpawn -= Time.deltaTime;
@@ -110,12 +120,12 @@ public class CreepSpawner : MonoBehaviour {
 					}
 				}
 				// checks if the time is equal to the time required for a new wave
-				if (timeTillNextWave >= lengthOfWave)
+				if (currentDurationOfWave >= lengthOfWave)
 				{
 					// Enables next wave
 					wave = true;
 					// sets the time back to zero
-					timeTillNextWave = 0.0f;
+					currentDurationOfWave = 0.0f;
 					// increases the number of waves
 					numWaves++;
 					//Ensure numEnemies is 0 (spawn right amount of enemies on new wave)

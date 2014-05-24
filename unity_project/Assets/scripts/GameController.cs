@@ -8,7 +8,9 @@ public class GameController : Singleton<GameController> {
 	public int numberOfWaves;
 	public int currentWave;
 	
-	public float timeTillnextWave;
+	public float timeTillNextWave;
+	public float lengthOfWave;
+	public float currentDurationOfWave;
 	
 	public int enemiesInWave;
 	public int enemiesSpawned;
@@ -20,15 +22,22 @@ public class GameController : Singleton<GameController> {
 	void Awake(){
 		ResetGameParameters();
 	}
-	
+
 	public void ResetGameParameters(){
 		citadelCredits = 50;
 		citadelLives = 20;
 		numberOfWaves = 10;
-		currentWave = 1;
+		currentWave = 0;
+		enemiesSpawned = 0;
+		enemiesInWave = 20;
 		gameWasPaused = false;
 		Time.timeScale = 1;
-		timeTillnextWave = 20;
+		currentDurationOfWave = 0;
+
+		// Wave timers
+		lengthOfWave = 25.0f;
+		timeTillNextWave = 0.0f;
+
 	}	
 	
 	public void DestroyAllObjectsWithTag(string tag){
