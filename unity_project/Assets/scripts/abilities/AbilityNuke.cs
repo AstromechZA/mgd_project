@@ -67,8 +67,6 @@ public class AbilityNuke : MonoBehaviour
 						transform.localScale = startScale;
 						renderer.material.color = Color.black;
 
-						Vector3 currentScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-
 						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Instantiable Object");
 
 						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);

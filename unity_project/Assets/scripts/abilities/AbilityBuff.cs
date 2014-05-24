@@ -12,7 +12,6 @@ public class AbilityBuff : MonoBehaviour
 		public float buffTime = 5.0F;
 		public float buffAmount = 2.0F; // Attack 2x faster
 		public bool buffed = false;
-		GameObject placementVisualiser;
 		Transform target;
 		Vector3 startPos;
 		Vector3 startScale;
@@ -65,10 +64,6 @@ public class AbilityBuff : MonoBehaviour
 						transform.position = startPos;
 						transform.localScale = startScale;
 						renderer.material.color = Color.black;
-
-						Vector3 currentScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-
-
 			
 						GameObject[] towers = GameObject.FindGameObjectsWithTag ("Instantiable Object");
 						for (int i =0; i < towers.Length; i++) {
@@ -79,8 +74,6 @@ public class AbilityBuff : MonoBehaviour
 								}
 				
 						}
-			
-						Destroy (placementVisualiser);
 				}
 		}
 

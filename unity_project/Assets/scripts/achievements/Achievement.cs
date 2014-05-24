@@ -39,7 +39,6 @@ public class Achievement
 	private Rect skillLevelImagePosition;
 	private Rect targetLabelPosition;
 	private string targetStringAchieved;
-	private string targetStringUnachieved;
 
 	#region Notifer Element Positions
 	Rect notifierPosition;
@@ -84,7 +83,6 @@ public class Achievement
 		targetLabelPosition = new Rect (125.0f, 10.0f, 250.0f, 25.0f);
 
 		targetStringAchieved = target.ToString ("0.#") + "/" + target.ToString ("0.#");
-		targetStringUnachieved = currentProgress.ToString ("0.#") + "/" + target.ToString ("0.#");
 
 		// Notifier Position Setup
 		notifierPosition = new Rect((float)Screen.width - 270.0f,(float)Screen.height - 80.0f, 270.0f, 80.0f);

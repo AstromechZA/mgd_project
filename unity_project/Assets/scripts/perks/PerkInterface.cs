@@ -91,7 +91,6 @@ public class PerkInterface : MonoBehaviour {
 		
 		// is mouse down?
 		if (Input.GetMouseButtonDown(0)) {
-			bool actioned = false;
 			
 			Vector2 clickpos = Geometry.FlipInScreenVertical(Geometry.Vector2To3(Input.mousePosition));
 			
