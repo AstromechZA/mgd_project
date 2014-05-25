@@ -147,6 +147,13 @@ public class CreepSpawner : MonoBehaviour {
 				// checks if the time is equal to the time required for a new wave
 				if (currentDurationOfWave >= lengthOfWave)
 				{
+					// Destroy the wave spawner if there is one
+					if (GameObject.Find("WaveSpawner")){
+						Destroy(GameObject.Find("WaveSpawner"));
+						GameController.Instance.spawnNextWaveEarly = true;
+						GameController.Instance.nextWaveSpawnerActive = false;
+					}
+
 					// Lets countdown sound be played again
 					played_countdown = false;
 					// Enables next wave
@@ -180,7 +187,8 @@ public class CreepSpawner : MonoBehaviour {
 
 					// Create Wave Spawner
 					if (!GameController.Instance.spawnNextWaveEarly && !GameController.Instance.nextWaveSpawnerActive){
-						Instantiate(waveSpawner);
+						GameObject waveSpawner2 = Instantiate(waveSpawner) as GameObject;
+						waveSpawner2.name = "WaveSpawner";
 					}
 				}
 			}
