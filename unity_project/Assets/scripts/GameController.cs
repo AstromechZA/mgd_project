@@ -18,7 +18,10 @@ public class GameController : Singleton<GameController> {
 	public GUIStyle guiStyle;
 	
 	public bool gameWasPaused = false;
-	
+
+	public bool nextWaveSpawnerActive = false;
+	public bool spawnNextWaveEarly = false;
+
 	void Awake(){
 		ResetGameParameters();
 	}

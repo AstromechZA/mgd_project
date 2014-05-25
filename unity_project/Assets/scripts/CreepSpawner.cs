@@ -57,6 +57,8 @@ public class CreepSpawner : MonoBehaviour {
 	// Boss enemy spawned after a number of enemies have been spawned (randomly selected between 70% of the enemies and the total enemies)
 	private int bossEnemySpawnPosition = 0;
 	private bool bossSpawned = false;
+
+	public GameObject waveSpawner;
 	
 	void Start()
 	{
@@ -73,11 +75,7 @@ public class CreepSpawner : MonoBehaviour {
 		lengthOfWave = GameController.Instance.lengthOfWave;
 		timeTillNextWave = GameController.Instance.timeTillNextWave;
 		currentDurationOfWave = GameController.Instance.currentDurationOfWave;
-
-		//GameController.Instance.timeTillNextWave = timeTillNextWave;
-
 		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
-		//int range = Random.Range(numWaves, numWaves+1);
 	}
 	
 	void Update ()
@@ -91,17 +89,27 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.currentDurationOfWave = currentDurationOfWave;
 		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 
+		if (GameController.Instance.spawnNextWaveEarly){
+			currentDurationOfWave = GameController.Instance.lengthOfWave;
+			timeTillNextWave = 0;
+			GameController.Instance.enemiesSpawned = 0;
+			GameController.Instance.spawnNextWaveEarly = false;
+		}
+		else{
+			GameController.Instance.currentDurationOfWave = currentDurationOfWave;
+			GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
+		}
 
 		if (GameController.Instance.currentWave == 0 && !played_ready && GameController.Instance.timeTillNextWave >= 24.0F ) {
 			played_ready = true;
 			AudioSource.PlayClipAtPoint (sound_ready, Camera.main.transform.position);
-				}
+		}
 
 
 		if (GameController.Instance.timeTillNextWave <= 4.00F && !played_countdown) {
 			played_countdown = true;
-						AudioSource.PlayClipAtPoint (sound_countdown, Camera.main.transform.position);
-				}
+			AudioSource.PlayClipAtPoint (sound_countdown, Camera.main.transform.position);
+		}
 		
 
 		// Update the position of the Boss enemy (Total Enemies changes)
@@ -169,6 +177,11 @@ public class CreepSpawner : MonoBehaviour {
 				{
 					// Disable the wave
 					wave = false;
+
+					// Create Wave Spawner
+					if (!GameController.Instance.spawnNextWaveEarly && !GameController.Instance.nextWaveSpawnerActive){
+						Instantiate(waveSpawner);
+					}
 				}
 			}
 			else
