@@ -90,8 +90,6 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 
 		if (GameController.Instance.spawnNextWaveEarly){
-			Debug.Log (GameController.Instance.lengthOfWave);
-			Debug.Log (lengthOfWave);
 			currentDurationOfWave = GameController.Instance.lengthOfWave;
 			timeTillNextWave = 0;
 			GameController.Instance.enemiesSpawned = 0;
