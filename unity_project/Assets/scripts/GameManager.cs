@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
 
 
 				if (!(GameObject.Find ("soundtrack_level").audio.isPlaying) && Time.timeScale == 1) 
-					GameObject.Find ("soundtrack_level").audio.Play();
+					GameObject.Find ("soundtrack_level").audio.PlayDelayed(4.0F);
 				
 		}
 	
