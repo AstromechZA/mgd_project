@@ -33,7 +33,6 @@ public class SpawnProgress : MonoBehaviour
 			renderer.material.mainTextureOffset = new Vector2(offset, 0);
 		}
 
-		Debug.Log (offset);
 		if (offset >= 0.5f) {
 			GameController.Instance.nextWaveSpawnerActive = false;
 			Destroy(gameObject);

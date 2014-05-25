@@ -90,12 +90,15 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 
 		if (GameController.Instance.spawnNextWaveEarly){
+			Debug.Log (GameController.Instance.lengthOfWave);
+			Debug.Log (lengthOfWave);
 			currentDurationOfWave = GameController.Instance.lengthOfWave;
 			timeTillNextWave = 0;
 			GameController.Instance.enemiesSpawned = 0;
 			GameController.Instance.spawnNextWaveEarly = false;
 		}
 		else{
+
 			GameController.Instance.currentDurationOfWave = currentDurationOfWave;
 			GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 		}
@@ -147,10 +150,12 @@ public class CreepSpawner : MonoBehaviour {
 				// checks if the time is equal to the time required for a new wave
 				if (currentDurationOfWave >= lengthOfWave)
 				{
+
+					Debug.Log(currentDurationOfWave+ ">=" +lengthOfWave);
+
 					// Destroy the wave spawner if there is one
 					if (GameObject.Find("WaveSpawner")){
 						Destroy(GameObject.Find("WaveSpawner"));
-						GameController.Instance.spawnNextWaveEarly = true;
 						GameController.Instance.nextWaveSpawnerActive = false;
 					}
 
