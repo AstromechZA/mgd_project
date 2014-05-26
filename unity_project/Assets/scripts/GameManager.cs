@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
 		Texture2D perkTreeProgressBarBack;
 		Texture2D perkTreeProgressBarFore;
 		string perkTreeButtonText = "";
+		bool game_over = false;
+		public GameObject go_text;
+		GameObject go;
 	
 		void Start ()
 		{
@@ -131,17 +134,26 @@ public class GameManager : MonoBehaviour
 		{
 				GameObject.Find ("soundtrack_menu").audio.Pause ();
 				if (GameController.Instance.gameWasPaused)
-						GameObject.Find ("soundtrack_level").audio.Play();
+						GameObject.Find ("soundtrack_level").audio.Play ();
 
 				Time.timeScale = 1;
 		}
 	
 		private void pauseGame ()
 		{
-				GameObject.Find ("soundtrack_level").audio.Pause();
+				GameObject.Find ("soundtrack_level").audio.Pause ();
 				GameObject.Find ("soundtrack_menu").audio.Play ();
 				Time.timeScale = 0;
 				GameController.Instance.gameWasPaused = true;
+		}
+
+		private void gameOver ()
+		{
+				go = Instantiate (go_text) as GameObject;
+				AchievementController.Instance.timePlayed = AchievementController.Instance.totalTimePlayed;
+				pauseGame ();
+				GameObject.Find ("game_over").audio.Play ();
+				game_over = true;
 		}
 	
 		void Update ()
@@ -161,8 +173,10 @@ public class GameManager : MonoBehaviour
 						PerkController.Instance.AddExperience (2);
 				}
 		
-				if (GameController.Instance.citadelLives == 0) {
-						Debug.Log ("Add Lose Game stuff here");
+				if (GameController.Instance.citadelLives <= 0) {
+						//Debug.Log ("Add Lose Game stuff here");
+						if (!game_over)
+								gameOver ();
 				}
 
 				perkTreeButtonText = "Perk Tree [ " + PerkController.Instance.GetPoints () + " ]";
@@ -170,7 +184,7 @@ public class GameManager : MonoBehaviour
 
 
 				if (!(GameObject.Find ("soundtrack_level").audio.isPlaying) && Time.timeScale == 1) 
-					GameObject.Find ("soundtrack_level").audio.PlayDelayed(4.0F);
+						GameObject.Find ("soundtrack_level").audio.PlayDelayed (4.0F);
 				
 		}
 	
@@ -205,6 +219,26 @@ public class GameManager : MonoBehaviour
 						GameObject.Find ("menu_select").audio.Play ();
 						pauseGame ();
 						Application.LoadLevel ("perktree");
+				}
+
+				if (game_over) {
+
+						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 150, 60), "Restart")) {
+								GameController.Instance.ResetGameParameters ();
+								GameController.Instance.DestroyAllObjectsWithTag ("Instantiable Object");
+								GameObject.Find ("Creep Spawn Point").GetComponent<CreepSpawner> ().Reset ();
+								game_over = false;
+								GameObject.Find ("soundtrack_level").audio.Stop ();
+								GameObject.Find ("soundtrack_level").audio.PlayDelayed (4.0F);
+								Application.LoadLevel ("gridtest");
+						}
+		
+						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 + 25, 150, 60), "Main Menu")) {
+								GameObject.Find ("soundtrack_level").audio.Stop ();
+								GameController.Instance.DestroyAllObjectsWithTag ("Instantiable Object");
+								Time.timeScale = 1;
+								Application.LoadLevel ("menu");
+						}
 				}
 		}
 }

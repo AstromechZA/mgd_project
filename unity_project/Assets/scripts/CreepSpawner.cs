@@ -58,7 +58,19 @@ public class CreepSpawner : MonoBehaviour {
 	private bool bossSpawned = false;
 
 	public GameObject waveSpawner;
-	
+
+
+	public void Reset()
+	{
+		numWaves = GameController.Instance.currentWave;
+		totalWaves = GameController.Instance.numberOfWaves;
+		totalEnemies = GameController.Instance.enemiesInWave;
+		spawnedEnemies = GameController.Instance.enemiesSpawned;
+		lengthOfWave = GameController.Instance.lengthOfWave;
+		currentDurationOfWave = GameController.Instance.currentDurationOfWave;
+		bossEnemySpawnPosition = Random.Range((int)(totalEnemies*0.7f), totalEnemies);
+	}
+
 	void Start()
 	{
 		// Add different enemies and their associated difficulty level to the enemies dictionary
