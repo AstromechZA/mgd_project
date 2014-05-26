@@ -11,7 +11,6 @@ public class AstarAI : MonoBehaviour {
 
 	// Particle effect (Explosion)
 	public GameObject explosion;
-	private GameObject explosionEffect;
 	
 	// Sounds
 	public AudioClip citadel_hit;
@@ -104,9 +103,9 @@ public class AstarAI : MonoBehaviour {
 		Debug.Log ("Creep reached citadel.");
 
 		// Creat explosion particle effect
-		explosion = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+		GameObject explosionEffect = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
 		// Destroy explosion after 2 second
-		Destroy(explosion, 2);
+		Destroy(explosionEffect, 2);
 	}
 	
 	private void OnTargetNotReached(){
@@ -115,16 +114,24 @@ public class AstarAI : MonoBehaviour {
 		Collider[] Colliders = Physics.OverlapSphere(gameObject.transform.position, 15);
 		foreach (Collider hit in Colliders)	
 		{
-			if (hit){
-				if (hit.transform.name == "Tower"){
-					hit.transform.GetComponent<MoveTower>().removeTower();
-					// Creat explosion particle effect
-					explosionEffect = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
-					// Destroy explosion after 2 second
-					Destroy(explosionEffect, 2);
-				}
+			if (hit.transform.name == "Tower"){
+
+				// Queue updates to pathing for the lost tower.
+				GraphUpdateObject go = new GraphUpdateObject(hit.collider.bounds);
+				hit.GetComponent<Collider>().enabled = false;	// Collider needs to be disabled for it to not be detected on the path.
+				AstarPath.active.UpdateGraphs(go);
+
+				hit.transform.GetComponent<MoveTower>().removeTower();
+
+				// Creat explosion particle effect
+				GameObject explosionEffect = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+				// Destroy explosion after 2 second
+				Destroy(explosionEffect, 2);
 			}
 		}
+
+		// Do the actual update once.
+		AstarPath.active.FlushGraphUpdates ();
 	}
 	
 	public void OnDestroy () {

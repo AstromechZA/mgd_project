@@ -189,8 +189,6 @@ public class MoveTower : MonoBehaviour {
 
 	public void removeTower(){
 		MapManager.Instance.SetOccupancyForPosition (transform.position, false);
-
-		//Destroy Tower
 		Destroy (gameObject);
 	}
 }
