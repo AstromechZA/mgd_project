@@ -8,6 +8,10 @@ public class AstarAI : MonoBehaviour {
 	private GameObject targetObject;	
 	private Seeker seeker;
 	private Path path;
+
+	// Particle effect (Explosion)
+	public GameObject explosion;
+	private GameObject explosionEffect;
 	
 	// Sounds
 	public AudioClip citadel_hit;
@@ -98,12 +102,29 @@ public class AstarAI : MonoBehaviour {
 		// Decrement Citadel Lives
 		GameController.Instance.citadelLives--;
 		Debug.Log ("Creep reached citadel.");
+
+		// Creat explosion particle effect
+		explosion = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+		// Destroy explosion after 2 second
+		Destroy(explosion, 2);
 	}
 	
 	private void OnTargetNotReached(){
-		// Add logic here when creeps reach end of path but not citadel.
-		
 		Debug.Log ("Creep could not reach citadel.");
+		// Create an overlap sphere and check if colliders are hit
+		Collider[] Colliders = Physics.OverlapSphere(gameObject.transform.position, 15);
+		foreach (Collider hit in Colliders)	
+		{
+			if (hit){
+				if (hit.transform.name == "Tower"){
+					hit.transform.GetComponent<MoveTower>().removeTower();
+					// Creat explosion particle effect
+					explosionEffect = (GameObject)Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+					// Destroy explosion after 2 second
+					Destroy(explosionEffect, 2);
+				}
+			}
+		}
 	}
 	
 	public void OnDestroy () {

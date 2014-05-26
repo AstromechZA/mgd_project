@@ -852,6 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f52bbe0107886243aa28e9aa077f224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 100002, guid: 7d9b362e4efac974e944cc8756f2d587, type: 2}
   citadel_hit: {fileID: 8300000, guid: 6929461ff8a1547438e8c7f6a08cc463, type: 3}
   speed: 30
   nextWaypointDistance: 5
@@ -898,8 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96c23a092db0d341888df13d6e218c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 1600
-  bountyValue: 160
+  startingHealth: 1.80143985e+18
+  bountyValue: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

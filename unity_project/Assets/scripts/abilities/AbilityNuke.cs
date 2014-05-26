@@ -14,6 +14,9 @@ public class AbilityNuke : MonoBehaviour
 		Vector3 startScale;
 		Color startColor;
 
+		public GameObject nukeEffectPrefab;
+		private GameObject nukeEffect;
+
 		void Start ()
 		{
 				startPos = transform.position;
@@ -74,7 +77,8 @@ public class AbilityNuke : MonoBehaviour
 
 						// Playsound and show nuke effect
 						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
-						// TODO: Nuke effect
+						// Nuke effect
+						nukeEffect = Instantiate(nukeEffectPrefab, new Vector3(transform.position.x, 3 ,transform.position.z), transform.rotation) as GameObject;
 						
 						// Restore ability position
 						transform.position = startPos;
@@ -82,8 +86,9 @@ public class AbilityNuke : MonoBehaviour
 						renderer.material.color = Color.black;
 
 						// Wait for sound to finish then destroy effect
-						//yield return new WaitForSeconds (sound_cast.length);
-						// TODO: Destroy effect
+						yield return new WaitForSeconds (sound_cast.length);
+						Destroy(nukeEffect);
+
 				}
 		}
 }
