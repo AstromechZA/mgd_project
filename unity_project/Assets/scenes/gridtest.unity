@@ -2262,6 +2262,7 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  go_text: {fileID: 100000, guid: 5be44f87ca1bebc4c98f5ff161237a09, type: 2}
 --- !u!4 &1165823566
 Transform:
   m_ObjectHideFlags: 0

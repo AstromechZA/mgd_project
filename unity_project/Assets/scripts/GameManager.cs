@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 		Texture2D perkTreeProgressBarFore;
 		string perkTreeButtonText = "";
 		bool game_over = false;
+		public GameObject go_text;
+		GameObject go;
 	
 		void Start ()
 		{
@@ -147,6 +149,7 @@ public class GameManager : MonoBehaviour
 
 		private void gameOver ()
 		{
+				go = Instantiate (go_text) as GameObject;
 				AchievementController.Instance.timePlayed = AchievementController.Instance.totalTimePlayed;
 				pauseGame ();
 				GameObject.Find ("game_over").audio.Play ();
@@ -219,7 +222,7 @@ public class GameManager : MonoBehaviour
 				}
 
 				if (game_over) {
-				
+
 						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 150, 60), "Restart")) {
 								GameController.Instance.ResetGameParameters ();
 								GameController.Instance.DestroyAllObjectsWithTag ("Instantiable Object");
