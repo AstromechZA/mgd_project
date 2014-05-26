@@ -15,7 +15,7 @@ public class MissileControl : MonoBehaviour {
 		}
 	}
 
-	private float damageRadius = 5f;
+	private float damageRadius = 25f;
 	public float DamageRadius {
 		get {
 			return damageRadius;
@@ -34,10 +34,6 @@ public class MissileControl : MonoBehaviour {
 	private Vector3 flightVector;
 	private Quaternion angleQuat;
 
-	void Start () {
-		
-	}
-
 	void Update () {
 		if (inflight) {
 			flightProgress += Time.deltaTime / flightDuration;
@@ -55,10 +51,17 @@ public class MissileControl : MonoBehaviour {
 
 			transform.localScale = val * Vector3.one;
 
+			float damageRadiusSqr = DamageRadius * DamageRadius;
+			foreach (AbstractCreep creep in NearestCreepFinder.Instance.CreepList) {
+				if((creep.transform.position - transform.position).sqrMagnitude <= damageRadiusSqr){
+					Debug.DrawLine(creep.transform.position, transform.position, Color.red);
+				}
+			}
+
 			// Missile has landed.
 			if (flightProgress > 1){
 				// Damage all units within the landing area.
-
+				ApplyMissileDamage();
 				Destroy(this.gameObject);
 			}
 		}

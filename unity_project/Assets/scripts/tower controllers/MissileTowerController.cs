@@ -6,7 +6,7 @@ public class MissileTowerController : BaseTowerController {
 
 	public Component projectile;
 	public AudioClip sound_launch;
-	public float damageRadius = 5f;
+	public float damageRadius = 25f;
 	
 	#endregion
 	#region PRIVATEVARS ===================================================================== //
@@ -36,7 +36,8 @@ public class MissileTowerController : BaseTowerController {
 	}
 
 	public override void Update () {
-		if (currentTarget == null) {
+
+		if (currentTarget == null || !WithinRange (currentTarget.transform.position)) { 
 			currentTarget = NearestCreepFinder.Instance.GetNearest (transform.position);
 		}
 		
@@ -47,7 +48,7 @@ public class MissileTowerController : BaseTowerController {
 				//AudioSource.PlayClipAtPoint (sound_launch, Camera.main.transform.position);
 				GameObject.Find ("SoundLimiter").GetComponent<SoundLimiter>().playMissile();
 
-				((MissileControl)currentMissile.GetComponent("MissileControl")).launch(currentTarget.transform.position);
+				currentMissile.GetComponent<MissileControl>().launch(currentTarget.transform.position);
 
 				currentMissile = null;
 				
@@ -64,6 +65,12 @@ public class MissileTowerController : BaseTowerController {
 		if (doorControl.is_closed() && currentMissile == null) spawnmissile();
 
 		setDoorProgress(doorControl.getProgress());
+	}
+
+	void OnDestroy(){
+		if (currentMissile != null) {
+			Destroy (currentMissile);
+		}
 	}
 
 	#endregion
@@ -111,7 +118,7 @@ public class MissileTowerController : BaseTowerController {
 		private float delta;
 		
 		public DoorControl(float timeBetweenShots) {
-			this.delta = 2.0f / timeBetweenShots;
+			this.delta = 3.0f / timeBetweenShots;
 		}
 
 		public void Update() {

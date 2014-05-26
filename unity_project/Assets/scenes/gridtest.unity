@@ -741,7 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 400000, guid: f59c956feeaeebc4ab5b2042ed17ff0f, type: 2}
   sound_launch: {fileID: 8300000, guid: 9718426d5e61798429be9071b703aeac, type: 3}
-  damageRadius: 5
+  damageRadius: 25
   currentMissile: {fileID: 0}
 --- !u!65 &321483990
 BoxCollider:
@@ -4694,6 +4694,10 @@ Prefab:
     - target: {fileID: 100038, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
       propertyPath: m_Name
       value: Missile Tower Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
+      propertyPath: damageRadius
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
