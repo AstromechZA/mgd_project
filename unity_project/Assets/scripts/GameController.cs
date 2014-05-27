@@ -5,6 +5,7 @@ public class GameController : Singleton<GameController> {
 	
 	public double citadelCredits;
 	public int citadelLives;
+	public int startingCitadelLives;
 	public int numberOfWaves;
 	public int currentWave;
 	
@@ -24,6 +25,7 @@ public class GameController : Singleton<GameController> {
 
 	void Awake(){
 		ResetGameParameters();
+		startingCitadelLives = citadelLives;
 	}
 
 	public void ResetGameParameters(){

@@ -16,6 +16,7 @@ public  class AchievementController : Singleton<AchievementController> {
 	public int gamesWon = 0;
 	public int perfectionist = 0;	
 	public int cleanSlate = 0;
+	public int triplePlay = 0;
 
 	public int uniqueTargetAbilitiesUsed = 0;
 
@@ -73,7 +74,6 @@ public  class AchievementController : Singleton<AchievementController> {
 		achievements.gamesWon = gamesWon;
 		achievements.perfectionist = perfectionist;
 		achievements.cleanSlate = cleanSlate;
-		
 		achievements.Save(path);
 	}
 

@@ -158,6 +158,25 @@ public class AchievementManager : MonoBehaviour
 				else if(AchievementController.Instance.achievementsArray[i].type == "Rank"){
 					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.totalAchieved);
 				}
+				else if(AchievementController.Instance.achievementsArray[i].type == "Targetable Ability"){
+					if (AchievementController.Instance.achievementsArray[i].name == "Triple Play"){
+						AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.triplePlay);
+					}
+					else{
+						AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.perfectionist);
+					}
+				}
+				else if(AchievementController.Instance.achievementsArray[i].type == "Resources"){
+					AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.moneyMade);
+				}
+				else if(AchievementController.Instance.achievementsArray[i].type == "Citadel"){
+					if (AchievementController.Instance.achievementsArray[i].name.Contains("Unbreakable")){
+						AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.gamesWon);
+					}
+					else{
+						AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.cleanSlate);
+					}
+				}
 			}
 		}
 	}

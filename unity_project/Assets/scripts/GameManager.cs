@@ -147,6 +147,21 @@ public class GameManager : MonoBehaviour
 		}
 
 		private void gameWon(){
+		AchievementController.Instance.gamesWon++;
+
+		// Win without citadel being damanged (cleanslate)
+		if (GameController.Instance.startingCitadelLives == GameController.Instance.citadelLives){
+			AchievementController.Instance.cleanSlate++;
+		}
+		// Perfectionist
+		if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 0) {
+			AchievementController.Instance.perfectionist++;
+		}
+		// Triple play
+		else if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 3){
+			AchievementController.Instance.triplePlay++;
+		}
+
 				gw = Instantiate (gw_text) as GameObject;
 				pauseGame ();
 				game_won = true;

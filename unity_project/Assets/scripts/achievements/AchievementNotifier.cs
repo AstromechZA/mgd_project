@@ -78,6 +78,36 @@ public class AchievementNotifier : MonoBehaviour
 							achievementEarned(AchievementController.Instance.achievementsArray[i]);
 						}
 					}
+					else if(AchievementController.Instance.achievementsArray[i].type == "Targetable Ability"){
+						if (AchievementController.Instance.achievementsArray[i].name == "Triple Play"){
+							if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.triplePlay)){
+								achievementEarned(AchievementController.Instance.achievementsArray[i]);
+							}
+						}
+						else{
+							if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.perfectionist)){
+								achievementEarned(AchievementController.Instance.achievementsArray[i]);
+							}
+						}
+						
+					}
+					else if(AchievementController.Instance.achievementsArray[i].type == "Resources"){
+						if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.moneyMade)){
+							achievementEarned(AchievementController.Instance.achievementsArray[i]);
+						}
+					}
+					else if(AchievementController.Instance.achievementsArray[i].type == "Citadel"){
+						if (AchievementController.Instance.achievementsArray[i].name.Contains("Unbreakable")){
+							if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.gamesWon)){
+								achievementEarned(AchievementController.Instance.achievementsArray[i]);
+							}
+						}
+						else{
+							if (AchievementController.Instance.achievementsArray[i].SetProgress(AchievementController.Instance.cleanSlate)){
+								achievementEarned(AchievementController.Instance.achievementsArray[i]);
+							}
+						}
+					}
 				}
 			}
 		}
