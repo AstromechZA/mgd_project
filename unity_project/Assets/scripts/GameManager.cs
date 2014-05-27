@@ -84,12 +84,12 @@ public class GameManager : MonoBehaviour
 				beamCostRect = new Rect (beamTowerPosX + 13, Screen.height - beamTowerPosY + 10, 20, 20);
 		
 				// Draw Credits, health and waves
-				creditRect = new Rect (Screen.width - 170, Screen.height - interfaceTopPos.y - 10, 20, 20);
-				creditCountRect = new Rect (Screen.width - 145, Screen.height - interfaceTopPos.y - 7, 100, 20);
-				healthRect = new Rect (Screen.width - 110, Screen.height - interfaceTopPos.y - 10, 20, 20);
-				healthCountRect = new Rect (Screen.width - 85, Screen.height - interfaceTopPos.y - 7, 100, 20);
-				waveRect = new Rect (15, Screen.height - interfaceTopPos.y - 10, 20, 20);
-				waveCountRect = new Rect (40, Screen.height - interfaceTopPos.y - 7, 100, 20);	
+				creditRect = new Rect (Screen.width - 120, Screen.height - interfaceTopPos.y - 10, 20, 20);
+				creditCountRect = new Rect (Screen.width - 95, Screen.height - interfaceTopPos.y - 7, 100, 20);
+				healthRect = new Rect (Screen.width - 60, Screen.height - interfaceTopPos.y - 10, 20, 20);
+				healthCountRect = new Rect (Screen.width - 35, Screen.height - interfaceTopPos.y - 7, 100, 20);
+				waveRect = new Rect (20, Screen.height - interfaceTopPos.y - 10, 20, 20);
+				waveCountRect = new Rect (45, Screen.height - interfaceTopPos.y - 7, 100, 20);	
 		
 				//nextWaveRect = new Rect (200, Screen.height - interfaceTopPos.y - 7, 100, 20);
 				//enemiesInWaveRect = new Rect (400, Screen.height - interfaceTopPos.y - 7, 100, 20);
