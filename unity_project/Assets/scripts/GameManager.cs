@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 		Vector3 missileTowerPos;
 		Vector3 gunTowerPos;
 		Vector3 beamTowerPos;
-		Vector3 interfaceTopPos;
+		Vector3 interfaceTopPos, interfaceBotPos;
 		float missileTowerPosX;
 		float missileTowerPosY;
 		float gunTowerPosX;
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 				gunTowerPos = Camera.main.WorldToScreenPoint (gunTower.transform.position);
 				beamTowerPos = Camera.main.WorldToScreenPoint (beamTower.transform.position);
 				interfaceTopPos = Camera.main.WorldToScreenPoint (GameObject.Find ("Interface top").transform.position);
+				interfaceBotPos = Camera.main.WorldToScreenPoint (GameObject.Find ("Interface bottom").transform.position);
 		
 				missileTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
 				gunTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
@@ -95,21 +96,23 @@ public class GameManager : MonoBehaviour
 				//enemiesInWaveRect = new Rect (400, Screen.height - interfaceTopPos.y - 7, 100, 20);
 				//enemiesSpawnedRect = new Rect (600, Screen.height - interfaceTopPos.y - 7, 100, 20);
 
-				// End Game Rectangles
+				
+			
+			// End Game Rectangles
 				endGameHeaderRect = new Rect ((Screen.width / 2) - 50, Screen.height / 2 - 150, 100, 60);
 				endGameRestartRect = new Rect ((Screen.width / 2) - 75, Screen.height / 2 - 50, 150, 60);
 		        endGameMainMenuRect = new Rect ((Screen.width / 2) - 75, Screen.height / 2 + 25, 150, 60);
 		
 				perkTreeButtonRect = new Rect (
 			(Screen.width - perkTreeButtonWidth) / 2,
-			Screen.height - 40,
+			Screen.height - interfaceBotPos.y - 10,
 			perkTreeButtonWidth,
 			30
 				);
 		
 				perkTreeProgressBarRect = new Rect (
 			(Screen.width - perkTreeButtonWidth) / 2,
-			Screen.height - 60,
+			Screen.height - interfaceBotPos.y - 20,
 			perkTreeButtonWidth,
 			20
 				);
