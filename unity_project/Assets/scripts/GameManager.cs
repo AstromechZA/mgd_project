@@ -225,9 +225,9 @@ public class GameManager : MonoBehaviour
 				GUI.DrawTexture (waveRect, waveIcon);
 		
 				GUI.Label (waveCountRect, "WAVE " + GameController.Instance.currentWave.ToString () + "/" + GameController.Instance.numberOfWaves.ToString (), guiStyle);
-				GUI.Label (nextWaveRect, "Next wave: " + ((int)GameController.Instance.timeTillNextWave).ToString (), guiStyle);
-				GUI.Label (enemiesInWaveRect, "Enemies in wave: " + GameController.Instance.enemiesInWave.ToString (), guiStyle);
-				GUI.Label (enemiesSpawnedRect, "Enemies spawned: " + GameController.Instance.enemiesSpawned.ToString (), guiStyle);
+				//GUI.Label (nextWaveRect, "Next wave: " + ((int)GameController.Instance.timeTillNextWave).ToString (), guiStyle);
+				//GUI.Label (enemiesInWaveRect, "Enemies in wave: " + GameController.Instance.enemiesInWave.ToString (), guiStyle);
+				//GUI.Label (enemiesSpawnedRect, "Enemies spawned: " + GameController.Instance.enemiesSpawned.ToString (), guiStyle);
 		
 				GUI.DrawTexture (perkTreeProgressBarRect, perkTreeProgressBarBack);
 				GUI.DrawTexture (perkTreeProgressBarForeRect, perkTreeProgressBarFore);

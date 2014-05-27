@@ -203,7 +203,7 @@ public class CreepSpawner : MonoBehaviour {
 					wave = false;
 
 					// Create Wave Spawner
-					if (!GameController.Instance.spawnNextWaveEarly && !GameController.Instance.nextWaveSpawnerActive){
+					if (!GameController.Instance.spawnNextWaveEarly && !GameController.Instance.nextWaveSpawnerActive && numWaves < totalWaves){
 						GameObject waveSpawner2 = Instantiate(waveSpawner) as GameObject;
 						waveSpawner2.name = "WaveSpawner";
 					}
