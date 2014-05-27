@@ -4,7 +4,6 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 	
-		GameObject sonarTower;
 		GameObject missileTower;
 		GameObject gunTower;
 		GameObject beamTower;
@@ -14,24 +13,20 @@ public class GameManager : MonoBehaviour
 		public Texture2D healthIcon;
 		public Texture2D waveIcon;
 		public GUIStyle guiStyle;
-		Vector3 sonarTowerPos;
 		Vector3 missileTowerPos;
 		Vector3 gunTowerPos;
 		Vector3 beamTowerPos;
 		Vector3 interfaceTopPos;
-		float sonarTowerPosX;
-		float sonarTowerPosY;
 		float missileTowerPosX;
 		float missileTowerPosY;
 		float gunTowerPosX;
 		float gunTowerPosY;
 		float beamTowerPosX;
 		float beamTowerPosY;
-		int sonarTowerCost;
 		int missileTowerCost;
 		int gunTowerCost;
 		int beamTowerCost;
-		Rect sonarCreditRect, sonarCostRect, missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
+		Rect missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
 		Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect, nextWaveRect, enemiesInWaveRect, enemiesSpawnedRect;
 		const int perkTreeButtonWidth = 200;
 		Rect perkTreeProgressBarRect;
@@ -55,25 +50,20 @@ public class GameManager : MonoBehaviour
 						Instantiate (Globals);
 				}
 		
-				sonarTower = GameObject.Find ("Sonar Tower Builder");
 				missileTower = GameObject.Find ("Missile Tower Builder");
 				gunTower = GameObject.Find ("Gun Tower Builder");
 				beamTower = GameObject.Find ("Beam Tower Builder");
 		
 				// Get the towers positions
-				sonarTowerPos = Camera.main.WorldToScreenPoint (sonarTower.transform.position);
 				missileTowerPos = Camera.main.WorldToScreenPoint (missileTower.transform.position);
 				gunTowerPos = Camera.main.WorldToScreenPoint (gunTower.transform.position);
 				beamTowerPos = Camera.main.WorldToScreenPoint (beamTower.transform.position);
 				interfaceTopPos = Camera.main.WorldToScreenPoint (GameObject.Find ("Interface top").transform.position);
 		
-				sonarTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
 				missileTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
 				gunTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
 				beamTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
 		
-				sonarTowerPosX = sonarTowerPos.x;
-				sonarTowerPosY = sonarTowerPos.y;
 				missileTowerPosX = missileTowerPos.x;
 				missileTowerPosY = missileTowerPos.y;
 				gunTowerPosX = gunTowerPos.x;
@@ -82,8 +72,6 @@ public class GameManager : MonoBehaviour
 				beamTowerPosY = beamTowerPos.y;
 		
 				// Draw Tower coins and prices
-				sonarCreditRect = new Rect (sonarTowerPosX + 7, Screen.height - sonarTowerPosY + 7, 20, 20);
-				sonarCostRect = new Rect (sonarTowerPosX + 13, Screen.height - sonarTowerPosY + 10, 20, 20);
 				missileCreditRect = new Rect (missileTowerPosX + 7, Screen.height - missileTowerPosY + 7, 20, 20);
 				missileCostRect = new Rect (missileTowerPosX + 13, Screen.height - missileTowerPosY + 10, 20, 20);
 				gunCreditRect = new Rect (gunTowerPosX + 7, Screen.height - gunTowerPosY + 7, 20, 20);
@@ -192,8 +180,6 @@ public class GameManager : MonoBehaviour
 		{
 		
 				// Draw Tower coins and prices
-				GUI.DrawTexture (sonarCreditRect, creditIcon);
-				GUI.Label (sonarCostRect, sonarTowerCost.ToString (), guiStyle);
 				GUI.DrawTexture (missileCreditRect, creditIcon);
 				GUI.Label (missileCostRect, missileTowerCost.ToString (), guiStyle);
 				GUI.DrawTexture (gunCreditRect, creditIcon);
