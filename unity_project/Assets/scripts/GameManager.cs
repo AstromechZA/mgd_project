@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
 		bool game_over = false;
 		public GameObject go_text;
 		GameObject go;
+		bool game_won = false;
+		public GameObject gw_text;
+		GameObject gw;
 	
 		void Start ()
 		{
@@ -150,15 +153,20 @@ public class GameManager : MonoBehaviour
 		private void gameOver ()
 		{
 				go = Instantiate (go_text) as GameObject;
-				AchievementController.Instance.timePlayed = AchievementController.Instance.totalTimePlayed;
 				pauseGame ();
 				GameObject.Find ("game_over").audio.Play ();
 				game_over = true;
 		}
+
+		private void gameWon(){
+				gw = Instantiate (gw_text) as GameObject;
+				pauseGame ();
+				game_won = true;
+		}
 	
 		void Update ()
 		{
-		
+
 				if (Input.GetKeyDown (KeyCode.Escape)) {
 						GameObject.Find ("menu_back").audio.Play ();
 						// Set timePlayed to the new totalTimePlayed (includes time played in this scene and previous time played)
@@ -172,11 +180,18 @@ public class GameManager : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.O)) { 
 						PerkController.Instance.AddExperience (2);
 				}
-		
+				// GAME LOST
 				if (GameController.Instance.citadelLives <= 0) {
-						//Debug.Log ("Add Lose Game stuff here");
 						if (!game_over)
 								gameOver ();
+				}
+				// GAME WON
+				if (GameController.Instance.currentWave == GameController.Instance.numberOfWaves && GameController.Instance.enemiesInWave == GameController.Instance.enemiesSpawned) {
+						// Ensure that no enemies still exist
+						if (GameObject.FindGameObjectsWithTag("Enemy").Length==0){
+						if (!game_won)
+							gameWon();
+						}
 				}
 
 				perkTreeButtonText = "Perk Tree [ " + PerkController.Instance.GetPoints () + " ]";
@@ -221,7 +236,7 @@ public class GameManager : MonoBehaviour
 						Application.LoadLevel ("perktree");
 				}
 
-				if (game_over) {
+				if (game_over || game_won) {
 
 						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 150, 60), "Restart")) {
 								GameController.Instance.ResetGameParameters ();

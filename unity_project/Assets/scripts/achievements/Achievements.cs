@@ -21,7 +21,19 @@ public class Achievements
 
 	[XmlAttribute("currentRank")]
 	public int currentRank;
+
+	[XmlAttribute("moneyMade")]
+	public float moneyMade;
+
+	[XmlAttribute("gamesWon")]
+	public int gamesWon;
 	
+	[XmlAttribute("perfectionist")]
+	public int perfectionist;	
+	
+	[XmlAttribute("cleanSlate")]
+	public int cleanSlate;
+
 	[XmlArray("Achievements"),XmlArrayItem("Achievement")]
 	public Achievement[] achievementsArray;
 	#endregion
@@ -33,7 +45,7 @@ public class Achievements
 		}
 	}
 
-	// SAVE achievments
+	// SAVE achievements
 	public  void Save(string path)
 	{
 		var serializer = new XmlSerializer(typeof(Achievements));

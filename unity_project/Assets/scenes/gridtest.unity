@@ -2263,6 +2263,7 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   go_text: {fileID: 100000, guid: 5be44f87ca1bebc4c98f5ff161237a09, type: 2}
+  gameWon_text: {fileID: 100000, guid: e1ddbdbc6f4b4fe4296a6fb57f79a51e, type: 2}
 --- !u!4 &1165823566
 Transform:
   m_ObjectHideFlags: 0
@@ -3754,6 +3755,8 @@ MonoBehaviour:
   sound_countdown: {fileID: 8300000, guid: c3aa0ea94ece27c4f9744ddc27275ddd, type: 3}
   sound_ready: {fileID: 8300000, guid: c763a6a81293a5443962fa6396968b52, type: 3}
   citadelObject: {fileID: 1781161179}
+  bountyValue: 10
+  startingHealth: 200
   easyEnemy: {fileID: 100040, guid: 176dd906bd549694bbbfe5227d0743ca, type: 2}
   mediumEnemy: {fileID: 100000, guid: 587777304cd10bb41aa0eb10cbcf1457, type: 2}
   hardEnemy: {fileID: 100000, guid: 46af78b47d8f2cf42873709cac77126d, type: 2}

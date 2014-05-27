@@ -20,6 +20,8 @@ public class AbstractCreep : MonoBehaviour {
 	public void Hit(float damage) {
 		healthValue -= damage;
 		if( healthValue <= 0) {
+			AchievementController.Instance.enemiesDestroyed++;
+			AchievementController.Instance.moneyMade += bountyValue;
 			GameController.Instance.citadelCredits += bountyValue;
 			Destroy(gameObject);
 		}

@@ -17,6 +17,8 @@ public class AbilityNuke : MonoBehaviour
 		public GameObject nukeEffectPrefab;
 		private GameObject nukeEffect;
 
+		bool targetAbilityUsed = false;
+
 		void Start ()
 		{
 				startPos = transform.position;
@@ -89,15 +91,12 @@ public class AbilityNuke : MonoBehaviour
 						yield return new WaitForSeconds (sound_cast.length);
 						Destroy(nukeEffect);
 
+						if (!targetAbilityUsed){
+								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
+								targetAbilityUsed = true;
+						}
+
 				}
+
 		}
 }
-
-
-
-
-
-
-
-
-

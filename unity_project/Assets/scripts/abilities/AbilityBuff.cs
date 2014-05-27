@@ -17,6 +17,8 @@ public class AbilityBuff : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+
+		bool targetAbilityUsed = false;
 	
 		void Start ()
 		{
@@ -75,7 +77,12 @@ public class AbilityBuff : MonoBehaviour
 								}
 				
 						}
+						if (!targetAbilityUsed){
+								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
+								targetAbilityUsed = true;
+						}
 				}
+
 		}
 
 		IEnumerator buff (GameObject enemy)
@@ -121,11 +128,6 @@ public class AbilityBuff : MonoBehaviour
 						enemy.GetComponent<SonarTowerController> ().spinrate = (enemy.GetComponent<SonarTowerController> ().spinrate / buffAmount);
 						enemy.GetComponent<SonarTowerController> ().spinUpRate = (enemy.GetComponent<SonarTowerController> ().spinUpRate - (buffAmount / 10));
 						enemy.GetComponent<SonarTowerController> ().spinDownRate = (enemy.GetComponent<SonarTowerController> ().spinDownRate - (buffAmount / 10));
-				}
-
-
-
-
-				
+				}	
 		}
 }

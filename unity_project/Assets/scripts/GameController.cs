@@ -28,17 +28,17 @@ public class GameController : Singleton<GameController> {
 
 	public void ResetGameParameters(){
 		citadelCredits = 50;
-		citadelLives = 20;
+		citadelLives = 100;
 		numberOfWaves = 10;
 		currentWave = 0;
 		enemiesSpawned = 0;
-		enemiesInWave = 20;
+		enemiesInWave = 2;
 		gameWasPaused = false;
 		Time.timeScale = 1;
 		currentDurationOfWave = 0;
 
 		// Wave timers
-		lengthOfWave = 25.0f;
+		lengthOfWave = 5.0f;
 		timeTillNextWave = 0.0f;
 
 	}	

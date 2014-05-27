@@ -12,6 +12,13 @@ public  class AchievementController : Singleton<AchievementController> {
 	public int currentRank = 0;
 	public float totalTimePlayed = 0;
 	
+	public float moneyMade = 0;
+	public int gamesWon = 0;
+	public int perfectionist = 0;	
+	public int cleanSlate = 0;
+
+	public int uniqueTargetAbilitiesUsed = 0;
+
 	private string path;
 	
 	void Awake(){
@@ -38,6 +45,11 @@ public  class AchievementController : Singleton<AchievementController> {
 		totalTimePlayed = achievements.timePlayedInMinutes;
 		totalAchieved = achievements.totalAchieved;
 		currentRank = achievements.currentRank;
+		moneyMade = achievements.moneyMade;
+		gamesWon = achievements.gamesWon;
+		perfectionist = achievements.perfectionist;
+		cleanSlate = achievements.cleanSlate;
+
 		achievements.Setup();
 	}
 	
@@ -57,6 +69,10 @@ public  class AchievementController : Singleton<AchievementController> {
 		achievements.timePlayedInMinutes = totalTimePlayed;
 		achievements.totalAchieved = totalAchieved;
 		achievements.currentRank = currentRank;
+		achievements.moneyMade = moneyMade;
+		achievements.gamesWon = gamesWon;
+		achievements.perfectionist = perfectionist;
+		achievements.cleanSlate = cleanSlate;
 		
 		achievements.Save(path);
 	}

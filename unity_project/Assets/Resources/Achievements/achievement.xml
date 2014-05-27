@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AchievementCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" towersBuilt="0" enemiesKilled="0" timePlayedInMinutes="0" totalAchieved="0" currentRank="0">
+<AchievementCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" towersBuilt="0" enemiesKilled="0" timePlayedInMinutes="0" totalAchieved="0" currentRank="0" moneyMade="0" gamesWon="0" perfectionist="0" cleanSlate="0">
   <Achievements>
     <Achievement id="0">
       <achieved>false</achieved>

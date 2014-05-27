@@ -18,7 +18,11 @@ public class CreepSpawner : MonoBehaviour {
 		Hard,
 		Boss
 	}
-	
+
+	// Store Boss enemies bounty value and starting health value
+	public int bountyValue;
+	public float startingHealth;
+
 	// Enemy Prefabs
 	public GameObject easyEnemy;
 	public GameObject mediumEnemy;
@@ -186,9 +190,12 @@ public class CreepSpawner : MonoBehaviour {
 					// Reset Boss
 					bossSpawned = false;
 					
-					// Increase Bosses Health and bounty (Multiply by 2)
-					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue = enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue*2;
-					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth = enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth*2;
+					// Increase Bosses Health and bounty by 30 percent
+					bountyValue = (int)(bountyValue*1.3f);
+					startingHealth = startingHealth*1.3f;
+					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue = bountyValue;
+					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth = startingHealth;
+
 				}
 				if(numEnemies >= totalEnemies)
 				{

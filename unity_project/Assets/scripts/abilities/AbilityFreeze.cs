@@ -15,6 +15,8 @@ public class AbilityFreeze : MonoBehaviour
 		Vector3 startPos;
 		Vector3 startScale;
 		Color startColor;
+
+		bool targetAbilityUsed = false;
 	
 		void Start ()
 		{
@@ -75,7 +77,13 @@ public class AbilityFreeze : MonoBehaviour
 										}
 								}
 						}
+
+						if (!targetAbilityUsed){
+								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
+								targetAbilityUsed = true;
+						}
 				}
+
 		}
 	
 		IEnumerator freeze (GameObject enemy)
@@ -100,14 +108,11 @@ public class AbilityFreeze : MonoBehaviour
 
 			// if a boss
 
-		else {
+				else {
 						enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
 						yield return new WaitForSeconds (slowTime);
 						if (enemy) 
 								enemy.GetComponent<AstarAI> ().speed = startSpeed;
 				}
-	
-
-
 		}
 }

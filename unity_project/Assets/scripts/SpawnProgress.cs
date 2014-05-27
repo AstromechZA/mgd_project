@@ -24,7 +24,7 @@ public class SpawnProgress : MonoBehaviour
 		setProgress((GameController.Instance.currentDurationOfWave-initialWaveTimeOffset)/initialWaveTimeMax);
 	}
 	
-	// use SetBar anywhere between 0 and 1
+	// use setProgress anywhere between 0 and 1
 	public void setProgress( float v )
 	{
 		float offset = 0f;

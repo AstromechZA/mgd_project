@@ -422,7 +422,7 @@ GameObject:
   - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: PseudoSpider
-  m_TagString: Untagged
+  m_TagString: Instantiable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -899,8 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96c23a092db0d341888df13d6e218c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 1.80143985e+18
-  bountyValue: 0
+  startingHealth: 260
+  bountyValue: 12
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
