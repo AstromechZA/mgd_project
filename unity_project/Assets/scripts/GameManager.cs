@@ -27,7 +27,9 @@ public class GameManager : MonoBehaviour
 		int gunTowerCost;
 		int beamTowerCost;
 		Rect missileCreditRect, missileCostRect, gunCreditRect, gunCostRect, beamCreditRect, beamCostRect;
-		Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect, nextWaveRect, enemiesInWaveRect, enemiesSpawnedRect;
+		Rect creditRect, creditCountRect, healthRect, healthCountRect, waveRect, waveCountRect;
+		//Rect nextWaveRect, enemiesInWaveRect, enemiesSpawnedRect;
+		Rect endGameHeaderRect, endGameRestartRect, endGameMainMenuRect;
 		const int perkTreeButtonWidth = 200;
 		Rect perkTreeProgressBarRect;
 		Rect perkTreeProgressBarForeRect;
@@ -36,11 +38,10 @@ public class GameManager : MonoBehaviour
 		Texture2D perkTreeProgressBarFore;
 		string perkTreeButtonText = "";
 		bool game_over = false;
-		public GameObject go_text;
-		GameObject go;
 		bool game_won = false;
-		public GameObject gw_text;
-		GameObject gw;
+
+
+		public GUIStyle endGameFont;
 	
 		void Start ()
 		{
@@ -90,10 +91,14 @@ public class GameManager : MonoBehaviour
 				waveRect = new Rect (15, Screen.height - interfaceTopPos.y - 10, 20, 20);
 				waveCountRect = new Rect (40, Screen.height - interfaceTopPos.y - 7, 100, 20);	
 		
-				nextWaveRect = new Rect (200, Screen.height - interfaceTopPos.y - 7, 100, 20);
-				enemiesInWaveRect = new Rect (400, Screen.height - interfaceTopPos.y - 7, 100, 20);
-				enemiesSpawnedRect = new Rect (600, Screen.height - interfaceTopPos.y - 7, 100, 20);
-		
+				//nextWaveRect = new Rect (200, Screen.height - interfaceTopPos.y - 7, 100, 20);
+				//enemiesInWaveRect = new Rect (400, Screen.height - interfaceTopPos.y - 7, 100, 20);
+				//enemiesSpawnedRect = new Rect (600, Screen.height - interfaceTopPos.y - 7, 100, 20);
+
+				// End Game Rectangles
+				endGameHeaderRect = new Rect ((Screen.width / 2) - 50, Screen.height / 2 - 150, 100, 60);
+				endGameRestartRect = new Rect ((Screen.width / 2) - 75, Screen.height / 2 - 50, 150, 60);
+		        endGameMainMenuRect = new Rect ((Screen.width / 2) - 75, Screen.height / 2 + 25, 150, 60);
 		
 				perkTreeButtonRect = new Rect (
 			(Screen.width - perkTreeButtonWidth) / 2,
@@ -140,29 +145,27 @@ public class GameManager : MonoBehaviour
 
 		private void gameOver ()
 		{
-				go = Instantiate (go_text) as GameObject;
 				pauseGame ();
 				GameObject.Find ("game_over").audio.Play ();
 				game_over = true;
 		}
 
 		private void gameWon(){
-		AchievementController.Instance.gamesWon++;
+				AchievementController.Instance.gamesWon++;
 
-		// Win without citadel being damanged (cleanslate)
-		if (GameController.Instance.startingCitadelLives == GameController.Instance.citadelLives){
-			AchievementController.Instance.cleanSlate++;
-		}
-		// Perfectionist
-		if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 0) {
-			AchievementController.Instance.perfectionist++;
-		}
-		// Triple play
-		else if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 3){
-			AchievementController.Instance.triplePlay++;
-		}
+				// Win without citadel being damanged (cleanslate)
+				if (GameController.Instance.startingCitadelLives == GameController.Instance.citadelLives){
+					AchievementController.Instance.cleanSlate++;
+				}
+				// Perfectionist
+				if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 0) {
+					AchievementController.Instance.perfectionist++;
+				}
+				// Triple play
+				else if (AchievementController.Instance.uniqueTargetAbilitiesUsed == 3){
+					AchievementController.Instance.triplePlay++;
+				}
 
-				gw = Instantiate (gw_text) as GameObject;
 				pauseGame ();
 				game_won = true;
 		}
@@ -185,15 +188,19 @@ public class GameManager : MonoBehaviour
 				}
 				// GAME LOST
 				if (GameController.Instance.citadelLives <= 0) {
-						if (!game_over)
+						if (!game_over){
+								endGameFont.normal.textColor = Color.red; 
 								gameOver ();
+						}
 				}
 				// GAME WON
 				if (GameController.Instance.currentWave == GameController.Instance.numberOfWaves && GameController.Instance.enemiesInWave == GameController.Instance.enemiesSpawned) {
 						// Ensure that no enemies still exist
 						if (GameObject.FindGameObjectsWithTag("Enemy").Length==0){
-						if (!game_won)
-							gameWon();
+							if (!game_won){
+								endGameFont.normal.textColor = Color.green; 
+								gameWon();
+							}
 						}
 				}
 
@@ -239,9 +246,17 @@ public class GameManager : MonoBehaviour
 
 				if (game_over || game_won) {
 
-						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 150, 60), "Restart")) {
+						if (game_over){
+							GUI.Label(endGameHeaderRect, "GAME OVER", endGameFont);
+						}
+						else{
+							GUI.Label(endGameHeaderRect, "GAME WON", endGameFont);
+						}
+
+						if (GUI.Button (endGameRestartRect, "Restart")) {
 								GameController.Instance.ResetGameParameters ();
 								GameController.Instance.DestroyAllObjectsWithTag ("Instantiable Object");
+								GameController.Instance.DestroyAllObjectsWithTag ("Enemy");
 								GameObject.Find ("Creep Spawn Point").GetComponent<CreepSpawner> ().Reset ();
 								game_over = false;
 								GameObject.Find ("soundtrack_level").audio.Stop ();
@@ -249,9 +264,10 @@ public class GameManager : MonoBehaviour
 								Application.LoadLevel ("gridtest");
 						}
 		
-						if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 + 25, 150, 60), "Main Menu")) {
+						if (GUI.Button (endGameMainMenuRect, "Main Menu")) {
 								GameObject.Find ("soundtrack_level").audio.Stop ();
 								GameController.Instance.DestroyAllObjectsWithTag ("Instantiable Object");
+								GameController.Instance.DestroyAllObjectsWithTag ("Enemy");
 								Time.timeScale = 1;
 								Application.LoadLevel ("menu");
 						}
