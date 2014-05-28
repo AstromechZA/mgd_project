@@ -68,6 +68,7 @@ public class GunTowerController : BaseTowerController {
 				laser.SetPosition (1, currentTarget.transform.position + heightOffset);
 
 				Fire (false);
+				Debug.Log("asdasd");
 			}
 		} else {
 			currentTarget = null;

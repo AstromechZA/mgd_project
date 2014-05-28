@@ -29,9 +29,9 @@ public class GameController : Singleton<GameController> {
 	}
 
 	public void ResetGameParameters(){
-		citadelCredits = 50;
+		citadelCredits = 250;
 		citadelLives = 20;
-		numberOfWaves = 1;
+		numberOfWaves = 5;
 		currentWave = 0;
 		enemiesSpawned = 0;
 		enemiesInWave = 3;

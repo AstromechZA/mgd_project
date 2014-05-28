@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
 				interfaceBotPos = Camera.main.WorldToScreenPoint (GameObject.Find ("Interface bottom").transform.position);
 		
 				missileTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
-				gunTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
-				beamTowerCost = missileTower.GetComponent<TowerProperties> ().cost;
+				gunTowerCost = gunTower.GetComponent<TowerProperties> ().cost;
+				beamTowerCost = beamTower.GetComponent<TowerProperties> ().cost;
 		
 				missileTowerPosX = missileTowerPos.x;
 				missileTowerPosY = missileTowerPos.y;
@@ -78,11 +78,11 @@ public class GameManager : MonoBehaviour
 		
 				// Draw Tower coins and prices
 				missileCreditRect = new Rect (missileTowerPosX + 7, Screen.height - missileTowerPosY + 7, 20, 20);
-				missileCostRect = new Rect (missileTowerPosX + 13, Screen.height - missileTowerPosY + 10, 20, 20);
+				missileCostRect = new Rect (missileTowerPosX + 9, Screen.height - missileTowerPosY + 10, 20, 20);
 				gunCreditRect = new Rect (gunTowerPosX + 7, Screen.height - gunTowerPosY + 7, 20, 20);
-				gunCostRect = new Rect (gunTowerPosX + 13, Screen.height - gunTowerPosY + 10, 20, 20);
+				gunCostRect = new Rect (gunTowerPosX + 9, Screen.height - gunTowerPosY + 10, 20, 20);
 				beamCreditRect = new Rect (beamTowerPosX + 7, Screen.height - beamTowerPosY + 7, 20, 20);
-				beamCostRect = new Rect (beamTowerPosX + 13, Screen.height - beamTowerPosY + 10, 20, 20);
+				beamCostRect = new Rect (beamTowerPosX + 9, Screen.height - beamTowerPosY + 10, 20, 20);
 		
 				// Draw Credits, health and waves
 				creditRect = new Rect (Screen.width - 120, Screen.height - interfaceTopPos.y - 10, 20, 20);
