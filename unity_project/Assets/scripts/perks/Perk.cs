@@ -8,6 +8,7 @@ public class Perk
 	public float value;
 	public bool bought;
 	public Perk[] prereqs;
+	public int column;
 	
 	public Vector2 center;
 
@@ -16,7 +17,8 @@ public class Perk
 		string longDescription, 
 		PerkType type, 
 		float value,
-		Perk[] prereqs		
+		Perk[] prereqs,
+		int column
 	) {
 		this.bought = false;
 		this.name = name;
@@ -24,6 +26,7 @@ public class Perk
 		this.type = type;
 		this.value = value;
 		this.prereqs = prereqs;
+		this.column = column;
 	}
 	
 	public void Reset() {
@@ -47,22 +50,23 @@ public class Perk
 		TWR_ALL_RANGE,
 		TWR_GUN_RANGE,
 		TWR_BEAM_RANGE,
-		TWR_SONAR_RANGE,
 		TWR_MISSILE_RANGE,
 		
 		TWR_ALL_DMG,
 		TWR_GUN_DMG,
 		TWR_BEAM_DMG,
-		TWR_SONAR_DMG,
 		TWR_MISSILE_DMG,
 		
 		TWR_ALL_SPEED,
 		TWR_GUN_SPEED,
 		TWR_BEAM_SPEED,
-		TWR_SONAR_SPEED,
 		TWR_MISSILE_SPEED,
 		
-		CREEP_ALL_REWARD
+		TWR_MISSILE_FLIGHT_SPEED,
+		
+		CREEP_ALL_REWARD,
+		
+		TWR_GUN_ROTATE
 	}
 }
 

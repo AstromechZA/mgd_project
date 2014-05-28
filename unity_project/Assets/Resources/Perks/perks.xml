@@ -2,18 +2,22 @@
 <PerkCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Perks>
 		<PerkXMLStruct>
-			<id>0</id>>
-			<name>Lead Streamlining</name>
-			<description>All of your Gun Towers gain +20 range</description>
+			<id>0</id>
+			<column>1</column>
+			<name>Perk Tree</name>
+			<description>This perk tree grants you access to upgrades to your towers, abilities, and rewards. Once you spend a perk point, it unlocks the upgrade universally and unlocks the path to more upgrades further up the perk tree.
+
+	Choose wisely, as you can't reset these points!</description>
 			<type>TWR_GUN_RANGE</type>
-			<value>50</value>
+			<value>0</value>
 			<Prereqs>
 			</Prereqs>
 		</PerkXMLStruct>
 		<PerkXMLStruct>
-			<id>1</id>>
-			<name>Heated Shot</name>
-			<description>All of your Gun Towers gain +1 damage</description>
+			<id>1</id>
+			<column>2</column>
+			<name>Heated Shot I</name>
+			<description>By heating their projectiles to 500 degrees Celcius, your Gun Towers gain +1 damage to all creeps!</description>
 			<type>TWR_GUN_DMG</type>
 			<value>1</value>
 			<Prereqs>
@@ -21,34 +25,142 @@
 			</Prereqs>
 		</PerkXMLStruct>
 		<PerkXMLStruct>
-			<id>2</id>>
-			<name>Alien Bankers</name>
-			<description>Gain +1 credits per kill</description>
+			<id>2</id>
+			<column>3</column>
+			<name>Alien Bankers I</name>
+			<description>The Empire recruits a new legion of bankers from a far off planet, their ingenious betting system increases your credit reward by 1 credit per kill!</description>
 			<type>CREEP_ALL_REWARD</type>
 			<value>1</value>
 			<Prereqs>
-				<pr>0</pr>
+				<pr>1</pr>
 			</Prereqs>
 		</PerkXMLStruct>
 		<PerkXMLStruct>
-			<id>3</id>>
-			<name>High Frequency Occilators</name>
-			<description>Increase Beam Tower burst length by 1 seconds</description>
-			<type>TWR_BEAM_SPEED</type>
-			<value>1</value>
+			<id>3</id>
+			<column>3</column>
+			<name>High Frequency Occillators</name>
+			<description>Scientists discover that by increasing the speed of the occilators inside your Beam Towers, it increases the damage per second by 5! Well Done, Science!</description>
+			<type>TWR_BEAM_DMG</type>
+			<value>5</value>
 			<Prereqs>
 				<pr>1</pr>
-				<pr>2</pr>
 			</Prereqs>
 		</PerkXMLStruct>
 		<PerkXMLStruct>
-			<id>4</id>>
-			<name>Deadly Detonations</name>
-			<description>Blah blah blah</description>
-			<type>TWR_MISSILE_DMG</type>
-			<value>1</value>
+			<id>4</id>
+			<column>4</column>
+			<name>G-Force Compensators</name>
+			<description>The rocketry teams report success on increasing the flight speed of your ICBM's. This new research increases rocket speed and thereby decreasing the flight time by 0.5 seconds!</description>
+			<type>TWR_MISSILE_SPEED</type>
+			<value>-0.5</value>
 			<Prereqs>
+				<pr>2</pr>
 				<pr>3</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>5</id>
+			<column>5</column>
+			<name>Heated Shot II</name>
+			<description>A new copper alloy with a higher melting point allows each round to be heated to a much higher temperature! Hot Hot Hot! +2 damage.</description>
+			<type>TWR_GUN_DMG</type>
+			<value>2</value>
+			<Prereqs>
+				<pr>4</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>6</id>
+			<column>5</column>
+			<name>Crackling Lasers I</name>
+			<description>By increasing the power of Beam Towers, they do more damage! Who would have known? 10 tera volts = +10 damage per second!</description>
+			<type>TWR_BEAM_DMG</type>
+			<value>10</value>
+			<Prereqs>
+				<pr>4</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>7</id>
+			<column>5</column>
+			<name>Zero-friction Rollers</name>
+			<description>Gun Towers have the disadvantage of turning very slowly. By using better bearings on the base, this perk allows them to aquire new targets much faster!</description>
+			<type>TWR_GUN_ROTATE</type>
+			<value>0.5</value>
+			<Prereqs>
+				<pr>4</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>8</id>
+			<column>6</column>
+			<name>Alien Bankers II</name>
+			<description>The Neamodian Banking Clan increase the bounty on alien creeps. You gain even more reward per kill! +3 credits per kill!</description>
+			<type>CREEP_ALL_REWARD</type>
+			<value>3</value>
+			<Prereqs>
+				<pr>5</pr>
+				<pr>6</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>9</id>
+			<column>6</column>
+			<name>Compressed Warhead</name>
+			<description>By compressing more explosive into the payload, we get a bigger explosion. Hopefull. At least our simulations say so! +50 damage.</description>
+			<type>TWR_MISSILE_DMG</type>
+			<value>50</value>
+			<Prereqs>
+				<pr>6</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>10</id>
+			<column>6</column>
+			<name>Crackling Lasers II</name>
+			<description>Two cables are better than one! Increased electrical power increases beam displacement and target temperature. This perk adds 10 damage per second!</description>
+			<type>TWR_BEAM_DMG</type>
+			<value>10</value>
+			<Prereqs>
+				<pr>6</pr>
+				<pr>7</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>11</id>
+			<column>7</column>
+			<name>Heated Shot III</name>
+			<description>This technology adds a magnesium base to your rounds. Along with leaving a firey trail, these cause much more damage and can burn, or start fires.</description>
+			<type>TWR_GUN_DMG</type>
+			<value>5</value>
+			<Prereqs>
+				<pr>8</pr>
+				<pr>9</pr>
+				<pr>10</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>12</id>
+			<column>8</column>
+			<name>Sattelite Targetting</name>
+			<description>The space base launches a new targetting sattelite for ICBM's. Now silo's launch missiles twice as often.</description>
+			<type>TWR_MISSILE_SPEED</type>
+			<value>0.5</value>
+			<Prereqs>
+				<pr>8</pr>
+				<pr>11</pr>
+			</Prereqs>
+		</PerkXMLStruct>
+		<PerkXMLStruct>
+			<id>13</id>
+			<column>8</column>
+			<name>Crackling Lasers III</name>
+			<description>“Electricity is really just organized lighting” ― George Carlin</description>
+			<type>TWR_BEAM_DMG</type>
+			<value>20</value>
+			<Prereqs>
+				<pr>11</pr>
+				<pr>10</pr>
 			</Prereqs>
 		</PerkXMLStruct>
 	</Perks>
