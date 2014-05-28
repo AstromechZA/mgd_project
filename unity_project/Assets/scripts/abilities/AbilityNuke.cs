@@ -66,7 +66,7 @@ public class AbilityNuke : MonoBehaviour
 						
 						// Deal damage to enemies in area of effect
 						Vector3 dropSpot = transform.position;
-						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Instantiable Object");
+						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 						for (int i =0; i < enemies.Length; i++) {
 								if (enemies [i] && enemies [i].GetComponent<AstarAI> ()) { // Checks if it's a creep
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
