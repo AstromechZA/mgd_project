@@ -3,20 +3,23 @@ using System.Collections;
 
 public class AbilityFreeze : MonoBehaviour
 {
+		// Sound effects
 		public AudioClip sound_cast;
 		public AudioClip sound_invalid;
-		private Vector3 screenPoint;
-		public bool castable = true;
-		public float nextCast = 0;
-		public float slowTime = 3.0F;
-		public float slowAmount = 0.2F; // 20% movement speed
-		public float cooldown = 10.0F;
-		Transform target;
-		Vector3 startPos;
-		Vector3 startScale;
-		Color startColor;
+		
+		// Freezing
+		private bool castable = true;
+		private float nextCast = 0;
+		private float slowTime = 3.0F;
+		private float slowAmount = 0.2F;
+		private float cooldown = 10.0F;
 
-		bool targetAbilityUsed = false;
+		// Placement
+		private Vector3 screenPoint;
+		private Vector3 startPos;
+		private Vector3 startScale;
+		private Color startColor;
+		private bool targetAbilityUsed = false; // For achievements
 	
 		void Start ()
 		{
@@ -57,28 +60,28 @@ public class AbilityFreeze : MonoBehaviour
 				if (castable) {
 						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);  // plays dilator_cast
 
-			
+						Vector3 dropSpot = transform.position;
+
+						// Not castable, store next time the ability can be cast
 						castable = false;
 						nextCast = Time.time + cooldown;
 
-						Vector3 dropSpot = transform.position;
+						// Reset ability position, scale and change color to black
 						transform.position = startPos;
 						transform.localScale = startScale;
 						renderer.material.color = Color.black;
 
-		
-		
-
 						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 						for (int i =0; i < enemies.Length; i++) {
-								if (enemies [i].GetComponent<AstarAI> ()) {
+								if (enemies [i].GetComponent<AstarAI> ()) { // If it is an enemy
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
 												StartCoroutine ("freeze", enemies [i]);
 										}
 								}
 						}
 
-						if (!targetAbilityUsed){
+						// Achievements
+						if (!targetAbilityUsed) {
 								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
 								targetAbilityUsed = true;
 						}
@@ -88,31 +91,44 @@ public class AbilityFreeze : MonoBehaviour
 	
 		IEnumerator freeze (GameObject enemy)
 		{
-				Debug.Log ("Froze an enemy!");
+				// Store starting speed
 				float startSpeed = enemy.GetComponent<AstarAI> ().speed;
 				
-				// if a normal enemy
+				// If a normal enemy
 				if (enemy.transform.FindChild ("model/Cube")) {
+						
+						// Change speed and colour
 						Color creepColor = enemy.transform.FindChild ("model/Cube").renderer.material.color;
 						enemy.transform.FindChild ("model/Cube").renderer.material.color = Color.blue;
 						enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
-			
+
+						// Wait for slowTime
 						yield return new WaitForSeconds (slowTime);
 
+						// If the enemy still exists, restore speed and colour
 						if (enemy) {
 								enemy.GetComponent<AstarAI> ().speed = startSpeed;
 								enemy.transform.FindChild ("model/Cube").renderer.material.color = creepColor;
 						}
 
 				}
-
-			// if a boss
-
+		
+				// If the enemy is a boss, only change speed
 				else {
 						enemy.GetComponent<AstarAI> ().speed = startSpeed * slowAmount;
 						yield return new WaitForSeconds (slowTime);
 						if (enemy) 
 								enemy.GetComponent<AstarAI> ().speed = startSpeed;
 				}
+		}
+
+		public void setSlowAmount (float amount)
+		{
+				slowAmount = amount;
+		}
+
+		public float getSlowAmount ()
+		{
+				return slowAmount;
 		}
 }

@@ -3,21 +3,25 @@ using System.Collections;
 
 public class AbilityNuke : MonoBehaviour
 {
+		// Visual and sound effects
+		public GameObject nukeEffectPrefab;
+		private GameObject nukeEffect;
 		public AudioClip sound_cast;
 		public AudioClip sound_start;
 		public AudioClip sound_invalid;
+
+		// Nuking
+		private bool castable = true;
+		private float nextCast = 0;
+		private float cooldown = 10.0F;
+		private float damage = 50.0F;
+
+		// Placement
+		private Vector3 startPos;
+		private Vector3 startScale;
+		private Color startColor;
 		private Vector3 screenPoint;
-		public bool castable = true;
-		public float nextCast = 0;
-		public float cooldown = 10.0F;
-		Vector3 startPos;
-		Vector3 startScale;
-		Color startColor;
-
-		public GameObject nukeEffectPrefab;
-		private GameObject nukeEffect;
-
-		bool targetAbilityUsed = false;
+		private bool targetAbilityUsed = false; // For achievements
 
 		void Start ()
 		{
@@ -59,44 +63,57 @@ public class AbilityNuke : MonoBehaviour
 		IEnumerator OnMouseUp ()
 		{
 				if (castable) {
+						
+						// Not castable, store next time the ability can be cast
 						castable = false;
 						nextCast = Time.time + cooldown;
+
+						// Play sound and wait for it to finish
 						AudioSource.PlayClipAtPoint (sound_start, Camera.main.transform.position);
 						yield return new WaitForSeconds (sound_start.length);
+
+						// Playsound and show nuke effect
+						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
+						nukeEffect = Instantiate (nukeEffectPrefab, new Vector3 (transform.position.x, 3, transform.position.z), transform.rotation) as GameObject;
 						
 						// Deal damage to enemies in area of effect
 						Vector3 dropSpot = transform.position;
 						GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 						for (int i =0; i < enemies.Length; i++) {
-								if (enemies [i] && enemies [i].GetComponent<AstarAI> ()) { // Checks if it's a creep
+								if (enemies [i] && enemies [i].GetComponent<AstarAI> ()) { // If it's a creep
 										if (Vector3.Distance (dropSpot, enemies [i].transform.position) < 20) {
-												Debug.Log ("Nuked an enemy!");
-												enemies [i].GetComponent<AbstractCreep> ().Hit (50);
+												enemies [i].GetComponent<AbstractCreep> ().Hit (damage);
 										}
 					
 								}
 						}
 
-						// Playsound and show nuke effect
-						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
-						// Nuke effect
-						nukeEffect = Instantiate(nukeEffectPrefab, new Vector3(transform.position.x, 3 ,transform.position.z), transform.rotation) as GameObject;
-						
-						// Restore ability position
+						// Reset ability position, scale and change color to black
 						transform.position = startPos;
 						transform.localScale = startScale;
 						renderer.material.color = Color.black;
 
 						// Wait for sound to finish then destroy effect
 						yield return new WaitForSeconds (sound_cast.length);
-						Destroy(nukeEffect);
+						Destroy (nukeEffect);
 
-						if (!targetAbilityUsed){
+						// Achievements
+						if (!targetAbilityUsed) {
 								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
 								targetAbilityUsed = true;
 						}
 
 				}
 
+		}
+
+		public void setDamage (float amount)
+		{
+				damage = amount;
+		}
+
+		public float getDamage ()
+		{
+				return damage;
 		}
 }

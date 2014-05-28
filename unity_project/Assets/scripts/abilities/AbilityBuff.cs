@@ -3,21 +3,24 @@ using System.Collections;
 
 public class AbilityBuff : MonoBehaviour
 {
+		// Visual and sound effects
 		public GameObject buffEffect;
 		public AudioClip sound_cast;
 		public AudioClip sound_invalid;
+		
+		// Buffing
+		private bool castable = true;
+		private float nextCast = 0;
+		private float cooldown = 10.0F;
+		private float buffTime = 5.0F;
+		private float buffAmount = 2.0F;
+		
+		// Placement
 		private Vector3 screenPoint;
-		public bool castable = true;
-		public float nextCast = 0;
-		public float cooldown = 10.0F;
-		public float buffTime = 5.0F;
-		public float buffAmount = 2.0F; // Attack 2x faster
-		public bool buffed = false;
-		Transform target;
-		Vector3 startPos;
-		Vector3 startScale;
-		Color startColor;
-		bool targetAbilityUsed = false;
+		private Vector3 startPos;
+		private Vector3 startScale;
+		private Color startColor;
+		private bool targetAbilityUsed = false; // For achievements
 	
 		void Start ()
 		{
@@ -56,25 +59,29 @@ public class AbilityBuff : MonoBehaviour
 		void OnMouseUp ()
 		{
 				if (castable) {
-						
 						AudioSource.PlayClipAtPoint (sound_cast, Camera.main.transform.position);
-				
+
+						Vector3 dropSpot = transform.position; // Store where the ability was cast
+
+						// Not castable, store next time the ability can be cast
 						castable = false;
 						nextCast = Time.time + cooldown;
-
-						Vector3 dropSpot = transform.position;
+						
+						// Reset ability position, scale and change color to black
 						transform.position = startPos;
 						transform.localScale = startScale;
 						renderer.material.color = Color.black;
 			
 						GameObject[] towers = GameObject.FindGameObjectsWithTag ("Instantiable Object");
 						for (int i =0; i < towers.Length; i++) {
-								if (towers [i].GetComponent<TowerProperties> ()) { // check if it's a tower
+								if (towers [i].GetComponent<TowerProperties> ()) { // If it is a tower
 										if (Vector3.Distance (dropSpot, towers [i].transform.position) < 30) {
 												StartCoroutine ("buff", towers [i]);
 										}
 								}
 						}
+
+						// Achievements
 						if (!targetAbilityUsed) {
 								AchievementController.Instance.uniqueTargetAbilitiesUsed++;
 								targetAbilityUsed = true;
@@ -83,16 +90,14 @@ public class AbilityBuff : MonoBehaviour
 		}
 
 		IEnumerator buff (GameObject tower)
-		{
-				Debug.Log ("Buffed a tower!");
-						
-				// Store initial firerate
+		{				
+				// Store starting firerate
 				float startRate = tower.GetComponent<TowerProperties> ().fireRate;
 
-				// Buff tower
+				// Buff tower's firerate
 				tower.GetComponent<TowerProperties> ().fireRate = startRate / buffAmount;
 						
-				// Set animation rates
+				// Buff tower's animation rate
 				if (tower.GetComponent<GunTowerController> ())
 						tower.GetComponent<GunTowerController> ().setFireRate (startRate / buffAmount);
 				else if (tower.GetComponent<MissileTowerController> ())
@@ -100,11 +105,13 @@ public class AbilityBuff : MonoBehaviour
 				else if (tower.GetComponent<SniperTowerController> ())
 						tower.GetComponent<SniperTowerController> ().setFireRate (startRate / buffAmount);
 
-				GameObject buff = (GameObject)Instantiate (buffEffect, new Vector3 (tower.transform.position.x, buffEffect.transform.position.y, tower.transform.position.z), tower.transform.rotation);
+				// Create buff effect and wait for buffTime
+				GameObject buff = (GameObject)Instantiate (buffEffect, new Vector3 (tower.transform.position.x, 
+		                          buffEffect.transform.position.y, tower.transform.position.z), tower.transform.rotation);
 				yield return new WaitForSeconds (buffTime);
 				Destroy (buff);
 
-				// Reset to starting firerate
+				// Reset firerate
 				tower.GetComponent<TowerProperties> ().fireRate = startRate;
 
 				// Animation rates reset
@@ -114,5 +121,15 @@ public class AbilityBuff : MonoBehaviour
 						tower.GetComponent<MissileTowerController> ().setOpenRate (startRate);
 				else if (tower.GetComponent<SniperTowerController> ())
 						tower.GetComponent<SniperTowerController> ().setFireRate (startRate);
+		}
+
+		public void setBuffAmount (float amount)
+		{
+				buffAmount = amount;
+		}
+
+		public float getBuffAmount ()
+		{
+				return buffAmount;
 		}
 }
