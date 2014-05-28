@@ -43,7 +43,7 @@ public class PerkController : Singleton<PerkController>
 			// assemble perk objects
 			foreach (PerkXMLStruct pxml in perks.perks) {
 				Perk.PerkType pt = Perk.StringToPerkType(pxml.type);
-				perkByID[pxml.id] = new Perk(pxml.name, pxml.description, pt, pxml.value, new Perk[]{});
+				perkByID[pxml.id] = new Perk(pxml.name, pxml.description, pt, pxml.value, new Perk[]{}, pxml.column);
 			}
 			// assemble linked perks
 			for(int j=0;j<perks.perks.Length;j++) {
@@ -61,6 +61,10 @@ public class PerkController : Singleton<PerkController>
 				this.perks[j] = p;
 			}
 		}
+		
+		Perk root = this.perks[0];
+		root.bought = true;
+		perkTypeBonuses[(int)root.type] += root.value;
 	}
 	
 	// reset all the perks
@@ -141,45 +145,20 @@ public class PerkController : Singleton<PerkController>
 	private ArrayList FindColumns() {
 		ArrayList columns = new ArrayList();
 		
-		// first identify last column
-		ArrayList lastColumn = FindLastColumn();
+		int maxc = 0;
+		foreach (Perk p in this.perks) {
+			maxc = Math.Max(maxc, p.column+1);
+		}
 		
-		// while there were perks in the last column
-		while (lastColumn.Count > 0) {
-			
-			// add it to the left of the columns list
-			columns.Insert(0, lastColumn);
-			
-			// calculate the previous column
-			BasicHashSet prevColumn = new BasicHashSet();
-			foreach (Perk p in lastColumn) {
-				foreach (Perk r in p.prereqs) {
-					prevColumn.Add(r);
-				}
-			}
-			
-			// set as last column
-			lastColumn = prevColumn.ToArrayList();			
+		for (int i=0;i<maxc;i++) columns.Add(new ArrayList());
+		
+		foreach (Perk p in this.perks) {
+			(columns[p.column] as ArrayList).Add(p);
 		}
 		
 		return columns;
 	}
 	
-	private ArrayList FindLastColumn() {
-		BasicHashSet seen = new BasicHashSet();
-		// add all to set
-		foreach (Perk p in perks) {
-			seen.Add(p);
-		}
-		// remove everything that is a prerequisite
-		foreach (Perk p in perks) {
-			foreach (Perk r in p.prereqs) {
-				seen.Remove(r);
-			}
-		}
-		// return
-		return seen.ToArrayList();		
-	}
 	#endregion
 	
 	public float GetPerkBonus(Perk.PerkType p) {

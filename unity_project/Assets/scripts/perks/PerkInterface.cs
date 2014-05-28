@@ -75,6 +75,8 @@ public class PerkInterface : MonoBehaviour {
 			titleTexture.width, 
 			titleTexture.height 
 		);	
+		
+		Select(PerkController.Instance.Perks[0]);
 	}
 
 	void Start () {
@@ -175,6 +177,7 @@ public class PerkInterface : MonoBehaviour {
 				GUI.DrawTexture(r, perkCircleSelectedTexture);
 			} else {
 				GUI.DrawTexture(r, perkCircleTexture);
+				
 			}
 		}
 		

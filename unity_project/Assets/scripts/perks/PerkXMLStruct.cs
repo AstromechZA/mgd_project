@@ -7,6 +7,8 @@ public class PerkXMLStruct
 	
 	public int id;
 	
+	public int column;
+	
 	public string name;
 	
 	public string description;
