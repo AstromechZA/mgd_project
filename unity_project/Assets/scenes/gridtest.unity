@@ -517,9 +517,9 @@ MonoBehaviour:
   sound_invalid: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
   castable: 1
   nextCast: 0
-  slowTime: 3
+  slowTime: 5
   slowAmount: .200000003
-  cooldown: 10
+  cooldown: 40
 --- !u!1 &320325465
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  cost: 20
   fireRate: 5
   range: 80
   damage: 1
@@ -1903,7 +1903,7 @@ MonoBehaviour:
   sound_invalid: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
   castable: 1
   nextCast: 0
-  cooldown: 10
+  cooldown: 60
   buffTime: 5
   buffAmount: 2
   buffed: 0
@@ -2842,10 +2842,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  cost: 50
   fireRate: 5
   range: 150
-  damage: 3
+  damage: 2
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}
@@ -2944,7 +2944,7 @@ MonoBehaviour:
   sound_invalid: {fileID: 8300000, guid: 597726a816157b74ea6452aa92ebdeca, type: 3}
   castable: 1
   nextCast: 0
-  cooldown: 10
+  cooldown: 100
   nukeEffectPrefab: {fileID: 100000, guid: 883024cdb8d01b242aefaa8dff87b856, type: 2}
 --- !u!23 &1455635681
 Renderer:
@@ -3701,6 +3701,18 @@ Prefab:
       propertyPath: m_Name
       value: Gun Tower Builder
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
+      propertyPath: cost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
+      propertyPath: range
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
+      propertyPath: damage
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
     - {fileID: 11400002, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
@@ -3861,10 +3873,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  cost: 10
   fireRate: .5
-  range: 100
-  damage: 1
+  range: 90
+  damage: 7
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}
@@ -3985,7 +3997,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
       propertyPath: damage
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
+      propertyPath: cost
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
@@ -4566,6 +4582,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
       propertyPath: damageRadius
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
+      propertyPath: cost
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}

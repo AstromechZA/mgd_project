@@ -720,8 +720,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96c23a092db0d341888df13d6e218c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10
-  bountyValue: 2
+  startingHealth: 300
+  bountyValue: 5
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
