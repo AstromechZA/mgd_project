@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizantalSpeed: 5
   flightDuration: 1.5
+  missileExplodePrefab: {fileID: 100002, guid: 7d9b362e4efac974e944cc8756f2d587, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
