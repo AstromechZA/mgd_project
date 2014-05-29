@@ -6,6 +6,7 @@ public class CreepSpawner : MonoBehaviour {
 
 	public AudioClip sound_countdown;
 	public AudioClip sound_ready;
+	public AudioClip sound_go;
 	private bool played_countdown = false;
 	private bool played_ready = false;
 	public GameObject citadelObject = null;
@@ -103,7 +104,9 @@ public class CreepSpawner : MonoBehaviour {
 		GameController.Instance.currentDurationOfWave = currentDurationOfWave;
 		GameController.Instance.timeTillNextWave = lengthOfWave-currentDurationOfWave;
 
-		if (GameController.Instance.spawnNextWaveEarly){
+		if (GameController.Instance.spawnNextWaveEarly && !played_countdown){
+			played_countdown = true;
+			AudioSource.PlayClipAtPoint (sound_go, Camera.main.transform.position);
 			currentDurationOfWave = GameController.Instance.lengthOfWave;
 			GameController.Instance.enemiesSpawned = 0;
 			GameController.Instance.spawnNextWaveEarly = false;

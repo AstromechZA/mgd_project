@@ -3677,6 +3677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound_countdown: {fileID: 8300000, guid: c3aa0ea94ece27c4f9744ddc27275ddd, type: 3}
   sound_ready: {fileID: 8300000, guid: c763a6a81293a5443962fa6396968b52, type: 3}
+  sound_go: {fileID: 8300000, guid: a2fe107c7fe1dd748bd74b788850e633, type: 3}
   citadelObject: {fileID: 1781161179}
   bountyValue: 10
   startingHealth: 200
