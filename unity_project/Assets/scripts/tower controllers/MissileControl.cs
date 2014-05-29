@@ -118,7 +118,7 @@ public class MissileControl : MonoBehaviour {
 
 		foreach (AbstractCreep creep in NearestCreepFinder.Instance.CreepList) {
 			if((creep.transform.position - transform.position).sqrMagnitude <= damageRadiusSqr){
-				creep.Hit(Damage);
+				creep.Hit(Damage + PerkController.Instance.GetPerkBonus(Perk.PerkType.TWR_MISSILE_DMG));
 			}
 		}
 	}
