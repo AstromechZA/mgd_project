@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 		
 				perkTreeButtonRect = new Rect (
 			(Screen.width - perkTreeButtonWidth) / 2,
-			Screen.height - interfaceBotPos.y - 10,
+			Screen.height - interfaceBotPos.y - 5,
 			perkTreeButtonWidth,
 			30
 				);
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 			(Screen.width - perkTreeButtonWidth) / 2,
 			Screen.height - interfaceBotPos.y - 20,
 			perkTreeButtonWidth,
-			20
+			15
 				);
 				perkTreeProgressBarForeRect = new Rect (
 			perkTreeProgressBarRect.x,

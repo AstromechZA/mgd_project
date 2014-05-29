@@ -85,7 +85,7 @@ public class Achievement
 		targetStringAchieved = target.ToString ("0.#") + "/" + target.ToString ("0.#");
 
 		// Notifier Position Setup
-		notifierPosition = new Rect((float)Screen.width - 270.0f,(float)Screen.height - 80.0f, 270.0f, 80.0f);
+		notifierPosition = new Rect((float)Screen.width/2 - 135.0f, 0, 270.0f, 80.0f);
 		notifierBoxPosition = new Rect(1.0f, 1.0f, notifierPosition.width-1, notifierPosition.height-1);
 		notifierBoxBorderPosition = new Rect(0.0f, 0.0f, notifierPosition.width, notifierPosition.height);
 		notifierSkillIconPositon = new Rect(15.0f, 6.0f, 65.0f, 65.0f);
