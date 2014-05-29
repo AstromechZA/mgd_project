@@ -67,8 +67,7 @@ public class GunTowerController : BaseTowerController {
 
 				laser.SetPosition (1, currentTarget.transform.position + heightOffset);
 
-				Fire (false);
-				Debug.Log("asdasd");
+				Fire (false, PerkController.Instance.GetPerkBonus(Perk.PerkType.TWR_GUN_DMG));
 			}
 		} else {
 			currentTarget = null;

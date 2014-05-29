@@ -25,12 +25,13 @@ public abstract class BaseTowerController : MonoBehaviour {
 	}
 
 	// Function for damaging creeps. Use deltaTime when you want a damage per second effect.
-	protected void Fire(bool useDeltaTime = true){
+	protected void Fire(bool useDeltaTime = true, float bonus=0){
 		if (currentTarget != null) {
+			float dmgb = this.damage + bonus;
 			if(useDeltaTime){
-				currentTarget.Hit (this.damage * Time.deltaTime);
+				currentTarget.Hit (dmgb * Time.deltaTime);
 			}else{
-				currentTarget.Hit (this.damage);
+				currentTarget.Hit (dmgb);
 			}
 		} else {
 			Debug.LogWarning("Fire() method called with no target associated to the tower.");

@@ -74,12 +74,12 @@ public class SniperTowerController : BaseTowerController {
 					laser.SetPosition(1, midpoint + heightOffset );
 					laser.SetPosition(2, end + heightOffset );
 					laser.enabled = true;
-					Fire ();
+					Fire (true, PerkController.Instance.GetPerkBonus(Perk.PerkType.TWR_BEAM_DMG));
 				}
 				else if(barrelAnimator.age() < 0.3f) {
 					laser.SetPosition(1, midpoint + heightOffset );
 					laser.SetPosition(2, end + heightOffset );
-					Fire ();
+					Fire (true, PerkController.Instance.GetPerkBonus(Perk.PerkType.TWR_BEAM_DMG));
 				}
 
 

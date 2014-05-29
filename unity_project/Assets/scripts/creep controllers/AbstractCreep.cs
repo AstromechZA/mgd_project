@@ -20,9 +20,11 @@ public class AbstractCreep : MonoBehaviour {
 	public void Hit(float damage) {
 		healthValue -= damage;
 		if( healthValue <= 0) {
+			int bounty = bountyValue + (int)(PerkController.Instance.GetPerkBonus(Perk.PerkType.CREEP_ALL_REWARD));
 			AchievementController.Instance.enemiesDestroyed++;
-			AchievementController.Instance.moneyMade += bountyValue;
-			GameController.Instance.citadelCredits += bountyValue;
+			AchievementController.Instance.moneyMade += bounty;
+			GameController.Instance.citadelCredits += bounty;
+			PerkController.Instance.AddExperience(2);
 			Destroy(gameObject);
 		}
 	}
