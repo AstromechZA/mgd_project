@@ -12,7 +12,7 @@ public class AbilityFreeze : MonoBehaviour
 		private float nextCast = 0;
 		private float slowTime = 3.0F;
 		private float slowAmount = 0.2F;
-		private float cooldown = 10.0F;
+		private float cooldown = 20.0F;
 
 		// Placement
 		private Vector3 screenPoint;

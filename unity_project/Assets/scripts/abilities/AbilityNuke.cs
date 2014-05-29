@@ -13,8 +13,8 @@ public class AbilityNuke : MonoBehaviour
 		// Nuking
 		private bool castable = true;
 		private float nextCast = 0;
-		private float cooldown = 10.0F;
-		private float damage = 50.0F;
+		private float cooldown = 20.0F;
+		private float damage = 1000.0F;
 
 		// Placement
 		private Vector3 startPos;

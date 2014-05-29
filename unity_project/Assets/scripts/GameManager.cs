@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
 					AchievementController.Instance.triplePlay++;
 				}
 
+				GameObject.Find ("you_win").audio.Play ();
 				pauseGame ();
 				game_won = true;
 		}

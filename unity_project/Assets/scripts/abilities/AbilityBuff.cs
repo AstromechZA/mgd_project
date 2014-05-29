@@ -11,7 +11,7 @@ public class AbilityBuff : MonoBehaviour
 		// Buffing
 		private bool castable = true;
 		private float nextCast = 0;
-		private float cooldown = 10.0F;
+		private float cooldown = 20.0F;
 		private float buffTime = 5.0F;
 		private float buffAmount = 2.0F;
 		
