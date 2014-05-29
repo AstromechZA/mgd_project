@@ -41,7 +41,7 @@ public class MissileControl : MonoBehaviour {
 
 	void Update () {
 		if (inflight && !exploding) {
-			flightProgress += Time.deltaTime / flightDuration;
+			flightProgress += Time.deltaTime / (flightDuration + PerkController.Instance.GetPerkBonus(Perk.PerkType.TWR_MISSILE_FLIGHT_SPEED));
 
 			float sflightProgress = squish(flightProgress);
 
