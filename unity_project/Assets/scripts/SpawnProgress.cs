@@ -28,15 +28,20 @@ public class SpawnProgress : MonoBehaviour
 	public void setProgress( float v )
 	{
 		float offset = 0f;
-		offset = Mathf.Clamp01( v/2f );
-		if (offset <= 1f){
-			renderer.material.mainTextureOffset = new Vector2(offset, 0);
+
+		// Clockwise
+		offset = 1f - v;
+
+		if (offset >= 0f){
+			renderer.material.SetFloat("_Cutoff", offset); 
 		}
 
-		if (offset >= 0.5f) {
+		if (offset <= 0f) {
 			GameController.Instance.nextWaveSpawnerActive = false;
 			Destroy(gameObject);
 		}
+
+
 
 	}
 }
