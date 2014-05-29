@@ -131,17 +131,11 @@ public class GameManager : MonoBehaviour
 	
 		private void resumeGame ()
 		{
-				GameObject.Find ("soundtrack_menu").audio.Pause ();
-				if (GameController.Instance.gameWasPaused)
-						GameObject.Find ("soundtrack_level").audio.Play ();
-
 				Time.timeScale = 1;
 		}
 	
 		private void pauseGame ()
 		{
-				GameObject.Find ("soundtrack_level").audio.Pause ();
-				GameObject.Find ("soundtrack_menu").audio.Play ();
 				Time.timeScale = 0;
 				GameController.Instance.gameWasPaused = true;
 		}
@@ -149,6 +143,7 @@ public class GameManager : MonoBehaviour
 		private void gameOver ()
 		{
 				pauseGame ();
+				GameObject.Find ("soundtrack_level").audio.Pause ();
 				GameObject.Find ("game_over").audio.Play ();
 				game_over = true;
 		}
@@ -170,6 +165,7 @@ public class GameManager : MonoBehaviour
 				}
 
 				GameObject.Find ("you_win").audio.Play ();
+				GameObject.Find ("soundtrack_level").audio.Pause ();
 				pauseGame ();
 				game_won = true;
 		}

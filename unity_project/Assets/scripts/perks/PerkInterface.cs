@@ -103,8 +103,6 @@ public class PerkInterface : MonoBehaviour {
 			} 
 		}
 
-		if (!(GameObject.Find ("soundtrack_menu").audio.isPlaying))
-			GameObject.Find ("soundtrack_menu").audio.Play();
 	
 	}
 

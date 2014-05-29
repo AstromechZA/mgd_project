@@ -6,6 +6,9 @@ public class MissileControl : MonoBehaviour {
 	public float horizantalSpeed = 5f;
 	public float flightDuration = 1.5f; //seconds
 	private float damage = 1f;
+	public GameObject missileExplodePrefab;
+	
+	private GameObject missileEffect;
 	public float Damage{
 		get {
 			return damage;
@@ -29,13 +32,15 @@ public class MissileControl : MonoBehaviour {
 	private Vector3 destination;
 
 	private bool inflight = false;
+	private bool exploding = false;
+	private float explodeAge = 0;
 	private float flightProgress = 0.0f;
 
 	private Vector3 flightVector;
 	private Quaternion angleQuat;
 
 	void Update () {
-		if (inflight) {
+		if (inflight && !exploding) {
 			flightProgress += Time.deltaTime / flightDuration;
 
 			float sflightProgress = squish(flightProgress);
@@ -61,9 +66,27 @@ public class MissileControl : MonoBehaviour {
 			// Missile has landed.
 			if (flightProgress > 1){
 				// Damage all units within the landing area.
+				
+				missileEffect = Instantiate (missileExplodePrefab, new Vector3 (transform.position.x, 3, transform.position.z), transform.rotation) as GameObject;
+				
+				transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+				
 				ApplyMissileDamage();
+				
+				// Wait for sound to finish then destroy effect
+				exploding = true;
+				
+			}
+		} else if (exploding) {
+			
+			explodeAge += Time.deltaTime;
+			
+			if (explodeAge > 0.5) {
+				Destroy (missileEffect);
+				
 				Destroy(this.gameObject);
 			}
+			
 		}
 	}
 
