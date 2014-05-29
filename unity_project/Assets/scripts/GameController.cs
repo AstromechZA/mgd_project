@@ -31,10 +31,10 @@ public class GameController : Singleton<GameController> {
 	public void ResetGameParameters(){
 		citadelCredits = 250;
 		citadelLives = 20;
-		numberOfWaves = 5;
+		numberOfWaves = 10;
 		currentWave = 0;
 		enemiesSpawned = 0;
-		enemiesInWave = 3;
+		enemiesInWave = 7;
 		gameWasPaused = false;
 		Time.timeScale = 1;
 		currentDurationOfWave = 0;

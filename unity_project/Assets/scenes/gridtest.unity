@@ -652,10 +652,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 50
   fireRate: 5
   range: 80
-  damage: 1
+  damage: 500
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}
@@ -2831,10 +2831,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 50
+  cost: 25
   fireRate: 5
   range: 150
-  damage: 2
+  damage: 125
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}
@@ -3738,7 +3738,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
       propertyPath: damage
-      value: 7
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
@@ -3903,7 +3903,7 @@ MonoBehaviour:
   cost: 10
   fireRate: .5
   range: 90
-  damage: 7
+  damage: 3.5
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}
@@ -4109,11 +4109,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
       propertyPath: damage
-      value: 2
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
       propertyPath: cost
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
@@ -4697,7 +4697,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
       propertyPath: cost
-      value: 20
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
+      propertyPath: damage
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 3de3ae81d9be7634d9449900a437f015, type: 2}
