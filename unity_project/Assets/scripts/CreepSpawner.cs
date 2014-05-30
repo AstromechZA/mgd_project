@@ -188,14 +188,14 @@ public class CreepSpawner : MonoBehaviour {
 					// Modify the chance to spawn a cluster (Increase to a point as waves increase)
 					chanceToSpawnCluster = Mathf.Clamp (chanceToSpawnCluster,chanceToSpawnCluster*(1+numWaves/totalWaves), 0.6f);
 					
-					lengthOfWave += numWaves*10f;
+					lengthOfWave = numWaves*10f;
 					
 					// Reset Boss
 					bossSpawned = false;
 					
 					// Increase Bosses Health and bounty by 30 percent
-					bountyValue = (int)(bountyValue*1.3f);
-					startingHealth = startingHealth*1.3f;
+					bountyValue = (int)(bountyValue*1.2f);
+					startingHealth = startingHealth*1.6f;
 					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().bountyValue = bountyValue;
 					enemies[EnemyTypes.Boss].GetComponent<AbstractCreep>().startingHealth = startingHealth;
 

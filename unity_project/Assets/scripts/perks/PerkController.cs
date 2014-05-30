@@ -10,7 +10,7 @@ public class PerkController : Singleton<PerkController>
 	public Perk[] Perks { get {return perks;}}
 	
 	private float currentExperience = 0.0f;
-	private float maxExperience = 10;
+	private float maxExperience = 20;
 	public float perPointExpMultiplier = 2;
 	private int perkPointsAvailable = 0;
 
