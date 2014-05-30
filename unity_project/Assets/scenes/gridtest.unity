@@ -2831,7 +2831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ba00a391bbe6849a92630ac940c837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 25
+  cost: 35
   fireRate: 5
   range: 150
   damage: 125
@@ -4193,7 +4193,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
       propertyPath: cost
-      value: 25
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 335d33b748578024ab4b68f9c1f9572e, type: 2}
