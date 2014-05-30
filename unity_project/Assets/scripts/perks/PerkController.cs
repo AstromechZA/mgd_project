@@ -95,6 +95,10 @@ public class PerkController : Singleton<PerkController>
 		Perk root = this.perks[0];
 		root.bought = true;
 		perkTypeBonuses[(int)root.type] += root.value;
+		
+		currentExperience = 0.0f;
+		maxExperience = 20;
+		perkPointsAvailable = 0;
 	}
 	
 	#region --- PERK POINTS AND EXPERIENCE ---
