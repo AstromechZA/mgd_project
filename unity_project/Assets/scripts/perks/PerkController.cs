@@ -68,10 +68,33 @@ public class PerkController : Singleton<PerkController>
 	}
 	
 	// reset all the perks
-	private void ResetAll() {
+	public void ResetAll() {
 		foreach (Perk p in perks) {
 			p.Reset();		
 		}	
+		
+		perkTypeBonuses[(int)Perk.PerkType.TWR_ALL_RANGE] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_GUN_RANGE] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_BEAM_RANGE] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_MISSILE_RANGE] = 0;
+		
+		perkTypeBonuses[(int)Perk.PerkType.TWR_ALL_DMG] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_GUN_DMG] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_BEAM_DMG] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_MISSILE_DMG] = 0;
+		
+		perkTypeBonuses[(int)Perk.PerkType.TWR_ALL_SPEED] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_GUN_SPEED] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_BEAM_SPEED] = 0;
+		perkTypeBonuses[(int)Perk.PerkType.TWR_MISSILE_SPEED] = 0;
+		
+		perkTypeBonuses[(int)Perk.PerkType.TWR_MISSILE_FLIGHT_SPEED] = 0;
+		
+		perkTypeBonuses[(int)Perk.PerkType.CREEP_ALL_REWARD] = 0;
+		
+		Perk root = this.perks[0];
+		root.bought = true;
+		perkTypeBonuses[(int)root.type] += root.value;
 	}
 	
 	#region --- PERK POINTS AND EXPERIENCE ---

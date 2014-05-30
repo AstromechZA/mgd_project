@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
 								game_over = false;
 								GameObject.Find ("soundtrack_level").audio.Stop ();
 								GameObject.Find ("soundtrack_level").audio.PlayDelayed (4.0F);
+								PerkController.Instance.ResetAll();
 								Application.LoadLevel ("gridtest");
 						}
 		

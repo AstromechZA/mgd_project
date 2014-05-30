@@ -3818,7 +3818,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
       propertyPath: damage
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: a7da6a90505786644a1e8c858c21fd43, type: 2}
@@ -3983,7 +3983,7 @@ MonoBehaviour:
   cost: 10
   fireRate: .5
   range: 90
-  damage: 3.5
+  damage: 5
   moveLeewayTime: 3
   placementTime: 0
   build_sound: {fileID: 8300000, guid: 3ccfe44375277e6469d800eb5e535984, type: 3}

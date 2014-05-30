@@ -31,6 +31,7 @@ public class MenuTextBehaviour : MonoBehaviour {
 			GameController.Instance.ResetGameParameters();
 			GameController.Instance.DestroyAllObjectsWithTag("Instantiable Object");
 			GameController.Instance.DestroyAllObjectsWithTag("Enemy");
+			PerkController.Instance.ResetAll();
 			Application.LoadLevel("gridtest");
 		}
 		// Handle Achievements
